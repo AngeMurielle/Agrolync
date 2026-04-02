@@ -1,0 +1,472 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Features/Onboarding/Onboarding.dart';
+import 'package:flutter_agrolync_pro/utils/images.dart';
+
+class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  // to make the splash screen to go to the next screen
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => OnboardingScreen()),
+      );
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Image.asset(
+          AppImages.LOGO,
+          errorBuilder: (context, error, stackTrace) => const Icon(Icons.error_outline, size: 48),
+        ),
+      ),
+    );
+  }
+}
+
+// main.dart
+
+import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+void main() async {
+  // 1. Ensure Flutter is ready
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // 2. Initialize Supabase (Use your real URL and Publishable Key here)
+  await Supabase.initialize(
+    url: 'https://ndxhobdnnucqbnguyfls.supabase.co', 
+    anonKey: 'sb_publishable_c06pMCr5B7bMaenTLHijoQ_Da2TnxvZ', 
+  );
+
+  // 3. Start the App
+  runApp(const AgrolyncApp());
+}
+
+// This is the "AgrolyncApp" class that was likely missing
+class AgrolyncApp extends StatelessWidget {
+  const AgrolyncApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Agrolync',
+      theme: ThemeData(
+        primarySwatch: Colors.green, // Farming/Agro theme
+        useMaterial3: true,
+      ),
+      home: const Scaffold(
+        body: Center(
+          child: Text('Agrolync: Connecting Farmers & Logistics'),
+        ),
+      ),
+    );
+  }
+}
+
+//    url: 'https://ndxhobdnnucqbnguyfls.supabase.co',
+ //   anonKey: 'sb_publishable_c06pMCr5B7bMaenTLHijoQ_Da2TnxvZ',
+
+
+ // onboarding.dart
+
+ import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Features/Onboarding/Onboarding1.dart';
+import 'package:flutter_agrolync_pro/utils/images.dart';
+
+void main() {
+  runApp(const MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: OnboardingScreen(),
+  ));
+}
+
+class OnboardingScreen extends StatelessWidget {
+  const OnboardingScreen({super.key});
+
+  // Brand color from the splash screen
+  static const Color brandGreen = Color(0xFF006837);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            children: [
+              // SKIP BUTTON
+              Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                  onPressed: () {
+                    // Logic for skipping
+                  },
+                  child: const Text(
+                    'Ship', // Text as shown in the provided UI
+                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                  ),
+                ),
+              ),
+
+              const Spacer(flex: 1),
+
+              // MAIN ILLUSTRATION
+              Center(
+                child: Image.asset(
+                   AppImages.LOGO, // Ensure this is in your pubspec.yaml
+                  height: 220,
+                  fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => const Icon(
+                    Icons.handshake_outlined,
+                    size: 150,
+                    color: brandGreen,
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 48),
+
+              // TITLE
+              const Text(
+                'Connect Directly',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // SUBTITLE
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'Farmers sell directly to buyers without intermediaries',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black54,
+                    height: 1.5,
+                  ),
+                ),
+              ),
+
+              const Spacer(flex: 2),
+
+              // PROGRESS INDICATOR (Dots)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 40,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color: brandGreen,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  const CircleAvatar(radius: 4, backgroundColor: Color(0xFFE0E0E0)),
+                  const SizedBox(width: 8),
+                  const CircleAvatar(radius: 4, backgroundColor: Color(0xFFE0E0E0)),
+                ],
+              ),
+
+              const SizedBox(height: 32),
+
+              // NEXT BUTTON - Routes to OnboardingScreen2
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const OnboardingScreen1()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: brandGreen,
+                  minimumSize: const Size(double.infinity, 56),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 0,
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Next',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                    SizedBox(width: 10),
+                    Icon(Icons.arrow_forward, color: Colors.white, size: 20),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// THE SECOND ONBOARDING SCREEN
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const AgrolyncApp());
+}
+
+class AgrolyncApp extends StatelessWidget {
+  const AgrolyncApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Agrolync Onboarding',
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'Roboto',
+      ),
+      home: const OnboardingScreen(),
+    );
+  }
+}
+
+/// =============================
+/// ONBOARDING SCREEN
+/// =============================
+class OnboardingScreen extends StatelessWidget {
+  const OnboardingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFEDEDED),
+      body: SafeArea(
+        child: Center(
+          child: Container(
+            width: size.width > 500 ? 420 : size.width * 0.92,
+            height: size.height * 0.88,
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: Column(
+              children: [
+                /// Top Right Text (Ship)
+                const Align(
+                  alignment: Alignment.topRight,
+                  child: Text(
+                    "Ship",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+
+                const Spacer(),
+
+                /// Icon Section
+                const AgroIconSection(),
+
+                const SizedBox(height: 32),
+
+                /// Title
+                const Text(
+                  "Connect Directly",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                /// Subtitle
+                const Text(
+                  "Farmers sell directly to buyers without intermediaries",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    height: 1.5,
+                    color: Colors.black54,
+                  ),
+                ),
+
+                const Spacer(),
+
+                /// Indicator
+                const PageIndicator(currentIndex: 0),
+
+                const SizedBox(height: 32),
+
+                /// Next Button (Main Clickable Element)
+                PrimaryButton(
+                  text: "Next",
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NextScreen(),
+                      ),
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 12),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// =============================
+/// ICON SECTION
+/// =============================
+class AgroIconSection extends StatelessWidget {
+  const AgroIconSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      Icons.handshake_outlined,
+      size: 110,
+      color: const Color(0xFF0B5D36),
+    );
+  }
+}
+
+/// =============================
+/// PAGE INDICATOR
+/// =============================
+class PageIndicator extends StatelessWidget {
+  final int currentIndex;
+
+  const PageIndicator({super.key, required this.currentIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(3, (index) {
+        final isActive = index == currentIndex;
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          height: 8,
+          width: isActive ? 36 : 8,
+          decoration: BoxDecoration(
+            color: isActive
+                ? const Color(0xFF0B5D36)
+                : Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(20),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+/// =============================
+/// PRIMARY BUTTON
+/// =============================
+class PrimaryButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const PrimaryButton({
+    super.key,
+    required this.text,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color(0xFF0B5D36),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          elevation: 0,
+        ),
+        onPressed: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Icon(
+              Icons.arrow_forward,
+              size: 18,
+              color: Colors.white,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// =============================
+/// NEXT SCREEN
+/// =============================
+class NextScreen extends StatelessWidget {
+  const NextScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Next Screen"),
+      ),
+      body: const Center(
+        child: Text(
+          "Welcome to the Next Screen",
+          style: TextStyle(fontSize: 18),
+        ),
+      ),
+    );
+  }
+}
+
+// the onbording screen 
+

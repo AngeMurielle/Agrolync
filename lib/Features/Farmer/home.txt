@@ -1,0 +1,406 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
+// import unchanged - already correct for order.dart
+import 'package:flutter_agrolync_pro/Features/Farmer/profile/profile.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/new_product.dart';
+import 'package:flutter_agrolync_pro/utils/images.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
+//lib\Features\Farmer\order\order.dart
+
+class FarmerHomeScreen extends StatefulWidget {
+  const FarmerHomeScreen({super.key});
+
+  @override
+  State<FarmerHomeScreen> createState() => _FarmerHomeScreenState();
+}
+
+class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    const HomeContent(),
+    const MarketPage(),
+    const OrderPage(),
+    const ProfilePage(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: _buildDrawer(),
+      body: IndexedStack(index: _currentIndex, children: _pages),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: const Color(0xFF026139),
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() => _currentIndex = index);
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.grid_view_rounded), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.storefront_outlined), label: "Market"),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt_long_outlined), label: "Orders"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Profile"),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDrawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: const BoxDecoration(color: Color(0xFF026139)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircleAvatar(radius: 30, backgroundImage: AssetImage(AppImages.logo)),
+                const SizedBox(height: 10),
+                const Text("Ange Murielle", style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                const Text("Farmer Pro", style: TextStyle(color: Colors.white70, fontSize: 14)),
+              ],
+            ),
+          ),
+          ListTile(leading: const Icon(Icons.settings), title: const Text("Settings"), onTap: () {}),
+          ListTile(leading: const Icon(Icons.help_outline), title: const Text("Support"), onTap: () {}),
+          ListTile(leading: const Icon(Icons.logout, color: Colors.red), title: const Text("Logout"), onTap: () {}),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeContent extends StatelessWidget {
+  const HomeContent({super.key});
+  static const Color brandGreen = Color(0xFF026139);
+
+  static const List<String> _cropAssets = [
+    'assets/images/maize.jpg',
+    'assets/images/onions.jpg',
+    'assets/images/tomato.jpg',
+  ];
+
+  void _navigateToAddProduct(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewProductPage()));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FA),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu, color: Colors.black),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+        title: Row(
+          children: [
+            CircleAvatar(radius: 18, backgroundImage: AssetImage(AppImages.person)),
+            const SizedBox(width: 10),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Welcome back,", style: TextStyle(color: Colors.grey, fontSize: 10)),
+                  Text("Ange Murielle", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14), overflow: TextOverflow.ellipsis),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(icon: const Icon(Icons.search, color: Colors.black), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.notifications_none_rounded, color: Colors.black), onPressed: () {}),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20),
+            _buildEarningsCard(),
+            const SizedBox(height: 25),
+            _buildQuickActions(context),
+            const SizedBox(height: 30),
+            _buildSectionHeader("Weather Forecast", actionText: "Local: Eldoret"),
+            const SizedBox(height: 15),
+            _buildWeatherForecast(),
+            const SizedBox(height: 30),
+            _buildSectionHeader("Agronomic Tips"),
+            const SizedBox(height: 15),
+            _buildAgronomicTipsGrid(),
+            const SizedBox(height: 30),
+            _buildSectionHeader(
+              "My Products", 
+              actionText: "+ Add New", 
+              onActionTap: () => _navigateToAddProduct(context)
+            ),
+            const SizedBox(height: 15),
+            _buildProductList(),
+            const SizedBox(height: 40),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEarningsCard() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(28), color: brandGreen),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text("Total Earnings", style: TextStyle(color: Colors.white70, fontSize: 14)),
+            const FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text("14,250.00 XAF", style: TextStyle(color: Colors.white, fontSize: 36, fontWeight: FontWeight.bold)),
+            ),
+            const Divider(color: Colors.white24, height: 30),
+            Row(
+              children: [
+                const Expanded(
+                  child: Text("12 Active Orders", style: TextStyle(color: Colors.white, fontSize: 16)),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: brandGreen,
+                    minimumSize: const Size(100, 36),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                  child: const Text("Details", style: TextStyle(fontSize: 12)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildQuickActions(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(child: _actionItem(context, Icons.playlist_add_check_rounded, "Add Harvest", onTap: () => _navigateToAddProduct(context))),
+          Expanded(child: _actionItem(context, Icons.local_shipping_outlined, "Logistics")),
+          Expanded(child: _actionItem(context, Icons.account_balance_wallet_outlined, "Withdraw")),
+          Expanded(child: _actionItem(context, Icons.shopping_basket_outlined, "Sell Crop")),
+        ],
+      ),
+    );
+  }
+
+  Widget _actionItem(BuildContext context, IconData icon, String label, {VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 55,
+            width: 55,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10)],
+            ),
+            child: Icon(icon, color: brandGreen, size: 24),
+          ),
+          const SizedBox(height: 8),
+          Text(label, style: const TextStyle(fontSize: 10, fontWeight: FontWeight.w500), textAlign: TextAlign.center, maxLines: 1),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, {String? actionText, VoidCallback? onActionTap}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Row(
+        children: [
+          Expanded(child: Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
+          if (actionText != null)
+            GestureDetector(
+              onTap: onActionTap,
+              child: Text(actionText, style: const TextStyle(color: brandGreen, fontWeight: FontWeight.bold, fontSize: 12)),
+            ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildWeatherForecast() {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: Row(
+        children: [
+          _weatherDay("Mon", Icons.wb_sunny, "28°C", false),
+          _weatherDay("Tue", Icons.wb_cloudy, "26°C", true),
+          _weatherDay("Wed", Icons.water_drop, "22°C", false),
+          _weatherDay("Thu", Icons.cloud, "25°C", false),
+          _weatherDay("Fri", Icons.wb_sunny, "28°C", false),
+          _weatherDay("Sat", Icons.wb_cloudy, "26°C", true),
+          _weatherDay("Sun", Icons.water_drop, "22°C", false),
+        ],
+      ),
+    );
+  }
+
+  Widget _weatherDay(String day, IconData icon, String temp, bool active) {
+    return Container(
+      margin: const EdgeInsets.only(right: 12),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+      decoration: BoxDecoration(color: active ? brandGreen : Colors.white, borderRadius: BorderRadius.circular(20)),
+      child: Column(
+        children: [
+          Text(day, style: TextStyle(color: active ? Colors.white70 : Colors.grey, fontSize: 12)),
+          const SizedBox(height: 8),
+          Icon(icon, color: active ? Colors.white : Colors.orange, size: 24),
+          const SizedBox(height: 8),
+          Text(temp, style: TextStyle(color: active ? Colors.white : Colors.black, fontWeight: FontWeight.bold, fontSize: 14)),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAgronomicTipsGrid() {
+    return Column(
+      children: [
+        _tipRow(0),
+        const SizedBox(height: 15),
+        _tipRow(5),
+      ],
+    );
+  }
+
+  Widget _tipRow(int startIdx) {
+    return SizedBox(
+      height: 230, // Defined height to prevent vertical expansion issues in horizontal list
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          final gridIndex = startIdx + index;
+          final cropPath = _cropAssets[gridIndex % _cropAssets.length];
+          return Padding(
+            padding: const EdgeInsets.only(right: 15),
+            child: _tipCard("CROP CARE", "Pro Tip #${gridIndex + 1}", "Best practices for yield.", cropPath),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _tipCard(String tag, String title, String desc, String img) {
+    return Container(
+      width: 180,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 5)],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 3,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+              child: Image.asset(img, fit: BoxFit.cover, width: double.infinity),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(tag, style: const TextStyle(color: brandGreen, fontWeight: FontWeight.bold, fontSize: 8)),
+                  Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12), maxLines: 1),
+                  const SizedBox(height: 2),
+                  Text(desc, style: const TextStyle(color: Colors.grey, fontSize: 10), maxLines: 2, overflow: TextOverflow.ellipsis),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProductList() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: ListView(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          _productItem("Organic Maize", "assets/images/maize.jpg", "500 kg available", "1.20 XAF/kg", Colors.black54),
+          _productItem("Red Onions", "assets/images/onions.jpg", "200 kg available", "0.85 XAF/kg", Colors.black54),
+          _productItem("Fresh Tomatoes", "assets/images/tomato.jpg", "150 kg available", "1.10 XAF/kg", Colors.black54),
+        ],
+      ),
+    );
+  }
+
+  Widget _productItem(String title, String imagePath, String subtitle, String price, Color subColor) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10)],
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(imagePath, height: 50, width: 50, fit: BoxFit.cover),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                Text(subtitle, style: TextStyle(color: subColor, fontSize: 12)),
+                Text(price, style: const TextStyle(color: brandGreen, fontWeight: FontWeight.bold, fontSize: 13)),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(onPressed: () {}, icon: const Icon(Icons.edit, size: 18, color: Colors.grey), constraints: const BoxConstraints()),
+              IconButton(onPressed: () {}, icon: const Icon(Icons.delete_outline, size: 18, color: Colors.redAccent), constraints: const BoxConstraints()),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+last prompt
+can you establish the product details and the shopping card  by creating them (same logic with each product of MarketPlace.dart) on theeach products of others products of the seeds.dart, fertilizer.dart, tools.dart and pestides.dart

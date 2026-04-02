@@ -1,0 +1,49 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run Flutter App on Phone",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location 'c:\\flutter\\flutter_agrolync_pro'; flutter run"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Capture Flutter Run Output",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Set-Location 'c:\\flutter\\flutter_agrolync_pro'; flutter devices | Out-File -FilePath .\\flutter_devices.txt -Encoding utf8; flutter run --verbose | Out-File -FilePath .\\flutter_run_verbose.txt -Encoding utf8"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Extract Flutter Log Errors",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Content flutter_run_verbose.txt | Select-String -Pattern 'FAILURE|BUILD FAILED|Exception|Error|caused by' -CaseSensitive:$false | Select-Object -Unique | Set-Content error_lines.txt -Encoding utf8"
+			],
+			"isBackground": false
+		},
+		{
+			"label": "Extract Flutter Log Errors",
+			"type": "shell",
+			"command": "powershell.exe",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"Get-Content flutter_run_verbose.txt | Select-String -Pattern \"FAILURE|BUILD FAILED|Exception|Error|caused by\" -CaseSensitive:$false | Select-Object -Unique | Set-Content error_lines.txt -Encoding utf8"
+			],
+			"isBackground": false
+		}
+	]
+}

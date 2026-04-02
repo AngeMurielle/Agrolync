@@ -1,0 +1,94 @@
+import 'package:flutter/material.dart';
+import 'map_screen.dart';
+
+class MyRouteTab extends StatelessWidget {
+  final List<Map<String, dynamic>> activeRoutes;
+
+  const MyRouteTab({super.key, required this.activeRoutes});
+
+  @override
+  Widget build(BuildContext context) {
+    if (activeRoutes.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.local_shipping_outlined, size: 64, color: Colors.grey[300]),
+            const SizedBox(height: 16),
+            const Text("No active routes. Accept a job to start tracking.",
+                style: TextStyle(color: Colors.grey)),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: activeRoutes.length,
+      itemBuilder: (context, index) {
+        final job = activeRoutes[index];
+        return Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.grey[200]!),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              )
+            ],
+          ),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.circle, size: 12, color: Color(0xFF015E38)),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(job['title'] ?? 'Shipment',
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  Text("${job['price']} XAF",
+                      style: const TextStyle(
+                          color: Color(0xFF015E38), fontWeight: FontWeight.bold)),
+                ],
+              ),
+              const Divider(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("Destination", style: TextStyle(color: Colors.grey, fontSize: 10)),
+                      Text(job['dropoff'] ?? 'N/A',
+                          style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12)),
+                    ],
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MapScreen()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF015E38),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    child: const Text("Track Delivery",
+                        style: TextStyle(color: Colors.white, fontSize: 12)),
+                  )
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
