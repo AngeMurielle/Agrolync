@@ -1,0 +1,170 @@
+{
+  "tables": [
+    {
+      "name": "users",
+      "description": "Application users across Farmer/Buyer/Logistics roles (Supabase auth users used for login).",
+      "columns": [
+        {"name": "id", "type": "uuid", "primary_key": true, "description": "Supabase auth user id."},
+        {"name": "full_name", "type": "text", "nullable": false},
+        {"name": "email", "type": "text", "nullable": false, "unique": true},
+        {"name": "phone_number", "type": "text", "nullable": true},
+        {"name": "profile_image", "type": "text", "nullable": true},
+        {"name": "address", "type": "text", "nullable": true},
+        {"name": "role", "type": "text", "nullable": false, "default": "Buyer", "comment": "Farmer/Buyer/Logistics"},
+        {"name": "wallet_balance", "type": "numeric", "nullable": false, "default": 0},
+        {"name": "favorite_product_ids", "type": "text[]", "nullable": true, "comment": "Denormalized list; can be kept in favorites table."},
+        {"name": "is_verified", "type": "boolean", "nullable": false, "default": false},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"},
+        {"name": "updated_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "addresses",
+      "description": "Delivery addresses for users.",
+      "columns": [
+        {"name": "id", "type": "uuid", "primary_key": true},
+        {"name": "user_id", "type": "uuid", "foreign_key": "users.id", "nullable": false},
+        {"name": "type", "type": "text", "nullable": true, "comment": "Home, Work, etc."},
+        {"name": "address", "type": "text", "nullable": false},
+        {"name": "latitude", "type": "numeric", "nullable": true},
+        {"name": "longitude", "type": "numeric", "nullable": true},
+        {"name": "is_default", "type": "boolean", "nullable": false, "default": false},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"},
+        {"name": "updated_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "products",
+      "description": "Products posted by farmer sellers and shown in buyer marketplace.",
+      "columns": [
+        {"name": "id", "type": "text", "primary_key": true},
+        {"name": "name", "type": "text", "nullable": false},
+        {"name": "category", "type": "text", "nullable": false},
+        {"name": "description", "type": "text", "nullable": true},
+        {"name": "price", "type": "numeric", "nullable": false},
+        {"name": "unit", "type": "text", "nullable": false},
+        {"name": "seller_id", "type": "uuid", "foreign_key": "users.id", "nullable": false},
+        {"name": "seller_name", "type": "text", "nullable": false},
+        {"name": "location", "type": "text", "nullable": true},
+        {"name": "stock", "type": "text", "nullable": true},
+        {"name": "status", "type": "text", "nullable": false, "default": "ACTIVE", "comment": "ACTIVE/SOLD OUT"},
+        {"name": "image", "type": "text", "nullable": true},
+        {"name": "is_favorite", "type": "boolean", "nullable": false, "default": false},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"},
+        {"name": "updated_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "orders",
+      "description": "Purchase orders placed by buyers.",
+      "columns": [
+        {"name": "id", "type": "text", "primary_key": true},
+        {"name": "user_id", "type": "uuid", "foreign_key": "users.id", "nullable": false},
+        {"name": "date", "type": "timestamp", "nullable": false},
+        {"name": "subtotal", "type": "numeric", "nullable": false},
+        {"name": "shipping_fee", "type": "numeric", "nullable": false},
+        {"name": "tax", "type": "numeric", "nullable": false},
+        {"name": "total_amount", "type": "numeric", "nullable": false},
+        {"name": "status", "type": "text", "nullable": false, "default": "pending", "comment": "pending/shipped/delivered/cancelled"},
+        {"name": "delivery_address", "type": "text", "nullable": true},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"},
+        {"name": "updated_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "order_items",
+      "description": "Line items inside each order.",
+      "columns": [
+        {"name": "id", "type": "uuid", "primary_key": true},
+        {"name": "order_id", "type": "text", "foreign_key": "orders.id", "nullable": false},
+        {"name": "product_id", "type": "text", "foreign_key": "products.id", "nullable": true},
+        {"name": "product_name", "type": "text", "nullable": false},
+        {"name": "product_image", "type": "text", "nullable": true},
+        {"name": "seller_name", "type": "text", "nullable": false},
+        {"name": "quantity", "type": "integer", "nullable": false},
+        {"name": "price_at_purchase", "type": "numeric", "nullable": false},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "wallet_transactions",
+      "description": "Wallet activity for users (top-up, purchase, logistics fees, withdraw).",
+      "columns": [
+        {"name": "id", "type": "text", "primary_key": true},
+        {"name": "user_id", "type": "uuid", "foreign_key": "users.id", "nullable": false},
+        {"name": "title", "type": "text", "nullable": false},
+        {"name": "product_name", "type": "text", "nullable": true},
+        {"name": "product_image", "type": "text", "nullable": true},
+        {"name": "amount", "type": "numeric", "nullable": false},
+        {"name": "is_credit", "type": "boolean", "nullable": false},
+        {"name": "date", "type": "timestamp", "nullable": false},
+        {"name": "status", "type": "text", "nullable": false},
+        {"name": "source", "type": "text", "nullable": true},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "logistics_jobs",
+      "description": "Actual truck/shipment jobs that logistics users can accept.",
+      "columns": [
+        {"name": "id", "type": "text", "primary_key": true},
+        {"name": "title", "type": "text", "nullable": false},
+        {"name": "pickup", "type": "text", "nullable": false},
+        {"name": "dropoff", "type": "text", "nullable": false},
+        {"name": "price", "type": "numeric", "nullable": false},
+        {"name": "distance_km", "type": "numeric", "nullable": true},
+        {"name": "weight_kg", "type": "numeric", "nullable": true},
+        {"name": "duration_hours", "type": "numeric", "nullable": true},
+        {"name": "tag", "type": "text", "nullable": true},
+        {"name": "location_lat", "type": "numeric", "nullable": true},
+        {"name": "location_lng", "type": "numeric", "nullable": true},
+        {"name": "status", "type": "text", "nullable": false, "default": "available", "comment": "available/assigned/in_progress/completed"},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"},
+        {"name": "updated_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "logistics_routes",
+      "description": "User acceptance and delivery tracking for logistics jobs.",
+      "columns": [
+        {"name": "id", "type": "text", "primary_key": true},
+        {"name": "job_id", "type": "text", "foreign_key": "logistics_jobs.id", "nullable": false},
+        {"name": "driver_id", "type": "uuid", "foreign_key": "users.id", "nullable": false},
+        {"name": "pickup_time", "type": "timestamp", "nullable": true},
+        {"name": "dropoff_time", "type": "timestamp", "nullable": true},
+        {"name": "status", "type": "text", "nullable": false, "default": "in_progress"},
+        {"name": "current_lat", "type": "numeric", "nullable": true},
+        {"name": "current_lng", "type": "numeric", "nullable": true},
+        {"name": "eta", "type": "text", "nullable": true},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    },
+    {
+      "name": "ratings",
+      "description": "Rating and review mechanism used in Farmer order feedback flows.",
+      "columns": [
+        {"name": "id", "type": "text", "primary_key": true},
+        {"name": "reviewer_id", "type": "uuid", "foreign_key": "users.id", "nullable": false},
+        {"name": "reviewee_id", "type": "uuid", "foreign_key": "users.id", "nullable": false},
+        {"name": "order_id", "type": "text", "foreign_key": "orders.id", "nullable": true},
+        {"name": "rating", "type": "integer", "nullable": false, "check": "rating >= 1 AND rating <= 5"},
+        {"name": "comment", "type": "text", "nullable": true},
+        {"name": "created_at", "type": "timestamp", "nullable": false, "default": "now()"}
+      ]
+    }
+  ],
+  "relationships": [
+    {"from_table": "addresses", "from_column": "user_id", "to_table": "users", "to_column": "id", "type": "many-to-one", "description": "User can have many delivery addresses."},
+    {"from_table": "products", "from_column": "seller_id", "to_table": "users", "to_column": "id", "type": "many-to-one", "description": "Product seller is a user."},
+    {"from_table": "orders", "from_column": "user_id", "to_table": "users", "to_column": "id", "type": "many-to-one", "description": "Order belongs to a user buyer."},
+    {"from_table": "order_items", "from_column": "order_id", "to_table": "orders", "to_column": "id", "type": "many-to-one", "description": "Order can include many order items."},
+    {"from_table": "order_items", "from_column": "product_id", "to_table": "products", "to_column": "id", "type": "many-to-one", "description": "Order item may reference a product."},
+    {"from_table": "wallet_transactions", "from_column": "user_id", "to_table": "users", "to_column": "id", "type": "many-to-one", "description": "Transactions belong to a user."},
+    {"from_table": "logistics_jobs", "from_column": "", "to_table": "", "to_column": "", "type": "independent", "description": "Logistics jobs are generic listings."},
+    {"from_table": "logistics_routes", "from_column": "job_id", "to_table": "logistics_jobs", "to_column": "id", "type": "many-to-one", "description": "Route is linked to a logistics job."},
+    {"from_table": "logistics_routes", "from_column": "driver_id", "to_table": "users", "to_column": "id", "type": "many-to-one", "description": "Route assigned to a logistics user (driver)."},
+    {"from_table": "ratings", "from_column": "reviewer_id", "to_table": "users", "to_column": "id", "type": "many-to-one", "description": "Ratings are posted by a user reviewer."},
+    {"from_table": "ratings", "from_column": "reviewee_id", "to_table": "users", "to_column": "id", "type": "many-to-one", "description": "Ratings are for a user reviewee."},
+    {"from_table": "ratings", "from_column": "order_id", "to_table": "orders", "to_column": "id", "type": "many-to-one", "description": "Rating optionally references an order."}
+  ]
+}
