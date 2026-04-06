@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Core/utils/supabase_service.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/main.dart';
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
@@ -316,8 +319,12 @@ class _SignInScreenState extends State<SignInScreen> {
 
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
+<<<<<<< HEAD
         const SnackBar(
             content: Text('Please provide both email and password.')),
+=======
+        const SnackBar(content: Text('Please provide both email and password.')),
+>>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
       );
       return;
     }
@@ -326,17 +333,51 @@ class _SignInScreenState extends State<SignInScreen> {
       _isLoading = true;
     });
 
+<<<<<<< HEAD
     // TODO: Integrate authentication when available
     // For now, proceed with default role navigation
     await Future.delayed(const Duration(seconds: 2)); // Simulate auth delay
+=======
+    final response = await SupabaseService.signInWithEmail(
+      email: email,
+      password: password,
+    );
+>>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
 
     setState(() {
       _isLoading = false;
     });
 
+<<<<<<< HEAD
     // Default to Farmer role for now
     Widget destination = const FarmerHomeScreen();
 
+=======
+    if (response.error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response.error!.message)),
+      );
+      return;
+    }
+
+    final profile = await SupabaseService.getCurrentUserProfile();
+    if (profile == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Signed in, but profile data was not found.')),
+      );
+      return;
+    }
+
+    final role = profile['role']?.toString() ?? 'Buyer';
+    Widget destination = const FarmerHomeScreen();
+
+    if (role == 'Buyer') {
+      destination = const MainNavigationWrapper();
+    } else if (role == 'Logistics') {
+      destination = const MainNavWrapper();
+    }
+
+>>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => destination),

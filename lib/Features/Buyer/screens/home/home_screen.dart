@@ -107,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
           : SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Column(
+<<<<<<< HEAD
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Search Bar Section
@@ -133,6 +134,29 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ],
                         ),
+=======
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Search Bar Section
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: GestureDetector(
+                onTap: () => Navigator.pushNamed(context, '/search'),
+                child: Container(
+                  height: 55,
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF3F5F7),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.search, color: Colors.grey),
+                      SizedBox(width: 12),
+                      Text(
+                        "Search for products...",
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+>>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
                       ),
                     ),
                   ),
