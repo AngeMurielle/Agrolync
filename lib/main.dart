@@ -33,12 +33,8 @@ void main() async {
 
   /// ✅ SUPABASE INITIALIZATION
   await Supabase.initialize(
-<<<<<<< HEAD
-    url: 'https://supabase.com/dashboard/project/hbxknoolhrqmmvhimmyw/settings/general',
-=======
-    url: 'https://hbxknoolhrqmmvhimmyw.supabase.co',
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
-    anonKey: 'sb_publishable_BQZEhzpvBQbOaWJjPWwDew_-3Z8egHt',
+    url: 'https://ndxhobdnnucqbnguyfls.supabase.co',
+    anonKey: 'sb_publishable_c06pMCr5B7bMaenTLHijoQ_Da2TnxvZ',
   );
 
   runApp(const AgrolyncApp());

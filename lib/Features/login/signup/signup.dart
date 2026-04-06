@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-=======
-import 'package:flutter_agrolync_pro/Core/utils/supabase_service.dart';
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
-import 'package:flutter_agrolync_pro/Features/Buyer/main.dart';
+//import 'package:flutter_agrolync_pro/Features/Buyer/screens/home/home_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
@@ -32,20 +28,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   String? selectedRole;
   bool agreeToTerms = false;
-<<<<<<< HEAD
-  final bool _isLoading = false;
-=======
-  bool _isLoading = false;
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
-
-  @override
-  void dispose() {
-    _fullNameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,106 +36,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
-              children: [
-                _buildHeader(headerHeight),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: headerHeight - 120,
-                    left: 20,
-                    right: 20,
-                  ),
-                  child: Container(
-                    padding: const EdgeInsets.all(24),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(28),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 15,
-                          offset: const Offset(0, 8),
-                        ),
-                      ],
+      body: Padding(
+        padding: const EdgeInsets.only(right: 21, bottom: 21),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  _buildHeader(headerHeight),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: headerHeight - 120,
+                      left: 20,
+                      right: 20,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildLabel("Full Name"),
-                        _buildStyledTextField(
-                          hint: "Ange Awagoum",
-                          controller: _fullNameController,
-                        ),
-                        const SizedBox(height: 20),
-                        _buildLabel("Email Address"),
-                        _buildStyledTextField(
-                          hint: "ange@gmail.com",
-                          controller: _emailController,
-                        ),
-                        const SizedBox(height: 20),
-                        _buildLabel("Phone Number"),
-                        _buildStyledTextField(
-                          hint: "+237",
-                          controller: _phoneController,
-                        ),
-                        const SizedBox(height: 20),
-                        _buildLabel("Password"),
-                        _buildStyledTextField(
-                          hint: "••••••••",
-                          controller: _passwordController,
-                          isPassword: true,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "CHOOSE YOUR ROLE",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                    child: Container(
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(28),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 15,
+                            offset: const Offset(0, 8),
                           ),
-<<<<<<< HEAD
-                        ),
-                        const SizedBox(height: 10),
-                        _buildRoleDropdownField(),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Expanded(
-                                child:
-                                    _roleCard("FARMER", Icons.eco, "Farmer")),
-                            Expanded(
-                                child: _roleCard(
-                                    "BUYER", Icons.shopping_cart, "Buyer")),
-                            Expanded(
-                                child: _roleCard("LOGISTICS",
-                                    Icons.local_shipping, "Logistics")),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        _buildTermsCheckbox(),
-                        const SizedBox(height: 30),
-                        _buildCreateAccountButton(context),
-                        const SizedBox(height: 25),
-                        _buildDivider(),
-                        const SizedBox(height: 25),
-                        _buildGoogleButton(),
-                      ],
-=======
                         ],
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildLabel("Full Name"),
-                          _buildStyledTextField(
-                            hint: "Ange Awagoum",
-                            controller: _fullNameController,
-                          ),
+                          _buildStyledTextField(hint: "Ange Awagoum"),
                           const SizedBox(height: 20),
                           _buildLabel("Email Address"),
                           _buildStyledTextField(
@@ -361,136 +276,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Future<void> _handleSignUp(BuildContext context) async {
-<<<<<<< HEAD
-    // Since the UI doesn't use controllers anymore, we'll just proceed with role-based navigation
-    if (selectedRole == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content:
-                Text('Please select your role (Farmer, Buyer, or Logistics)')),
-=======
-    final fullName = _fullNameController.text.trim();
-    final email = _emailController.text.trim();
-    final phone = _phoneController.text.trim();
-    final password = _passwordController.text;
-
-    if (fullName.isEmpty || email.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all required fields.')),
-      );
-      return;
-    }
-
-    if (selectedRole == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Please select your role (Farmer, Buyer, or Logistics)')),
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
-      );
-      return;
-    }
-
-    if (!agreeToTerms) {
-      ScaffoldMessenger.of(context).showSnackBar(
-<<<<<<< HEAD
-        const SnackBar(
-            content: Text('Please agree to the Terms and Conditions')),
-=======
-        const SnackBar(content: Text('Please agree to the Terms and Conditions')), 
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
-      );
-      return;
-    }
-
-<<<<<<< HEAD
-    // TODO: Integrate authentication when available
-    // For now, proceed with role-based navigation
-    await Future.delayed(const Duration(seconds: 2)); // Simulate signup delay
-=======
-    setState(() {
-      _isLoading = true;
-    });
-
-    final signup = await SupabaseService.signUpWithEmail(
-      email: email,
-      password: password,
-    );
-
-    if (signup.error != null) {
-      setState(() {
-        _isLoading = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(signup.error!.message)),
-      );
-      return;
-    }
-
-    final userId = signup.user?.id;
-    if (userId == null) {
-      setState(() {
-        _isLoading = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Unable to create account. Please try again.')),
-      );
-      return;
-    }
-
-    final profile = await SupabaseService.createUserProfile(
-      userId: userId,
-      fullName: fullName,
-      email: email,
-      role: selectedRole!,
-      phoneNumber: phone.isEmpty ? null : phone,
-    );
-
-    setState(() {
-      _isLoading = false;
-    });
-
-    if (profile == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created but profile save failed.')),
-      );
-      return;
-    }
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
-
-    Widget destination;
-    switch (selectedRole) {
-      case 'Farmer':
-        destination = const FarmerHomeScreen();
-        break;
-      case 'Buyer':
-        destination = const MainNavigationWrapper();
-        break;
-      case 'Logistics':
-        destination = const MainNavWrapper();
-        break;
-      default:
-        destination = const FarmerHomeScreen();
-    }
-
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => destination),
-    );
-  }
-
   // --- REUSABLE WIDGETS ---
-  Widget _buildStyledTextField({
-    required String hint,
-    required TextEditingController controller,
-    bool isPassword = false,
-    Widget? suffixIcon,
-<<<<<<< HEAD
-  }) =>
-      Container(
-=======
-  }) => Container(
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
+  Widget _buildStyledTextField({required String hint}) => Container(
         height: globalHeight,
         decoration: BoxDecoration(
             color: Colors.white,

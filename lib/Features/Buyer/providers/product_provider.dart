@@ -291,22 +291,6 @@ class ProductProvider with ChangeNotifier {
     ),
   ];
 
-  Future<void> loadProducts() async {
-<<<<<<< HEAD
-    // TODO: Integrate Supabase when available
-    // For now, use the mock data already defined in _allProducts
-    notifyListeners();
-=======
-    final rows = await SupabaseService.getActiveProducts();
-    if (rows.isNotEmpty) {
-      _allProducts
-        ..clear()
-        ..addAll(rows.map((row) => Product.fromMap(row)));
-      notifyListeners();
-    }
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
-  }
-
   // Get all products
   List<Product> get products => [..._allProducts];
 

@@ -1,0 +1,845 @@
+﻿Analyzing flutter_agrolync_pro...                               
+
+  error - The getter 'error' isn't defined for the type 'PostgrestMap' - lib\Core\utils\supabase_service.dart:40:18 - undefined_getter
+  error - The getter 'data' isn't defined for the type 'PostgrestMap' - lib\Core\utils\supabase_service.dart:44:21 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'PostgrestMap' - lib\Core\utils\supabase_service.dart:64:18 - undefined_getter
+  error - The getter 'data' isn't defined for the type 'PostgrestMap' - lib\Core\utils\supabase_service.dart:68:21 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:77:18 - undefined_getter
+  error - The getter 'data' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:81:53 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:93:18 - undefined_getter
+  error - The getter 'data' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:97:53 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:110:18 - undefined_getter
+  error - The getter 'data' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:114:53 - undefined_getter
+  error - The getter 'error' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:127:18 - undefined_getter
+  error - The getter 'data' isn't defined for the type 'PostgrestList' - lib\Core\utils\supabase_service.dart:131:53 - undefined_getter
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:295:1 - missing_identifier
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:295:3 - missing_identifier
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:295:5 - missing_identifier
+  error - Expected to find ';' - lib\Features\Buyer\providers\product_provider.dart:295:9 - expected_token
+  error - Expected to find '>' - lib\Features\Buyer\providers\product_provider.dart:295:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\Buyer\providers\product_provider.dart:295:9 - non_type_as_type_argument
+  error - Expected to find '[' - lib\Features\Buyer\providers\product_provider.dart:298:5 - expected_token
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:299:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\Buyer\providers\product_provider.dart:299:1 - unsupported_operator
+  error - Illegal assignment to non-assignable expression - lib\Features\Buyer\providers\product_provider.dart:299:4 - illegal_assignment_to_non_assignable
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\Buyer\providers\product_provider.dart:299:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\Buyer\providers\product_provider.dart:299:4 - unsupported_operator
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:299:7 - missing_identifier
+  error - Expected to find ';' - lib\Features\Buyer\providers\product_provider.dart:299:7 - expected_token
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:300:5 - missing_identifier
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:307:1 - missing_identifier
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:307:4 - missing_identifier
+  error - Expected an identifier - lib\Features\Buyer\providers\product_provider.dart:307:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\Buyer\providers\product_provider.dart:307:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\Buyer\providers\product_provider.dart:307:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\Buyer\providers\product_provider.dart:307:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:22 - expected_token
+  error - Undefined name 'row' - lib\Features\Buyer\providers\product_provider.dart:307:22 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:26 - expected_token
+  error - Undefined name 'level' - lib\Features\Buyer\providers\product_provider.dart:307:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:32 - expected_token
+  error - Undefined name 'security' - lib\Features\Buyer\providers\product_provider.dart:307:32 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:41 - expected_token
+  error - Undefined name 'and' - lib\Features\Buyer\providers\product_provider.dart:307:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:45 - expected_token
+  error - Undefined name 'superbase' - lib\Features\Buyer\providers\product_provider.dart:307:45 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:55 - expected_token
+  error - Undefined name 'policies' - lib\Features\Buyer\providers\product_provider.dart:307:55 - undefined_identifier
+  error - Undefined name 'connect' - lib\Features\Buyer\providers\product_provider.dart:307:65 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:73 - expected_token
+  error - Undefined name 'to' - lib\Features\Buyer\providers\product_provider.dart:307:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:76 - expected_token
+  error - Undefined name 'frontend' - lib\Features\Buyer\providers\product_provider.dart:307:76 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:85 - expected_token
+  error - Undefined name 'and' - lib\Features\Buyer\providers\product_provider.dart:307:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:89 - expected_token
+  error - Undefined name 'sumarise' - lib\Features\Buyer\providers\product_provider.dart:307:89 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:98 - expected_token
+  error - Undefined name 'all' - lib\Features\Buyer\providers\product_provider.dart:307:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:102 - expected_token
+  error - Undefined name 'work' - lib\Features\Buyer\providers\product_provider.dart:307:102 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:107 - expected_token
+  error - Undefined name 'done' - lib\Features\Buyer\providers\product_provider.dart:307:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:112 - expected_token
+  error - Undefined name 'so' - lib\Features\Buyer\providers\product_provider.dart:307:112 - undefined_identifier
+  error - Expected to find ',' - lib\Features\Buyer\providers\product_provider.dart:307:115 - expected_token
+  error - Undefined name 'far' - lib\Features\Buyer\providers\product_provider.dart:307:115 - undefined_identifier
+  error - Expected to find ';' - lib\Features\Buyer\providers\product_provider.dart:307:118 - expected_token
+warning - The value of the local variable 'displayedProducts' isn't used - lib\Features\Buyer\screens\home\home_screen.dart:59:25 - unused_local_variable
+  error - Expected an identifier - lib\Features\Buyer\screens\home\home_screen.dart:110:1 - missing_identifier
+  error - Too many positional arguments: 0 expected, but 1 found - lib\Features\Buyer\screens\home\home_screen.dart:110:1 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\Buyer\screens\home\home_screen.dart:110:3 - missing_identifier
+  error - Expected an identifier - lib\Features\Buyer\screens\home\home_screen.dart:110:5 - missing_identifier
+  error - Expected to find '>' - lib\Features\Buyer\screens\home\home_screen.dart:110:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\Buyer\screens\home\home_screen.dart:110:9 - non_type_as_type_argument
+  error - Expected to find ',' - lib\Features\Buyer\screens\home\home_screen.dart:111:17 - expected_token
+  error - Expected to find '[' - lib\Features\Buyer\screens\home\home_screen.dart:111:17 - expected_token
+  error - Expected an identifier - lib\Features\Buyer\screens\home\home_screen.dart:137:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\Buyer\screens\home\home_screen.dart:137:1 - unsupported_operator
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\Buyer\screens\home\home_screen.dart:137:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\Buyer\screens\home\home_screen.dart:137:4 - unsupported_operator
+  error - Too many positional arguments: 0 expected, but 1 found - lib\Features\Buyer\screens\home\home_screen.dart:137:4 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\Buyer\screens\home\home_screen.dart:137:7 - missing_identifier
+  error - Undefined name 'crossAxisAlignment' - lib\Features\Buyer\screens\home\home_screen.dart:138:11 - undefined_identifier
+  error - Expected to find ')' - lib\Features\Buyer\screens\home\home_screen.dart:138:29 - expected_token
+  error - Decimal digit expected - lib\Features\Buyer\screens\home\home_screen.dart:159:15 - missing_digit
+  error - Expected to find ']' - lib\Features\Buyer\screens\home\home_screen.dart:161:21 - expected_token
+  error - Expected to find ')' - lib\Features\Buyer\screens\home\home_screen.dart:274:17 - expected_token
+  error - Expected to find ')' - lib\Features\Buyer\screens\home\home_screen.dart:277:6 - expected_token
+  error - Expected to find ']' - lib\Features\Buyer\screens\home\home_screen.dart:277:6 - expected_token
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\notifications\notifications_screen.dart:34:50 - deprecated_member_use
+warning - Unused import: 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart' - lib\Features\Buyer\screens\orders\orders_screen.dart:12:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\orders\orders_screen.dart:92:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\orders\orders_screen.dart:312:41 - deprecated_member_use
+   info - The file name 'PersonalDetails.dart' isn't a lower_case_with_underscores identifier - lib\Features\Buyer\screens\profile\PersonalDetails.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\PersonalDetails.dart:91:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\PersonalDetails.dart:139:59 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\PersonalDetails.dart:142:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\address.dart:73:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\contactsupport.dart:101:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\contactsupport.dart:194:42 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\helpcenter.dart:145:49 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\helpcenter.dart:162:56 - deprecated_member_use
+warning - The value of the field '_profileImage' isn't used - lib\Features\Buyer\screens\profile\profile_screen.dart:27:9 - unused_field
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\wallet.dart:135:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\wallet.dart:194:51 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\profile\wallet.dart:215:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\wallet\wallet_screen.dart:132:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\wallet\wallet_screen.dart:191:51 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Buyer\screens\wallet\wallet_screen.dart:212:43 - deprecated_member_use
+   info - The file name 'Home.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\Home.dart:1:1 - file_names
+warning - Unused import: 'package:flutter_agrolync_pro/Features/Farmer/order/truck_selection.dart' - lib\Features\Farmer\Home.dart:9:8 - unused_import
+warning - The left operand can't be null, so the right operand is never executed - lib\Features\Farmer\Home.dart:393:71 - dead_null_aware_expression
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\Home.dart:557:47 - deprecated_member_use
+   info - Unnecessary braces in a string interpolation - lib\Features\Farmer\Home.dart:717:14 - unnecessary_brace_in_string_interps
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\Home.dart:768:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\Home.dart:856:43 - deprecated_member_use
+   info - The file name 'Hybridmaize.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\Hybridmaize.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\Hybridmaize.dart:180:39 - deprecated_member_use
+   info - The file name 'Listing.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\Listing.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\Listing.dart:116:37 - deprecated_member_use
+   info - The file name 'Maizeseed_card.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\Maizeseed_card.dart:1:1 - file_names
+   info - The file name 'Market.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\Market.dart:1:1 - file_names
+warning - The declaration '_handleFilterTap' isn't referenced - lib\Features\Farmer\Market.dart:49:8 - unused_element
+   info - The file name 'MarketPlace.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\MarketPlace.dart:1:1 - file_names
+warning - Unused import: 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart' - lib\Features\Farmer\MarketPlace.dart:6:8 - unused_import
+warning - Unused import: 'package:flutter_agrolync_pro/Features/Farmer/Home.dart' - lib\Features\Farmer\MarketPlace.dart:8:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\ammonium_nitrate.dart:95:45 - deprecated_member_use
+   info - Statements in an if should be enclosed in a block - lib\Features\Farmer\ammonium_nitrate_card.dart:30:9 - curly_braces_in_flow_control_structures
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\ammonium_nitrate_card.dart:127:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\bean_seeds.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\bean_seeds_card.dart:154:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\calcium_nitrate.dart:109:39 - deprecated_member_use
+   info - Statements in an if should be enclosed in a block - lib\Features\Farmer\calcium_nitrate_card.dart:29:9 - curly_braces_in_flow_control_structures
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\calcium_nitrate_card.dart:146:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\carrot_seeds.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\carrot_seeds_card.dart:154:47 - deprecated_member_use
+   info - 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre - lib\Features\Farmer\cart\farmer_checkout_screen.dart:223:21 - deprecated_member_use
+   info - 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre - lib\Features\Farmer\cart\farmer_checkout_screen.dart:224:21 - deprecated_member_use
+   info - 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre - lib\Features\Farmer\cart\farmer_checkout_screen.dart:243:21 - deprecated_member_use
+   info - 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre - lib\Features\Farmer\cart\farmer_checkout_screen.dart:244:21 - deprecated_member_use
+   info - 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre - lib\Features\Farmer\cart\farmer_checkout_screen.dart:366:9 - deprecated_member_use
+   info - 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre - lib\Features\Farmer\cart\farmer_checkout_screen.dart:367:9 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\compost_bin.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\compost_bin_card.dart:154:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\fertilizers.dart:231:49 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\fungicide.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\fungicide_card.dart:154:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\garden_hoe.dart:109:39 - deprecated_member_use
+   info - Statements in an if should be enclosed in a block - lib\Features\Farmer\garden_hoe_card.dart:29:9 - curly_braces_in_flow_control_structures
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\garden_hoe_card.dart:146:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\garden_hose.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\garden_hose_card.dart:154:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\herbicide.dart:177:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\magnesium_sulfate.dart:111:39 - deprecated_member_use
+   info - Statements in an if should be enclosed in a block - lib\Features\Farmer\magnesium_sulfate_card.dart:30:9 - curly_braces_in_flow_control_structures
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\magnesium_sulfate_card.dart:147:39 - deprecated_member_use
+   info - The file name 'WeatherModel.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\models\WeatherModel.dart:1:1 - file_names
+   info - The value of the case clause ('80') is equal to the value of an earlier case clause ('80') - lib\Features\Farmer\models\WeatherModel.dart:87:12 - no_duplicate_case_values
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\natural_repellent.dart:122:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\natural_repellent_card.dart:155:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\new_product.dart:242:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\new_product.dart:266:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\new_product.dart:297:39 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\Features\Farmer\notification.dart:276:48 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\Features\Farmer\notification.dart:296:48 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\npk_fertilizer.dart:178:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\onion_seeds.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\onion_seeds_card.dart:154:47 - deprecated_member_use
+   info - The file name 'Active.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\order\Active.dart:1:1 - file_names
+warning - Unused import: 'logistics_tracking.dart' - lib\Features\Farmer\order\active_orders.dart:3:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\chat_page.dart:302:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\chat_page.dart:323:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\complete.dart:65:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\complete.dart:92:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\logistics_tracking.dart:106:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\logistics_tracking.dart:133:41 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check - lib\Features\Farmer\order\logistics_tracking.dart:228:54 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\pending.dart:85:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\rate_buyer_page.dart:57:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\rate_buyer_page.dart:69:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\rate_buyer_page.dart:126:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\receipt_page.dart:56:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\receipt_page.dart:79:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\receipt_page.dart:135:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\receipt_page.dart:267:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\truck_selection.dart:103:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\order\truck_selection.dart:183:45 - deprecated_member_use
+warning - Unused import: 'package:flutter_agrolync_pro/Features/Farmer/Market.dart' - lib\Features\Farmer\paymentsucess.dart:6:8 - unused_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\pepper_seeds.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\pepper_seeds_card.dart:154:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\pesticides.dart:231:49 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\pestoil.dart:178:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\potassium_chloride.dart:122:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\potassium_chloride_card.dart:155:47 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\Features\Farmer\product1.dart:52:28 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product1.dart:96:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product1.dart:125:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product1.dart:129:47 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\Features\Farmer\product2.dart:51:28 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product2.dart:95:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product2.dart:124:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product2.dart:128:47 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\Features\Farmer\product3.dart:52:28 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product3.dart:96:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product3.dart:125:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product3.dart:129:47 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\Features\Farmer\product4.dart:52:28 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product4.dart:96:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product4.dart:125:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product4.dart:129:47 - deprecated_member_use
+   info - Don't use 'BuildContext's across async gaps - lib\Features\Farmer\product5.dart:52:28 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product5.dart:96:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product5.dart:125:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product5.dart:129:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\product_modal_helper.dart:13:32 - deprecated_member_use
+   info - The file name 'FAQDetails.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\profile\FAQDetails.dart:1:1 - file_names
+   info - The file name 'FarmDetails.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\profile\FarmDetails.dart:1:1 - file_names
+   info - The file name 'LanguageSelection.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\profile\LanguageSelection.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\LanguageSelection.dart:185:37 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\LanguageSelection.dart:228:63 - deprecated_member_use
+   info - The file name 'PaymentMethod.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\profile\PaymentMethod.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\PaymentMethod.dart:235:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\PaymentMethod.dart:263:35 - deprecated_member_use
+   info - The file name 'SupportHelp.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\profile\SupportHelp.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\SupportHelp.dart:164:30 - deprecated_member_use
+   info - The file name 'personalInfo.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\profile\personalInfo.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\profile.dart:310:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\profile.dart:338:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\profile.dart:358:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\setting.dart:149:24 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\profile\setting.dart:169:33 - deprecated_member_use
+   info - 'activeColor' is deprecated and shouldn't be used. Use activeThumbColor or activeTrackColor instead. This feature was deprecated after v3.31.0-2.0.pre - lib\Features\Farmer\profile\setting.dart:190:9 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\pruning_shears.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\pruning_shears_card.dart:154:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\rodenticide.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\rodenticide_card.dart:154:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\seeds.dart:236:51 - deprecated_member_use
+   info - The file name 'WeatherService.dart' isn't a lower_case_with_underscores identifier - lib\Features\Farmer\services\WeatherService.dart:1:1 - file_names
+warning - The value of the field '_apiKey' isn't used - lib\Features\Farmer\services\WeatherService.dart:13:23 - unused_field
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\synthetic_herbicide.dart:122:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\synthetic_herbicide_card.dart:156:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\synthetic_insecticide.dart:123:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\synthetic_insecticide_card.dart:156:47 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip1.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip1.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip10.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip10.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip2.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip2.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip3.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip3.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip4.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip4.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip5.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip5.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip6.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip6.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip7.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip7.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip8.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip8.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip9.dart:57:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tip9.dart:109:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tomatoseed.dart:176:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\tools.dart:231:49 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\trowel.dart:179:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\urea_fertilizer.dart:120:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\urea_fertilizer_card.dart:154:47 - deprecated_member_use
+warning - The value of the field 'darkGreen' isn't used - lib\Features\Farmer\wallet.dart:12:22 - unused_field
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\wallet.dart:50:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\wallet.dart:272:28 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\wallet\wallet_screen.dart:141:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\wallet\wallet_screen.dart:198:51 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\wallet\wallet_screen.dart:219:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\watering_can.dart:109:39 - deprecated_member_use
+   info - Statements in an if should be enclosed in a block - lib\Features\Farmer\watering_can_card.dart:29:9 - curly_braces_in_flow_control_structures
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Farmer\watering_can_card.dart:146:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\complete.dart:31:56 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\complete.dart:106:44 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\complete.dart:167:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\delivered.dart:122:33 - deprecated_member_use
+warning - The value of the local variable 'receiptContent' isn't used - lib\Features\Logistics\data\ui\screens\delivered.dart:617:13 - unused_local_variable
+warning - The value of the field '_mapController' isn't used - lib\Features\Logistics\data\ui\screens\map.dart:39:28 - unused_field
+warning - The value of the local variable 'totalDistance' isn't used - lib\Features\Logistics\data\ui\screens\map.dart:365:12 - unused_local_variable
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\myroute.dart:49:33 - deprecated_member_use
+   info - The file name 'DrivingDocuments.dart' isn't a lower_case_with_underscores identifier - lib\Features\Logistics\data\ui\screens\profile\DrivingDocuments.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\DrivingDocuments.dart:271:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\DrivingDocuments.dart:283:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\DrivingDocuments.dart:328:38 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\DrivingDocuments.dart:366:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\DrivingDocuments.dart:407:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\DrivingDocuments.dart:436:37 - deprecated_member_use
+   info - The file name 'HelpSupport.dart' isn't a lower_case_with_underscores identifier - lib\Features\Logistics\data\ui\screens\profile\HelpSupport.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\HelpSupport.dart:159:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\HelpSupport.dart:162:32 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\HelpSupport.dart:172:34 - deprecated_member_use
+   info - The file name 'NotificationSettings.dart' isn't a lower_case_with_underscores identifier - lib\Features\Logistics\data\ui\screens\profile\NotificationSettings.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\NotificationSettings.dart:102:29 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\NotificationSettings.dart:104:48 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\NotificationSettings.dart:151:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\NotificationSettings.dart:163:33 - deprecated_member_use
+   info - The file name 'TripHistory.dart' isn't a lower_case_with_underscores identifier - lib\Features\Logistics\data\ui\screens\profile\TripHistory.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\TripHistory.dart:57:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\TripHistory.dart:100:43 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\TripHistory.dart:131:43 - deprecated_member_use
+   info - The file name 'VehicleInfo.dart' isn't a lower_case_with_underscores identifier - lib\Features\Logistics\data\ui\screens\profile\VehicleInfo.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\VehicleInfo.dart:109:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\VehicleInfo.dart:120:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\profile_screen.dart:262:41 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\profile_screen.dart:355:52 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\profile_screen.dart:393:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\profile_screen.dart:402:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\profile\profile_screen.dart:413:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\wallet\category_detail.dart:55:45 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\wallet\category_detail.dart:96:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\wallet\category_detail.dart:118:35 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\wallet\category_detail.dart:142:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\wallet\category_detail.dart:155:35 - deprecated_member_use
+   info - The file name 'showCashOutModal.dart' isn't a lower_case_with_underscores identifier - lib\Features\Logistics\data\ui\screens\wallet\showCashOutModal.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\wallet\wallet.dart:97:33 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\screens\wallet\wallet.dart:207:26 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\widgets\shared\app_drawer.dart:122:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\Logistics\data\ui\widgets\shared\app_drawer.dart:133:39 - deprecated_member_use
+   info - The file name 'Onboarding.dart' isn't a lower_case_with_underscores identifier - lib\Features\Onboarding\Onboarding.dart:1:1 - file_names
+   info - The file name 'Onboarding1.dart' isn't a lower_case_with_underscores identifier - lib\Features\Onboarding\Onboarding1.dart:1:1 - file_names
+   info - The file name 'Onboarding2.dart' isn't a lower_case_with_underscores identifier - lib\Features\Onboarding\Onboarding2.dart:1:1 - file_names
+   info - The file name 'Onboarding3.dart' isn't a lower_case_with_underscores identifier - lib\Features\Onboarding\Onboarding3.dart:1:1 - file_names
+   info - The file name 'OnboardingService.dart' isn't a lower_case_with_underscores identifier - lib\Features\Onboarding\OnboardingService.dart:1:1 - file_names
+warning - Unused import: 'package:flutter/material.dart' - lib\Features\Onboarding\OnboardingService.dart:1:8 - unused_import
+   info - The file name 'Splash.dart' isn't a lower_case_with_underscores identifier - lib\Features\Onboarding\Splash.dart:1:1 - file_names
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\login\signup\login.dart:115:47 - deprecated_member_use
+  error - Expected an identifier - lib\Features\login\signup\login.dart:322:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:322:3 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:322:5 - missing_identifier
+  error - Expected to find '>' - lib\Features\login\signup\login.dart:322:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\login\signup\login.dart:322:9 - non_type_as_type_argument
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:323:9 - expected_token
+  error - Expected to find '[' - lib\Features\login\signup\login.dart:323:9 - expected_token
+  error - Too many positional arguments: 1 expected, but 4 found - lib\Features\login\signup\login.dart:323:9 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\login.dart:325:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\login.dart:325:1 - unsupported_operator
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\login.dart:325:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\login.dart:325:4 - unsupported_operator
+  error - Expected an identifier - lib\Features\login\signup\login.dart:325:7 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:327:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:327:4 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:327:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\login\signup\login.dart:327:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\login\signup\login.dart:327:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\login\signup\login.dart:327:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:22 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:26 - expected_token
+  error - Undefined name 'level' - lib\Features\login\signup\login.dart:327:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:32 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:41 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\login.dart:327:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:45 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:55 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:73 - expected_token
+  error - Undefined name 'to' - lib\Features\login\signup\login.dart:327:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:76 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:85 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\login.dart:327:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:89 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:98 - expected_token
+  error - Undefined name 'all' - lib\Features\login\signup\login.dart:327:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:102 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:107 - expected_token
+  error - Undefined name 'done' - lib\Features\login\signup\login.dart:327:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:112 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:327:115 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\login.dart:336:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:336:3 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:336:5 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\login.dart:336:9 - expected_token
+  error - Expected to find '>' - lib\Features\login\signup\login.dart:336:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\login\signup\login.dart:336:9 - non_type_as_type_argument
+  error - Expected to find '[' - lib\Features\login\signup\login.dart:339:5 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\login.dart:340:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\login.dart:340:1 - unsupported_operator
+  error - Illegal assignment to non-assignable expression - lib\Features\login\signup\login.dart:340:4 - illegal_assignment_to_non_assignable
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\login.dart:340:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\login.dart:340:4 - unsupported_operator
+  error - Expected an identifier - lib\Features\login\signup\login.dart:340:7 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\login.dart:340:7 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\login.dart:341:5 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:345:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:345:4 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:345:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\login\signup\login.dart:345:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\login\signup\login.dart:345:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\login\signup\login.dart:345:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:22 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:26 - expected_token
+  error - Undefined name 'level' - lib\Features\login\signup\login.dart:345:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:32 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:41 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\login.dart:345:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:45 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:55 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:73 - expected_token
+  error - Undefined name 'to' - lib\Features\login\signup\login.dart:345:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:76 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:85 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\login.dart:345:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:89 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:98 - expected_token
+  error - Undefined name 'all' - lib\Features\login\signup\login.dart:345:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:102 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:107 - expected_token
+  error - Undefined name 'done' - lib\Features\login\signup\login.dart:345:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:112 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:345:115 - expected_token
+  error - Expected to find ';' - lib\Features\login\signup\login.dart:345:118 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\login.dart:351:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:351:3 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:351:5 - missing_identifier
+  error - List literals require one type argument or none, but 2 found - lib\Features\login\signup\login.dart:351:7 - expected_one_list_type_arguments
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\login\signup\login.dart:351:9 - non_type_as_type_argument
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:353:5 - expected_token
+  error - Expected to find ';' - lib\Features\login\signup\login.dart:353:5 - expected_token
+  error - Expected to find '>' - lib\Features\login\signup\login.dart:353:5 - expected_token
+  error - Expected to find '[' - lib\Features\login\signup\login.dart:353:12 - expected_token
+  error - Local variable 'destination' can't be referenced before it is declared - lib\Features\login\signup\login.dart:353:12 - referenced_before_declaration
+  error - Expected an identifier - lib\Features\login\signup\login.dart:355:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\login.dart:355:1 - unsupported_operator
+  error - Illegal assignment to non-assignable expression - lib\Features\login\signup\login.dart:355:4 - illegal_assignment_to_non_assignable
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\login.dart:355:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\login.dart:355:4 - unsupported_operator
+  error - Expected an identifier - lib\Features\login\signup\login.dart:355:7 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\login.dart:355:7 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\login.dart:356:5 - missing_identifier
+  error - The getter 'error' isn't defined for the type 'AuthResponse' - lib\Features\login\signup\login.dart:356:18 - undefined_getter
+   info - Don't use 'BuildContext's across async gaps - lib\Features\login\signup\login.dart:357:28 - use_build_context_synchronously
+  error - The getter 'error' isn't defined for the type 'AuthResponse' - lib\Features\login\signup\login.dart:358:41 - undefined_getter
+   info - Don't use 'BuildContext's across async gaps - lib\Features\login\signup\login.dart:365:28 - use_build_context_synchronously
+  error - Expected an identifier - lib\Features\login\signup\login.dart:380:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:380:4 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\login.dart:380:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\login\signup\login.dart:380:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\login\signup\login.dart:380:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\login\signup\login.dart:380:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:22 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:26 - expected_token
+  error - Undefined name 'level' - lib\Features\login\signup\login.dart:380:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:32 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:41 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\login.dart:380:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:45 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:55 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:73 - expected_token
+  error - Undefined name 'to' - lib\Features\login\signup\login.dart:380:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:76 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:85 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\login.dart:380:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:89 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:98 - expected_token
+  error - Undefined name 'all' - lib\Features\login\signup\login.dart:380:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:102 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:107 - expected_token
+  error - Undefined name 'done' - lib\Features\login\signup\login.dart:380:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:112 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\login.dart:380:115 - expected_token
+  error - Expected to find ';' - lib\Features\login\signup\login.dart:380:118 - expected_token
+   info - Don't use 'BuildContext's across async gaps - lib\Features\login\signup\login.dart:382:7 - use_build_context_synchronously
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\login\signup\login.dart:402:33 - deprecated_member_use
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:2:1 - expected_executable
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:2:3 - expected_executable
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:2:5 - expected_executable
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:2:7 - expected_executable
+   info - An uninitialized variable should have an explicit type annotation - lib\Features\login\signup\signup.dart:2:9 - prefer_typing_uninitialized_variables
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:2:9 - strict_top_level_inference
+   info - The variable name 'HEAD' isn't a lowerCamelCase identifier - lib\Features\login\signup\signup.dart:2:9 - non_constant_identifier_names
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:2:9 - expected_token
+  error - Variables must be declared using the keywords 'const', 'final', 'var' or a type name - lib\Features\login\signup\signup.dart:2:9 - missing_const_final_var_or_type
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:3:1 - expected_executable
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:3:1 - unsupported_operator
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:3:4 - expected_executable
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:3:4 - unsupported_operator
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:3:7 - expected_executable
+  error - Directives must appear before any declarations - lib\Features\login\signup\signup.dart:4:1 - directive_after_declaration
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:5:1 - expected_executable
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:5:4 - expected_executable
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:5:7 - expected_executable
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:5:9 - expected_executable
+  error - Decimal digit expected - lib\Features\login\signup\signup.dart:5:15 - missing_digit
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:5:17 - expected_executable
+  error - Undefined class 'add' - lib\Features\login\signup\signup.dart:5:18 - undefined_class
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:22 - expected_token
+  error - Undefined class 'level' - lib\Features\login\signup\signup.dart:5:26 - undefined_class
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:32 - expected_token
+  error - Undefined class 'and' - lib\Features\login\signup\signup.dart:5:41 - undefined_class
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:45 - expected_token
+   info - An uninitialized variable should have an explicit type annotation - lib\Features\login\signup\signup.dart:5:55 - prefer_typing_uninitialized_variables
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:5:55 - strict_top_level_inference
+  error - Variables must be declared using the keywords 'const', 'final', 'var' or a type name - lib\Features\login\signup\signup.dart:5:55 - missing_const_final_var_or_type
+   info - An uninitialized variable should have an explicit type annotation - lib\Features\login\signup\signup.dart:5:65 - prefer_typing_uninitialized_variables
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:5:65 - strict_top_level_inference
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:65 - expected_token
+  error - Undefined class 'to' - lib\Features\login\signup\signup.dart:5:73 - undefined_class
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:76 - expected_token
+  error - Undefined class 'and' - lib\Features\login\signup\signup.dart:5:85 - undefined_class
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:89 - expected_token
+  error - Undefined class 'all' - lib\Features\login\signup\signup.dart:5:98 - undefined_class
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:102 - expected_token
+  error - Undefined class 'done' - lib\Features\login\signup\signup.dart:5:107 - undefined_class
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:112 - expected_token
+   info - An uninitialized variable should have an explicit type annotation - lib\Features\login\signup\signup.dart:5:115 - prefer_typing_uninitialized_variables
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:5:115 - strict_top_level_inference
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:5:115 - expected_token
+  error - Variables must be declared using the keywords 'const', 'final', 'var' or a type name - lib\Features\login\signup\signup.dart:5:115 - missing_const_final_var_or_type
+  error - Expected a method, getter, setter or operator declaration - lib\Features\login\signup\signup.dart:5:118 - expected_executable
+  error - Directives must appear before any declarations - lib\Features\login\signup\signup.dart:6:1 - directive_after_declaration
+  error - Directives must appear before any declarations - lib\Features\login\signup\signup.dart:7:1 - directive_after_declaration
+  error - Directives must appear before any declarations - lib\Features\login\signup\signup.dart:8:1 - directive_after_declaration
+  error - Directives must appear before any declarations - lib\Features\login\signup\signup.dart:9:1 - directive_after_declaration
+  error - Directives must appear before any declarations - lib\Features\login\signup\signup.dart:10:1 - directive_after_declaration
+warning - The declaration '<unnamed>' isn't referenced - lib\Features\login\signup\signup.dart:23:7 - unused_element
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:35:1 - strict_top_level_inference
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:35:1 - missing_method_parameters
+  error - Operator '<<' should declare exactly 1 parameters, but 0 found - lib\Features\login\signup\signup.dart:35:1 - wrong_number_of_parameters_for_operator
+  error - Operator declarations must be preceded by the keyword 'operator' - lib\Features\login\signup\signup.dart:35:1 - missing_keyword_operator
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:35:3 - strict_top_level_inference
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:35:3 - missing_function_body
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:35:3 - missing_method_parameters
+  error - Operator '<<' should declare exactly 1 parameters, but 0 found - lib\Features\login\signup\signup.dart:35:3 - wrong_number_of_parameters_for_operator
+  error - Operator declarations must be preceded by the keyword 'operator' - lib\Features\login\signup\signup.dart:35:3 - missing_keyword_operator
+  error - The name '<<' is already defined - lib\Features\login\signup\signup.dart:35:3 - duplicate_definition
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:35:5 - strict_top_level_inference
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:35:5 - missing_function_body
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:35:5 - missing_method_parameters
+  error - Operator '<<' should declare exactly 1 parameters, but 0 found - lib\Features\login\signup\signup.dart:35:5 - wrong_number_of_parameters_for_operator
+  error - Operator declarations must be preceded by the keyword 'operator' - lib\Features\login\signup\signup.dart:35:5 - missing_keyword_operator
+  error - The name '<<' is already defined - lib\Features\login\signup\signup.dart:35:5 - duplicate_definition
+  error - Types parameters aren't allowed when defining an operator - lib\Features\login\signup\signup.dart:35:7 - type_parameter_on_operator
+  error - Expected to find '>' - lib\Features\login\signup\signup.dart:35:9 - expected_token
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:36:3 - missing_function_body
+  error - Expected a class member - lib\Features\login\signup\signup.dart:37:1 - expected_class_member
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:37:1 - unsupported_operator
+  error - Expected a class member - lib\Features\login\signup\signup.dart:37:4 - expected_class_member
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:37:4 - unsupported_operator
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:37:7 - strict_top_level_inference
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:37:7 - missing_method_parameters
+  error - Operator declarations must be preceded by the keyword 'operator' - lib\Features\login\signup\signup.dart:37:7 - missing_keyword_operator
+  error - The string '=' isn't a user-definable operator - lib\Features\login\signup\signup.dart:37:7 - invalid_operator
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:38:3 - missing_function_body
+warning - The value of the field '_isLoading' isn't used - lib\Features\login\signup\signup.dart:38:8 - unused_field
+  error - The name '_isLoading' is already defined - lib\Features\login\signup\signup.dart:38:8 - duplicate_definition
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:39:1 - strict_top_level_inference
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:39:1 - missing_method_parameters
+  error - Operator '>>>' should declare exactly 1 parameters, but 0 found - lib\Features\login\signup\signup.dart:39:1 - wrong_number_of_parameters_for_operator
+  error - Operator declarations must be preceded by the keyword 'operator' - lib\Features\login\signup\signup.dart:39:1 - missing_keyword_operator
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:39:4 - strict_top_level_inference
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:39:4 - missing_function_body
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:39:4 - missing_method_parameters
+  error - Operator '>>>' should declare exactly 1 parameters, but 0 found - lib\Features\login\signup\signup.dart:39:4 - wrong_number_of_parameters_for_operator
+  error - Operator declarations must be preceded by the keyword 'operator' - lib\Features\login\signup\signup.dart:39:4 - missing_keyword_operator
+  error - The name '>>>' is already defined - lib\Features\login\signup\signup.dart:39:4 - duplicate_definition
+   info - Missing type annotation - lib\Features\login\signup\signup.dart:39:7 - strict_top_level_inference
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:39:7 - missing_function_body
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:39:7 - missing_method_parameters
+  error - Operator '>' should declare exactly 1 parameters, but 0 found - lib\Features\login\signup\signup.dart:39:7 - wrong_number_of_parameters_for_operator
+  error - Operator declarations must be preceded by the keyword 'operator' - lib\Features\login\signup\signup.dart:39:7 - missing_keyword_operator
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:39:9 - missing_function_body
+  error - Expected a class member - lib\Features\login\signup\signup.dart:39:9 - expected_class_member
+  error - Decimal digit expected - lib\Features\login\signup\signup.dart:39:15 - missing_digit
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:39:17 - missing_identifier
+  error - Undefined class 'add' - lib\Features\login\signup\signup.dart:39:18 - undefined_class
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:39:26 - expected_token
+  error - Undefined class 'level' - lib\Features\login\signup\signup.dart:39:26 - undefined_class
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:39:41 - expected_token
+  error - Undefined class 'and' - lib\Features\login\signup\signup.dart:39:41 - undefined_class
+  error - Expected to find ')' - lib\Features\login\signup\signup.dart:39:55 - expected_token
+  error - A function body must be provided - lib\Features\login\signup\signup.dart:41:3 - missing_function_body
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\Features\login\signup\signup.dart:77:47 - deprecated_member_use
+  error - The method '_buildStyledTextField' isn't defined for the type '_SignUpScreenState' - lib\Features\login\signup\signup.dart:87:25 - undefined_method
+  error - The method '_buildStyledTextField' isn't defined for the type '_SignUpScreenState' - lib\Features\login\signup\signup.dart:93:25 - undefined_method
+  error - The method '_buildStyledTextField' isn't defined for the type '_SignUpScreenState' - lib\Features\login\signup\signup.dart:99:25 - undefined_method
+  error - The method '_buildStyledTextField' isn't defined for the type '_SignUpScreenState' - lib\Features\login\signup\signup.dart:105:25 - undefined_method
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:118:1 - missing_identifier
+  error - Invalid constant value - lib\Features\login\signup\signup.dart:118:1 - invalid_constant
+  error - Too many positional arguments: 1 expected, but 2 found - lib\Features\login\signup\signup.dart:118:1 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:118:3 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:118:5 - missing_identifier
+  error - Expected to find '>' - lib\Features\login\signup\signup.dart:118:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\login\signup\signup.dart:118:9 - non_type_as_type_argument
+  error - Expected to find '[' - lib\Features\login\signup\signup.dart:119:25 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:146:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:146:1 - unsupported_operator
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\signup.dart:146:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:146:4 - unsupported_operator
+  error - Too many positional arguments: 0 expected, but 1 found - lib\Features\login\signup\signup.dart:146:4 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:146:7 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:147:25 - missing_identifier
+  error - Expected to find ')' - lib\Features\login\signup\signup.dart:147:25 - expected_token
+  error - Undefined name 'child' - lib\Features\login\signup\signup.dart:149:23 - undefined_identifier
+  error - Expected to find ')' - lib\Features\login\signup\signup.dart:149:28 - expected_token
+  error - Expected to find ']' - lib\Features\login\signup\signup.dart:149:28 - expected_token
+  error - Decimal digit expected - lib\Features\login\signup\signup.dart:212:15 - missing_digit
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:215:17 - expected_token
+warning - Dead code - lib\Features\login\signup\signup.dart:215:18 - dead_code
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:215:18 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:215:18 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:215:18 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:216:15 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:216:15 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:216:15 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:216:16 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:216:16 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:216:16 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:217:13 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:217:13 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:217:13 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:217:14 - missing_identifier
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:217:14 - unexpected_token
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:218:38 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:218:39 - missing_identifier
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:218:39 - unexpected_token
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:219:33 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:219:34 - missing_identifier
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:219:34 - unexpected_token
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:220:38 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:220:39 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:220:39 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:220:39 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:221:11 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:221:11 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:221:11 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:221:12 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:221:12 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:221:12 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:222:9 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:222:9 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:222:9 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:222:10 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:222:10 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:222:10 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:223:7 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:223:7 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:223:7 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:223:8 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:223:8 - expected_token
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:223:8 - unexpected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:224:5 - missing_identifier
+  error - Unexpected text ';' - lib\Features\login\signup\signup.dart:224:5 - unexpected_token
+   info - Unnecessary empty statement - lib\Features\login\signup\signup.dart:224:6 - empty_statements
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:365:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:365:3 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:365:5 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:365:9 - expected_token
+  error - Expected to find '>' - lib\Features\login\signup\signup.dart:365:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\login\signup\signup.dart:365:9 - non_type_as_type_argument
+  error - Expected to find '[' - lib\Features\login\signup\signup.dart:367:5 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:372:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:372:1 - unsupported_operator
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\signup.dart:372:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:372:4 - unsupported_operator
+  error - Too many positional arguments: 1 expected, but 2 found - lib\Features\login\signup\signup.dart:372:4 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:372:7 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:372:7 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:373:5 - missing_identifier
+  error - Expected to find ')' - lib\Features\login\signup\signup.dart:373:5 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:389:1 - missing_identifier
+  error - Too many positional arguments: 1 expected, but 2 found - lib\Features\login\signup\signup.dart:389:1 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:389:4 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:389:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\login\signup\signup.dart:389:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\login\signup\signup.dart:389:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\login\signup\signup.dart:389:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:22 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:26 - expected_token
+  error - Undefined name 'level' - lib\Features\login\signup\signup.dart:389:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:32 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:41 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:389:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:45 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:55 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:73 - expected_token
+  error - Undefined name 'to' - lib\Features\login\signup\signup.dart:389:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:76 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:85 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:389:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:89 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:98 - expected_token
+  error - Undefined name 'all' - lib\Features\login\signup\signup.dart:389:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:102 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:107 - expected_token
+  error - Undefined name 'done' - lib\Features\login\signup\signup.dart:389:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:112 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:389:115 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:396:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:396:3 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:396:5 - missing_identifier
+  error - Expected to find '>' - lib\Features\login\signup\signup.dart:396:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\login\signup\signup.dart:396:9 - non_type_as_type_argument
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:397:9 - expected_token
+  error - Expected to find '[' - lib\Features\login\signup\signup.dart:397:9 - expected_token
+  error - Too many positional arguments: 1 expected, but 4 found - lib\Features\login\signup\signup.dart:397:9 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:399:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:399:1 - unsupported_operator
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\signup.dart:399:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:399:4 - unsupported_operator
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:399:7 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:401:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:401:4 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:401:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\login\signup\signup.dart:401:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\login\signup\signup.dart:401:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\login\signup\signup.dart:401:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:22 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:26 - expected_token
+  error - Undefined name 'level' - lib\Features\login\signup\signup.dart:401:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:32 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:41 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:401:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:45 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:55 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:73 - expected_token
+  error - Undefined name 'to' - lib\Features\login\signup\signup.dart:401:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:76 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:85 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:401:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:89 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:98 - expected_token
+  error - Undefined name 'all' - lib\Features\login\signup\signup.dart:401:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:102 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:107 - expected_token
+  error - Undefined name 'done' - lib\Features\login\signup\signup.dart:401:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:112 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:401:115 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:406:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:406:3 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:406:5 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:406:9 - expected_token
+  error - Expected to find '>' - lib\Features\login\signup\signup.dart:406:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\Features\login\signup\signup.dart:406:9 - non_type_as_type_argument
+  error - Expected to find '[' - lib\Features\login\signup\signup.dart:409:5 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:410:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:410:1 - unsupported_operator
+  error - Illegal assignment to non-assignable expression - lib\Features\login\signup\signup.dart:410:4 - illegal_assignment_to_non_assignable
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\signup.dart:410:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:410:4 - unsupported_operator
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:410:7 - missing_identifier
+  error - This expression has a type of 'void' so its value can't be used - lib\Features\login\signup\signup.dart:411:5 - use_of_void_result
+  error - The getter 'error' isn't defined for the type 'AuthResponse' - lib\Features\login\signup\signup.dart:420:16 - undefined_getter
+   info - Don't use 'BuildContext's across async gaps - lib\Features\login\signup\signup.dart:424:28 - use_build_context_synchronously
+  error - The getter 'error' isn't defined for the type 'AuthResponse' - lib\Features\login\signup\signup.dart:425:39 - undefined_getter
+   info - Don't use 'BuildContext's across async gaps - lib\Features\login\signup\signup.dart:435:28 - use_build_context_synchronously
+   info - Don't use 'BuildContext's across async gaps - lib\Features\login\signup\signup.dart:454:28 - use_build_context_synchronously
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:459:1 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:459:4 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:459:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\login\signup\signup.dart:459:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\login\signup\signup.dart:459:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\login\signup\signup.dart:459:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:22 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:26 - expected_token
+  error - Undefined name 'level' - lib\Features\login\signup\signup.dart:459:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:32 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:41 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:459:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:45 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:55 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:73 - expected_token
+  error - Undefined name 'to' - lib\Features\login\signup\signup.dart:459:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:76 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:85 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:459:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:89 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:98 - expected_token
+  error - Undefined name 'all' - lib\Features\login\signup\signup.dart:459:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:102 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:107 - expected_token
+  error - Undefined name 'done' - lib\Features\login\signup\signup.dart:459:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:112 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:459:115 - expected_token
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:459:118 - expected_token
+   info - Don't use 'BuildContext's across async gaps - lib\Features\login\signup\signup.dart:477:7 - use_build_context_synchronously
+   info - The local variable '_buildStyledTextField' starts with an underscore - lib\Features\login\signup\signup.dart:483:10 - no_leading_underscores_for_local_identifiers
+warning - The declaration '_buildStyledTextField' isn't referenced - lib\Features\login\signup\signup.dart:483:10 - unused_element
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:488:1 - missing_identifier
+  error - Expected to find '}' - lib\Features\login\signup\signup.dart:488:3 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:491:1 - missing_identifier
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:491:1 - unsupported_operator
+  error - Missing selector such as '.identifier' or '[0]' - lib\Features\login\signup\signup.dart:491:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\Features\login\signup\signup.dart:491:4 - unsupported_operator
+  error - Too many positional arguments: 0 expected, but 1 found - lib\Features\login\signup\signup.dart:491:4 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:491:7 - missing_identifier
+  error - Expected to find ';' - lib\Features\login\signup\signup.dart:491:7 - expected_token
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:492:3 - missing_identifier
+  error - Expected to find ')' - lib\Features\login\signup\signup.dart:492:3 - expected_token
+  error - Expected a class member - lib\Features\login\signup\signup.dart:492:4 - expected_class_member
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:492:6 - missing_identifier
+  error - Methods must have an explicit list of parameters - lib\Features\login\signup\signup.dart:492:6 - missing_method_parameters
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:493:1 - missing_identifier
+  error - Too many positional arguments: 0 expected, but 1 found - lib\Features\login\signup\signup.dart:493:1 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:493:4 - missing_identifier
+  error - Expected an identifier - lib\Features\login\signup\signup.dart:493:7 - missing_identifier
+  error - The expression doesn't evaluate to a function, so it can't be invoked - lib\Features\login\signup\signup.dart:493:9 - invocation_of_non_function_expression
+  error - Decimal digit expected - lib\Features\login\signup\signup.dart:493:15 - missing_digit
+  error - Undefined name 'add' - lib\Features\login\signup\signup.dart:493:18 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:22 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:26 - expected_token
+  error - Undefined name 'level' - lib\Features\login\signup\signup.dart:493:26 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:32 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:41 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:493:41 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:45 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:55 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:73 - expected_token
+  error - Undefined name 'to' - lib\Features\login\signup\signup.dart:493:73 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:76 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:85 - expected_token
+  error - Undefined name 'and' - lib\Features\login\signup\signup.dart:493:85 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:89 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:98 - expected_token
+  error - Undefined name 'all' - lib\Features\login\signup\signup.dart:493:98 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:102 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:107 - expected_token
+  error - Undefined name 'done' - lib\Features\login\signup\signup.dart:493:107 - undefined_identifier
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:112 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:493:115 - expected_token
+  error - Expected to find ',' - lib\Features\login\signup\signup.dart:494:9 - expected_token
+  error - Undefined name 'controller' - lib\Features\login\signup\signup.dart:505:23 - undefined_identifier
+  error - Undefined name 'isPassword' - lib\Features\login\signup\signup.dart:506:24 - undefined_identifier
+  error - Undefined name 'hint' - lib\Features\login\signup\signup.dart:508:23 - undefined_identifier
+  error - Undefined name 'suffixIcon' - lib\Features\login\signup\signup.dart:509:25 - undefined_identifier
+  error - The named parameter 'anonKey' is required, but there's no corresponding argument - lib\main.dart:35:18 - missing_required_argument
+  error - Expected an identifier - lib\main.dart:36:1 - missing_identifier
+  error - Too many positional arguments: 0 expected, but 2 found - lib\main.dart:36:1 - extra_positional_arguments_could_be_named
+  error - Expected an identifier - lib\main.dart:36:3 - missing_identifier
+  error - Expected an identifier - lib\main.dart:36:5 - missing_identifier
+  error - Expected to find '>' - lib\main.dart:36:9 - expected_token
+  error - The name 'HEAD' isn't a type, so it can't be used as a type argument - lib\main.dart:36:9 - non_type_as_type_argument
+  error - Expected to find ',' - lib\main.dart:37:5 - expected_token
+  error - Expected to find '[' - lib\main.dart:37:5 - expected_token
+  error - Expected an identifier - lib\main.dart:38:1 - missing_identifier
+  error - The '===' operator is not supported - lib\main.dart:38:1 - unsupported_operator
+  error - Missing selector such as '.identifier' or '[0]' - lib\main.dart:38:4 - missing_assignable_selector
+  error - The '===' operator is not supported - lib\main.dart:38:4 - unsupported_operator
+  error - Expected an identifier - lib\main.dart:38:7 - missing_identifier
+  error - Undefined name 'url' - lib\main.dart:39:5 - undefined_identifier
+  error - Expected to find ')' - lib\main.dart:39:8 - expected_token
+  error - Decimal digit expected - lib\main.dart:40:15 - missing_digit
+
