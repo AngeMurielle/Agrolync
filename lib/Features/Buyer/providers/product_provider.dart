@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Core/utils/supabase_service.dart';
 import '../models/product_model.dart';
 
 class ProductProvider with ChangeNotifier {
@@ -289,6 +290,16 @@ class ProductProvider with ChangeNotifier {
       location: 'Douala, Littoral',
     ),
   ];
+
+  Future<void> loadProducts() async {
+    final rows = await SupabaseService.getActiveProducts();
+    if (rows.isNotEmpty) {
+      _allProducts
+        ..clear()
+        ..addAll(rows.map((row) => Product.fromMap(row)));
+      notifyListeners();
+    }
+  }
 
   // Get all products
   List<Product> get products => [..._allProducts];

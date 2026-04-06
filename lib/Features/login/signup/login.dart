@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Core/utils/supabase_service.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/main.dart';
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
-// IMPORTANT: Replace this with the actual path to your sign_up_screen.dart file
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 
@@ -15,6 +17,17 @@ class _SignInScreenState extends State<SignInScreen> {
   static const Color brandGreen = Color(0xFF026139);
   static const Color darkGreen = Color(0xFF014D2E);
   bool _obscurePassword = true;
+  bool _isLoading = false;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +131,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         const SizedBox(height: 10),
                         _buildStyledTextField(
                           hint: "ange@example.com",
+                          controller: _emailController,
                           height: globalButtonHeight,
                         ),
 
@@ -134,6 +148,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         const SizedBox(height: 10),
                         _buildStyledTextField(
                           hint: "••••••••",
+                          controller: _passwordController,
                           isPassword: true,
                           height: globalButtonHeight,
                           suffixIcon: IconButton(
@@ -171,15 +186,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           width: double.infinity,
                           height: globalButtonHeight,
                           child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const FarmerHomeScreen(),
-                                ),
-                              );
-                            },
+                            onPressed: _isLoading ? null : _handleSignIn,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: darkGreen,
                               shape: RoundedRectangleBorder(
@@ -306,9 +313,64 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
+  Future<void> _handleSignIn() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please provide both email and password.')),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final response = await SupabaseService.signInWithEmail(
+      email: email,
+      password: password,
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (response.error != null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(response.error!.message)),
+      );
+      return;
+    }
+
+    final profile = await SupabaseService.getCurrentUserProfile();
+    if (profile == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Signed in, but profile data was not found.')),
+      );
+      return;
+    }
+
+    final role = profile['role']?.toString() ?? 'Buyer';
+    Widget destination = const FarmerHomeScreen();
+
+    if (role == 'Buyer') {
+      destination = const MainNavigationWrapper();
+    } else if (role == 'Logistics') {
+      destination = const MainNavWrapper();
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+    );
+  }
+
   // --- ADJUSTED HELPER FOR TEXTFIELDS (Same Height as Button) ---
   Widget _buildStyledTextField({
     required String hint,
+    required TextEditingController controller,
     required double height,
     bool isPassword = false,
     Widget? suffixIcon,
@@ -328,6 +390,7 @@ class _SignInScreenState extends State<SignInScreen> {
         ],
       ),
       child: TextField(
+        controller: controller,
         textAlignVertical:
             TextAlignVertical.center, // Vertically centers the cursor and text
         obscureText: isPassword && _obscurePassword,

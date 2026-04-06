@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-//import 'package:flutter_agrolync_pro/Features/Buyer/screens/home/home_screen.dart';
+import 'package:flutter_agrolync_pro/Core/utils/supabase_service.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/main.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
-// Ensure these paths match your actual project structure
-import 'package:flutter_agrolync_pro/Features/Buyer/main.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/login.dart';
 //import 'package:flutter_agrolync_pro/Features/Buyer/screens/home/home_screen.dart';
 //import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
@@ -23,8 +22,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
   static const Color darkGreen = Color(0xFF014D2E);
   static const double globalHeight = 65.0;
 
+  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
   String? selectedRole;
   bool agreeToTerms = false;
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,13 +78,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           _buildLabel("Full Name"),
-                          _buildStyledTextField(hint: "Ange Awagoum"),
+                          _buildStyledTextField(
+                            hint: "Ange Awagoum",
+                            controller: _fullNameController,
+                          ),
                           const SizedBox(height: 20),
                           _buildLabel("Email Address"),
-                          _buildStyledTextField(hint: "ange@gmail.com"),
+                          _buildStyledTextField(
+                            hint: "ange@gmail.com",
+                            controller: _emailController,
+                          ),
                           const SizedBox(height: 20),
                           _buildLabel("Phone Number"),
-                          _buildStyledTextField(hint: "+237"),
+                          _buildStyledTextField(
+                            hint: "+237",
+                            controller: _phoneController,
+                          ),
+                          const SizedBox(height: 20),
+                          _buildLabel("Password"),
+                          _buildStyledTextField(
+                            hint: "••••••••",
+                            controller: _passwordController,
+                            isPassword: true,
+                          ),
                           const SizedBox(height: 20),
                           const Text(
                             "CHOOSE YOUR ROLE",
@@ -235,44 +265,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       width: double.infinity,
       height: globalHeight,
       child: ElevatedButton(
-        onPressed: () {
-          if (selectedRole == null) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text(
-                      "Please select your role (Farmer, Buyer, or Logistics)")),
-            );
-            return;
-          }
-
-          if (!agreeToTerms) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                  content: Text("Please agree to the Terms and Conditions")),
-            );
-            return;
-          }
-
-          Widget destination;
-          switch (selectedRole) {
-            case "Farmer":
-              destination = const FarmerHomeScreen();
-              break;
-            case "Buyer":
-              destination = const MainNavigationWrapper();
-              break;
-            case "Logistics":
-              destination = const MainNavWrapper();
-              break;
-            default:
-              destination = const FarmerHomeScreen();
-          }
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => destination),
-          );
-        },
+        onPressed: _isLoading ? null : () => _handleSignUp(context),
         style: ElevatedButton.styleFrom(
           backgroundColor: darkGreen,
           shape:
@@ -295,8 +288,111 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  Future<void> _handleSignUp(BuildContext context) async {
+    final fullName = _fullNameController.text.trim();
+    final email = _emailController.text.trim();
+    final phone = _phoneController.text.trim();
+    final password = _passwordController.text;
+
+    if (fullName.isEmpty || email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all required fields.')),
+      );
+      return;
+    }
+
+    if (selectedRole == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Please select your role (Farmer, Buyer, or Logistics)')),
+      );
+      return;
+    }
+
+    if (!agreeToTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please agree to the Terms and Conditions')), 
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    final signup = await SupabaseService.signUpWithEmail(
+      email: email,
+      password: password,
+    );
+
+    if (signup.error != null) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(signup.error!.message)),
+      );
+      return;
+    }
+
+    final userId = signup.user?.id;
+    if (userId == null) {
+      setState(() {
+        _isLoading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Unable to create account. Please try again.')),
+      );
+      return;
+    }
+
+    final profile = await SupabaseService.createUserProfile(
+      userId: userId,
+      fullName: fullName,
+      email: email,
+      role: selectedRole!,
+      phoneNumber: phone.isEmpty ? null : phone,
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (profile == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Account created but profile save failed.')),
+      );
+      return;
+    }
+
+    Widget destination;
+    switch (selectedRole) {
+      case 'Farmer':
+        destination = const FarmerHomeScreen();
+        break;
+      case 'Buyer':
+        destination = const MainNavigationWrapper();
+        break;
+      case 'Logistics':
+        destination = const MainNavWrapper();
+        break;
+      default:
+        destination = const FarmerHomeScreen();
+    }
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+    );
+  }
+
   // --- REUSABLE WIDGETS ---
-  Widget _buildStyledTextField({required String hint}) => Container(
+  Widget _buildStyledTextField({
+    required String hint,
+    required TextEditingController controller,
+    bool isPassword = false,
+    Widget? suffixIcon,
+  }) => Container(
         height: globalHeight,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -308,8 +404,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   offset: const Offset(0, 2))
             ]),
         child: TextField(
+          controller: controller,
+          obscureText: isPassword,
           decoration: InputDecoration(
             hintText: hint,
+            suffixIcon: suffixIcon,
             contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
             border: OutlineInputBorder(

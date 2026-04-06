@@ -26,6 +26,30 @@ class _HomeScreenState extends State<HomeScreen> {
     "Others"
   ];
 
+  bool _isLoading = false;
+  bool _hasLoaded = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_hasLoaded) {
+      _hasLoaded = true;
+      _loadProducts();
+    }
+  }
+
+  Future<void> _loadProducts() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await context.read<ProductProvider>().loadProducts();
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final productProvider = context.watch<ProductProvider>();
@@ -58,9 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       drawer: const DrawerScreen(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Search Bar Section

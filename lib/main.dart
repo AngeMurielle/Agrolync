@@ -28,8 +28,8 @@ void main() async {
 
   // 2. Initialize Supabase
   await Supabase.initialize(
-    url: 'https://ndxhobdnnucqbnguyfls.supabase.co',
-    anonKey: 'sb_publishable_c06pMCr5B7bMaenTLHijoQ_Da2TnxvZ',
+    url: 'https://hbxknoolhrqmmvhimmyw.supabase.co',
+    anonKey: 'sb_publishable_BQZEhzpvBQbOaWJjPWwDew_-3Z8egHt',
   );
 
   // 3. Start the App

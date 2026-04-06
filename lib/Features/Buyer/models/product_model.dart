@@ -28,6 +28,22 @@ class Product {
   // Helper for Search functionality
   bool matchesSearch(String query) {
     return name.toLowerCase().contains(query.toLowerCase()) ||
-           category.toLowerCase().contains(query.toLowerCase());
+        category.toLowerCase().contains(query.toLowerCase());
+  }
+
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id']?.toString() ?? '',
+      name: map['name']?.toString() ?? '',
+      category: map['category']?.toString() ?? '',
+      price: double.tryParse(map['price']?.toString() ?? '') ?? 0,
+      image: map['image']?.toString() ?? '',
+      description: map['description']?.toString() ?? '',
+      unit: map['unit']?.toString() ?? '',
+      sellerId: map['seller_id']?.toString() ?? '',
+      sellerName: map['seller_name']?.toString() ?? '',
+      location: map['location']?.toString() ?? '',
+      isFavorite: false,
+    );
   }
 }
