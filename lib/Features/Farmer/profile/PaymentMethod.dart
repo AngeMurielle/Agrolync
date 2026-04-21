@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../drawer.dart';
 
 class PaymentMethodPage extends StatefulWidget {
   const PaymentMethodPage({super.key});
@@ -22,6 +23,7 @@ class _PaymentMethodPageState extends State<PaymentMethodPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: const DrawerPage(initialSelectedItem: 'Profile'),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,

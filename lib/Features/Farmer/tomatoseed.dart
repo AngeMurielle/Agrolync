@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 
 class TomatoseedDetails extends StatefulWidget {
   const TomatoseedDetails({super.key});
@@ -27,6 +31,35 @@ class _TomatoseedDetailsState extends State<TomatoseedDetails> {
     }
   }
 
+  void _handleAddToCart() {
+    final product = Product(
+      id: 'tomato_seeds',
+      name: 'Tomato Seeds',
+      category: 'Seeds',
+      price: _unitPrice.toDouble(),
+      unit: 'pkt',
+      image: 'assets/images/tomatoseed.jpg',
+      description: 'Premium tomato seeds for home gardening',
+      sellerId: 'seed_haven',
+      sellerName: 'Seed Haven',
+      location: 'Kribi, Cameroon',
+    );
+
+    // Add quantity to cart
+    for (int i = 0; i < _quantity; i++) {
+      context.read<FarmerCartProvider>().addToCart(product);
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Added $_quantity x ${product.name} to cart!"),
+        duration: const Duration(milliseconds: 1000),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF026139),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,10 +70,7 @@ class _TomatoseedDetailsState extends State<TomatoseedDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -182,9 +212,7 @@ class _TomatoseedDetailsState extends State<TomatoseedDetails> {
                 // Add to Cart Button
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Logic for adding (_quantity * _unitPrice) to cart
-                    },
+                    onPressed: _handleAddToCart,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF026139),
                       padding: const EdgeInsets.symmetric(vertical: 16),

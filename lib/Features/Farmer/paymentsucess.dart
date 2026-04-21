@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // 1. IMPORT YOUR LOGISTICS HOME SCREEN
 //C:\flutter\flutter_agrolync_pro\lib\Features\Logistics\Home\Home.dart
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
   final double totalAmount;
@@ -9,7 +10,7 @@ class PaymentSuccessScreen extends StatelessWidget {
 
   const PaymentSuccessScreen({
     super.key,
-    required this.totalAmount, 
+    required this.totalAmount,
     required this.transactionId,
   });
 
@@ -76,10 +77,13 @@ class PaymentSuccessScreen extends StatelessWidget {
               );
             },
             icon: const Icon(Icons.explore_outlined, color: Colors.white),
-            label: const Text("Track Order", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            label: const Text("Track Order",
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold)),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF026139),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
           ),
         ),
@@ -89,14 +93,22 @@ class PaymentSuccessScreen extends StatelessWidget {
           height: 55,
           child: OutlinedButton.icon(
             onPressed: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MarketPage(initialTabIndex: 1),
+                ),
+              );
             },
             icon: const Icon(Icons.home, color: Colors.black87),
-            label: const Text("Back to Home", style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
+            label: const Text("Back to Home",
+                style: TextStyle(
+                    color: Colors.black87, fontWeight: FontWeight.bold)),
             style: OutlinedButton.styleFrom(
               backgroundColor: const Color(0xFFE5E9E5),
               side: BorderSide.none,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12)),
             ),
           ),
         ),
@@ -117,9 +129,17 @@ class PaymentSuccessScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          const Text("TOTAL AMOUNT PAID", style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold, color: Colors.grey)),
+          const Text("TOTAL AMOUNT PAID",
+              style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey)),
           const SizedBox(height: 8),
-          Text(" $formattedAmount XAF", style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Color(0xFF026139))),
+          Text(" $formattedAmount XAF",
+              style: const TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF026139))),
           const SizedBox(height: 20),
           const Divider(color: Colors.grey),
           const SizedBox(height: 16),
@@ -127,7 +147,8 @@ class PaymentSuccessScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _receiptDetail("TRANSACTION ID", transactionId),
-              _receiptDetail("DATE", "${DateTime.now().day} ${_getMonth(DateTime.now().month)} ${DateTime.now().year}"),
+              _receiptDetail("DATE",
+                  "${DateTime.now().day} ${_getMonth(DateTime.now().month)} ${DateTime.now().year}"),
             ],
           ),
           const SizedBox(height: 16),
@@ -138,12 +159,23 @@ class PaymentSuccessScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text("STATUS", style: TextStyle(fontSize: 9, color: Colors.grey, fontWeight: FontWeight.bold)),
+                  const Text("STATUS",
+                      style: TextStyle(
+                          fontSize: 9,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(color: const Color(0xFFC7E2D6), borderRadius: BorderRadius.circular(12)),
-                    child: const Text("COMPLETED", style: TextStyle(color: Color(0xFF026139), fontSize: 9, fontWeight: FontWeight.bold)),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                        color: const Color(0xFFC7E2D6),
+                        borderRadius: BorderRadius.circular(12)),
+                    child: const Text("COMPLETED",
+                        style: TextStyle(
+                            color: Color(0xFF026139),
+                            fontSize: 9,
+                            fontWeight: FontWeight.bold)),
                   )
                 ],
               )
@@ -155,7 +187,20 @@ class PaymentSuccessScreen extends StatelessWidget {
   }
 
   String _getMonth(int month) {
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ];
     return months[month - 1];
   }
 
@@ -163,9 +208,12 @@ class PaymentSuccessScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 9, color: Colors.grey, fontWeight: FontWeight.bold)),
+        Text(label,
+            style: const TextStyle(
+                fontSize: 9, color: Colors.grey, fontWeight: FontWeight.bold)),
         const SizedBox(height: 4),
-        Text(value, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        Text(value,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -178,13 +226,19 @@ class PaymentSuccessScreen extends StatelessWidget {
           children: [
             Container(width: 3, height: 15, color: const Color(0xFF026139)),
             const SizedBox(width: 8),
-            const Text("WHAT HAPPENS NEXT?", style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.black87)),
+            const Text("WHAT HAPPENS NEXT?",
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87)),
           ],
         ),
         const SizedBox(height: 16),
-        _nextStepItem(Icons.inventory_2, "Order Preparation", "Our warehouse is already processing your order. Quality checks are currently underway."),
+        _nextStepItem(Icons.inventory_2, "Order Preparation",
+            "Our warehouse is already processing your order. Quality checks are currently underway."),
         const SizedBox(height: 20),
-        _nextStepItem(Icons.local_shipping, "Logistics Partner", "A delivery partner will be assigned within 2 hours to transport your items to the farm location."),
+        _nextStepItem(Icons.local_shipping, "Logistics Partner",
+            "A delivery partner will be assigned within 2 hours to transport your items to the farm location."),
       ],
     );
   }
@@ -193,15 +247,22 @@ class PaymentSuccessScreen extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(radius: 14, backgroundColor: const Color(0xFFE8F3EE), child: Icon(icon, size: 14, color: const Color(0xFF026139))),
+        CircleAvatar(
+            radius: 14,
+            backgroundColor: const Color(0xFFE8F3EE),
+            child: Icon(icon, size: 14, color: const Color(0xFF026139))),
         const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+              Text(title,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 13)),
               const SizedBox(height: 4),
-              Text(desc, style: const TextStyle(color: Colors.grey, fontSize: 11, height: 1.4)),
+              Text(desc,
+                  style: const TextStyle(
+                      color: Colors.grey, fontSize: 11, height: 1.4)),
             ],
           ),
         )

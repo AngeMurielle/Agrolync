@@ -13,7 +13,7 @@ class _OnionSeedsCartPageState extends State<OnionSeedsCartPage> {
     {
       'name': 'Onion Seeds',
       'weight': 'pkt',
-      'price': 18.00,
+      'price': 1800,
       'quantity': 1,
       'image': 'assets/images/onionseed.jpg'
     },
@@ -103,7 +103,7 @@ class _OnionSeedsCartPageState extends State<OnionSeedsCartPage> {
                                           color: Colors.grey, fontSize: 12)),
                                   const SizedBox(height: 4),
                                   Text(
-                                      "Total: ${(item['price'] * item['quantity']).toStringAsFixed(2)} XAF",
+                                      "Total: ${((item['price'] * item['quantity']).toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                                       style: const TextStyle(
                                           color: Color(0xFF026139),
                                           fontWeight: FontWeight.bold)),
@@ -160,7 +160,8 @@ class _OnionSeedsCartPageState extends State<OnionSeedsCartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Subtotal:"),
-                    Text("${_subtotal.toStringAsFixed(2)} XAF",
+                    Text(
+                        "${(_subtotal.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -169,7 +170,8 @@ class _OnionSeedsCartPageState extends State<OnionSeedsCartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Shipping:"),
-                    Text("${_shippingFee.toStringAsFixed(2)} XAF",
+                    Text(
+                        "${(_shippingFee.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(color: Colors.grey)),
                   ],
                 ),
@@ -180,7 +182,8 @@ class _OnionSeedsCartPageState extends State<OnionSeedsCartPage> {
                     const Text("Total:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16)),
-                    Text("${_totalPrice.toStringAsFixed(2)} XAF",
+                    Text(
+                        "${(_totalPrice.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

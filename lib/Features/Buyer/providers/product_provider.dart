@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Core/utils/supabase_service.dart';
 import '../models/product_model.dart';
 
 class ProductProvider with ChangeNotifier {
@@ -292,13 +291,9 @@ class ProductProvider with ChangeNotifier {
   ];
 
   Future<void> loadProducts() async {
-    final rows = await SupabaseService.getActiveProducts();
-    if (rows.isNotEmpty) {
-      _allProducts
-        ..clear()
-        ..addAll(rows.map((row) => Product.fromMap(row)));
-      notifyListeners();
-    }
+    // TODO: Integrate Supabase when available
+    // For now, use the mock data already defined in _allProducts
+    notifyListeners();
   }
 
   // Get all products

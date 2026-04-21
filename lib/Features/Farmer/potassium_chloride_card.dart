@@ -14,7 +14,7 @@ class _PotassiumChlorideCartPageState extends State<PotassiumChlorideCartPage> {
     {
       'name': 'Potassium Chloride',
       'weight': '50kg bag',
-      'price': 30.00,
+      'price': 30000,
       'quantity': 1,
       'image': 'assets/images/potassium_chloride.jpg'
     },
@@ -104,7 +104,7 @@ class _PotassiumChlorideCartPageState extends State<PotassiumChlorideCartPage> {
                                           color: Colors.grey, fontSize: 12)),
                                   const SizedBox(height: 4),
                                   Text(
-                                      "Total: ${(item['price'] * item['quantity']).toStringAsFixed(2)} XAF",
+                                      "Total: ${((item['price'] * item['quantity']).toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                                       style: const TextStyle(
                                           color: Color(0xFF026139),
                                           fontWeight: FontWeight.bold)),
@@ -161,7 +161,8 @@ class _PotassiumChlorideCartPageState extends State<PotassiumChlorideCartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Subtotal:"),
-                    Text("${_subtotal.toStringAsFixed(2)} XAF",
+                    Text(
+                        "${(_subtotal.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(fontWeight: FontWeight.bold)),
                   ],
                 ),
@@ -170,7 +171,8 @@ class _PotassiumChlorideCartPageState extends State<PotassiumChlorideCartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text("Shipping:"),
-                    Text("${_shippingFee.toStringAsFixed(2)} XAF",
+                    Text(
+                        "${(_shippingFee.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(color: Colors.grey)),
                   ],
                 ),
@@ -181,7 +183,8 @@ class _PotassiumChlorideCartPageState extends State<PotassiumChlorideCartPage> {
                     const Text("Total:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16)),
-                    Text("${_totalPrice.toStringAsFixed(2)} XAF",
+                    Text(
+                        "${(_totalPrice.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

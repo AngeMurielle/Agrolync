@@ -12,7 +12,7 @@ class _WateringCanCartPageState extends State<WateringCanCartPage> {
     {
       'name': 'Plastic Watering Can',
       'weight': 'unit',
-      'price': 8.00,
+      'price': 800,
       'quantity': 1,
       'image': 'assets/images/watering_can.jpg'
     }
@@ -90,7 +90,7 @@ class _WateringCanCartPageState extends State<WateringCanCartPage> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    "Total: ${(item['price'] * item['quantity']).toStringAsFixed(2)} XAF",
+                                    "Total: ${((item['price'] * item['quantity']).toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                                     style: const TextStyle(
                                       color: Color(0xFF026139),
                                       fontWeight: FontWeight.bold,
@@ -155,7 +155,7 @@ class _WateringCanCartPageState extends State<WateringCanCartPage> {
                   children: [
                     const Text("Subtotal:"),
                     Text(
-                      "${_subtotal.toStringAsFixed(2)} XAF",
+                      "${(_subtotal.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                       style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -166,7 +166,7 @@ class _WateringCanCartPageState extends State<WateringCanCartPage> {
                   children: [
                     const Text("Shipping:"),
                     Text(
-                      "${_shippingFee.toStringAsFixed(2)} XAF",
+                      "${(_shippingFee.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                       style: const TextStyle(color: Colors.grey),
                     ),
                   ],
@@ -181,7 +181,7 @@ class _WateringCanCartPageState extends State<WateringCanCartPage> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(
-                      "${_totalPrice.toStringAsFixed(2)} XAF",
+                      "${(_totalPrice.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,

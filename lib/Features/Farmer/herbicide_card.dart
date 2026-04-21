@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 
 class HerbicideCardPage extends StatefulWidget {
   const HerbicideCardPage({super.key});
@@ -9,7 +12,7 @@ class HerbicideCardPage extends StatefulWidget {
 
 class _HerbicideCardPageState extends State<HerbicideCardPage> {
   int quantity = 1;
-  final double pricePerUnit = 25.00;
+  final double pricePerUnit = 2500;
 
   double get totalPrice => quantity * pricePerUnit;
 
@@ -56,7 +59,7 @@ class _HerbicideCardPageState extends State<HerbicideCardPage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${pricePerUnit.toStringAsFixed(2)} XAF / unit',
+                            '${pricePerUnit.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF / unit',
                             style: const TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.w600,
@@ -143,7 +146,7 @@ class _HerbicideCardPageState extends State<HerbicideCardPage> {
                     ),
                   ),
                   Text(
-                    '${totalPrice.toStringAsFixed(2)} XAF',
+                    '${totalPrice.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -175,7 +178,21 @@ class _HerbicideCardPageState extends State<HerbicideCardPage> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add to cart logic here
+                      final product = Product(
+                        id: 'herbicide',
+                        name: 'Herbicide',
+                        category: 'Pesticides',
+                        price: pricePerUnit.toDouble(),
+                        unit: 'unit',
+                        image: 'assets/images/herbicide.jpg',
+                        description: 'Effective weed control herbicide',
+                        sellerId: 'crop_protect',
+                        sellerName: 'CropProtect Cameroon',
+                        location: 'Bafoussam, Cameroon',
+                      );
+                      for (var i = 0; i < quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(

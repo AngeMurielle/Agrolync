@@ -26,7 +26,9 @@ import 'package:flutter_agrolync_pro/Features/Farmer/product5.dart';
 //lib\Features\Farmer\order\order.dart
 
 class FarmerHomeScreen extends StatefulWidget {
-  const FarmerHomeScreen({super.key});
+  final int initialTabIndex;
+
+  const FarmerHomeScreen({super.key, this.initialTabIndex = 0});
 
   @override
   State<FarmerHomeScreen> createState() => _FarmerHomeScreenState();

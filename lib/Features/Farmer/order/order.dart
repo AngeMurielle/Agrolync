@@ -4,6 +4,12 @@ import 'package:flutter_agrolync_pro/Features/Farmer/order/active_orders.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/order/completed_orders.dart';
 // ignore: unused_import
 import '../Home.dart' as home_page;
+import '../drawer.dart';
+import '../wallet/wallet_screen.dart';
+import '../profile/profile.dart';
+import '../Market.dart';
+import 'package:provider/provider.dart';
+import '../providers/farmer_navigation_provider.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
@@ -173,12 +179,25 @@ class _OrderPageState extends State<OrderPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FBF9),
+      drawer: const DrawerPage(initialSelectedItem: 'My Orders'),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: brandGreen),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            try {
+              final navProvider = context.read<FarmerNavigationProvider>();
+              navProvider.setIndex(2); // Set to Orders index
+              Navigator.of(context).pop();
+            } catch (e) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const home_page.FarmerHomeScreen()),
+              );
+            }
+          },
         ),
         centerTitle: false,
         title: const Text(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/drawer.dart';
 // Ensure you import your MarketPage file here
 // import 'package:your_app/market_page.dart';
 
@@ -56,6 +57,7 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: const DrawerPage(initialSelectedItem: 'Marketplace'),
       appBar: AppBar(
         centerTitle: true,
         title: Text(

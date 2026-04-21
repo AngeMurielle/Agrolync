@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Onboarding/Splash.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/product_provider.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_agrolync_pro/Features/Buyer/providers/cart_provider.dart
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/order_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/wallet_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/home/home_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/search/search_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/cart/cart_screen.dart';
@@ -26,13 +26,7 @@ void main() async {
   // 1. Ensure Flutter is ready
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. Initialize Supabase
-  await Supabase.initialize(
-    url: 'https://hbxknoolhrqmmvhimmyw.supabase.co',
-    anonKey: 'sb_publishable_BQZEhzpvBQbOaWJjPWwDew_-3Z8egHt',
-  );
-
-  // 3. Start the App
+  // 2. Start the App
   runApp(const AgrolyncApp());
 }
 
@@ -48,6 +42,7 @@ class AgrolyncApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => OrderProvider()),
         ChangeNotifierProvider(create: (_) => WalletProvider()),
         ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
+        ChangeNotifierProvider(create: (_) => FarmerCartProvider()),
       ],
       child: MaterialApp(
         title: 'Agrolync',

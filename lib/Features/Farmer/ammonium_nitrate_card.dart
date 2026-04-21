@@ -13,7 +13,7 @@ class _AmmoniumNitrateCartPageState extends State<AmmoniumNitrateCartPage> {
     {
       'name': 'Ammonium Nitrate',
       'weight': '50kg bag',
-      'price': 28.00,
+      'price': 28000,
       'quantity': 1,
       'image': 'assets/images/ammonium_nitrate1.png'
     }

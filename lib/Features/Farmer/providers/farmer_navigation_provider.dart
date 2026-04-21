@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+
+class FarmerNavigationProvider extends ChangeNotifier {
+  int _currentIndex = 0;
+  String _selectedDrawerItem = 'Home';
+
+  int get currentIndex => _currentIndex;
+  String get selectedDrawerItem => _selectedDrawerItem;
+
+  void setIndex(int index) {
+    _currentIndex = index;
+    // Update drawer selection based on index
+    final items = ['Home', 'Marketplace', 'My Orders', 'Profile'];
+    if (index < items.length) {
+      _selectedDrawerItem = items[index];
+    }
+    notifyListeners();
+  }
+
+  void setDrawerItem(String item) {
+    _selectedDrawerItem = item;
+    // Update index based on drawer selection
+    final items = ['Home', 'Marketplace', 'My Orders', 'Profile'];
+    final index = items.indexOf(item);
+    if (index != -1) {
+      _currentIndex = index;
+    }
+    notifyListeners();
+  }
+
+  void resetNavigation() {
+    _currentIndex = 0;
+    _selectedDrawerItem = 'Home';
+    notifyListeners();
+  }
+}

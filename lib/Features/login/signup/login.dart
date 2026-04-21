@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Core/utils/supabase_service.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/main.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
@@ -328,38 +327,16 @@ class _SignInScreenState extends State<SignInScreen> {
       _isLoading = true;
     });
 
-    final response = await SupabaseService.signInWithEmail(
-      email: email,
-      password: password,
-    );
+    // TODO: Integrate authentication when available
+    // For now, proceed with default role navigation
+    await Future.delayed(const Duration(seconds: 2)); // Simulate auth delay
 
     setState(() {
       _isLoading = false;
     });
 
-    if (response.error != null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(response.error!.message)),
-      );
-      return;
-    }
-
-    final profile = await SupabaseService.getCurrentUserProfile();
-    if (profile == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Signed in, but profile data was not found.')),
-      );
-      return;
-    }
-
-    final role = profile['role']?.toString() ?? 'Buyer';
+    // Default to Farmer role for now
     Widget destination = const FarmerHomeScreen();
-
-    if (role == 'Buyer') {
-      destination = const MainNavigationWrapper();
-    } else if (role == 'Logistics') {
-      destination = const MainNavWrapper();
-    }
 
     Navigator.pushReplacement(
       context,

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/Maizeseed_card.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 
 class HybridMaizeDetails extends StatefulWidget {
   const HybridMaizeDetails({super.key});
@@ -10,7 +15,7 @@ class HybridMaizeDetails extends StatefulWidget {
 class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
   // Logic variables
   int _quantity = 1;
-  final int _unitPrice = 45000; 
+  final int _unitPrice = 45000;
 
   // Methods for the counter
   void _incrementQuantity() {
@@ -27,6 +32,35 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
     }
   }
 
+  void _handleAddToCart() {
+    final product = Product(
+      id: 'maize_seeds_hybrid',
+      name: 'Hybrid Maize Seeds (H-Series)',
+      category: 'Seeds',
+      price: _unitPrice.toDouble(),
+      unit: '25kg bag',
+      image: 'assets/images/maizeseed.jpg',
+      description: 'High-quality hybrid maize seeds for better yield',
+      sellerId: 'farmer_coop',
+      sellerName: 'AgroLync Cooperative',
+      location: 'Douala, Cameroon',
+    );
+
+    // Add quantity to cart
+    for (int i = 0; i < _quantity; i++) {
+      context.read<FarmerCartProvider>().addToCart(product);
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Added $_quantity x ${product.name} to cart!"),
+        duration: const Duration(milliseconds: 1000),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF026139),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +68,13 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            // Navigate back to marketplace while preserving navigation state
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -67,50 +101,51 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  
+
                   // Title
                   const Text(
                     "Hybrid Maize Seeds (H-Series)",
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  
+
                   // Rating
                   const Row(
                     children: [
                       Icon(Icons.star, color: Colors.amber, size: 20),
-                      Text(" 4.8 (124 reviews)", style: TextStyle(color: Colors.grey)),
+                      Text(" 4.8 (124 reviews)",
+                          style: TextStyle(color: Colors.grey)),
                     ],
                   ),
                   const SizedBox(height: 8),
-                  
+
                   // Price Section (XAF behind price)
                   Text(
                     "$_unitPrice XAF",
                     style: const TextStyle(
-                      fontSize: 24, 
-                      fontWeight: FontWeight.bold, 
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                       color: Color(0xFF026139),
                     ),
                   ),
                   const Text(
-                    "PER 25KG BAG", 
+                    "PER 25KG BAG",
                     style: TextStyle(color: Colors.grey, fontSize: 12),
                   ),
-                  
+
                   const SizedBox(height: 24),
                   const Text(
-                    "Product Specifications", 
+                    "Product Specifications",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   const SizedBox(height: 12),
-                  
+
                   // Specifications Grid
                   _buildSpecGrid(),
-                  
+
                   const SizedBox(height: 24),
                   const Text(
-                    "Product Description", 
+                    "Product Description",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   const SizedBox(height: 12),
@@ -118,22 +153,24 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
                     "Our H-Series Hybrid Maize Seeds are genetically optimized for semi-arid to temperate climates. They offer exceptional drought tolerance and are specifically bred to withstand common pests while providing a high shell-out percentage.",
                     style: TextStyle(color: Colors.black87, height: 1.5),
                   ),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Environmental Needs
                   Row(
                     children: [
-                      _buildSmallSpec(Icons.water_drop, "WATER NEEDS", "Moderate"),
+                      _buildSmallSpec(
+                          Icons.water_drop, "WATER NEEDS", "Moderate"),
                       const SizedBox(width: 16),
-                      _buildSmallSpec(Icons.landscape, "SOIL TYPE", "Well-drained Loamy"),
+                      _buildSmallSpec(
+                          Icons.landscape, "SOIL TYPE", "Well-drained Loamy"),
                     ],
                   ),
                 ],
               ),
             ),
           ),
-          
+
           // --- FOOTER ACTIONS ---
           Container(
             padding: const EdgeInsets.all(16.0),
@@ -164,23 +201,23 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
                       ),
                       Text(
                         "$_quantity",
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       IconButton(
                         onPressed: _incrementQuantity,
-                        icon: const Icon(Icons.add, size: 20, color: Color(0xFF026139)),
+                        icon: const Icon(Icons.add,
+                            size: 20, color: Color(0xFF026139)),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 16),
-                
+
                 // Add to Cart Button
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Logic for adding (_quantity * _unitPrice) to cart
-                    },
+                    onPressed: _handleAddToCart,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF026139),
                       padding: const EdgeInsets.symmetric(vertical: 16),
@@ -191,8 +228,8 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
                     child: const Text(
                       "Add to Cart",
                       style: TextStyle(
-                        color: Colors.white, 
-                        fontWeight: FontWeight.bold, 
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                         fontSize: 16,
                       ),
                     ),
@@ -222,16 +259,19 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: Colors.grey.shade100, 
+          color: Colors.grey.shade100,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, 
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(icon, color: const Color(0xFF026139)),
             const SizedBox(height: 8),
-            Text(title, style: const TextStyle(fontSize: 10, color: Colors.grey)),
-            Text(value, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
+            Text(title,
+                style: const TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(value,
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 13)),
           ],
         ),
       ),
@@ -243,15 +283,16 @@ class _HybridMaizeDetailsState extends State<HybridMaizeDetails> {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color(0xFFF1F8F5), 
+          color: const Color(0xFFF1F8F5),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, 
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Icon(icon, color: const Color(0xFF026139)),
             const SizedBox(height: 4),
-            Text(title, style: const TextStyle(fontSize: 10, color: Colors.grey)),
+            Text(title,
+                style: const TextStyle(fontSize: 10, color: Colors.grey)),
             Text(value, style: const TextStyle(fontWeight: FontWeight.bold)),
           ],
         ),

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/magnesium_sulfate_card.dart';
 
 class MagnesiumSulfateDetails extends StatefulWidget {
@@ -10,7 +14,7 @@ class MagnesiumSulfateDetails extends StatefulWidget {
 
 class _MagnesiumSulfateDetailsState extends State<MagnesiumSulfateDetails> {
   int _quantity = 1;
-  final double _unitPrice = 22.00;
+  final int _unitPrice = 22000;
   void _incrementQuantity() => setState(() => _quantity++);
   void _decrementQuantity() {
     if (_quantity > 1) setState(() => _quantity--);
@@ -26,10 +30,7 @@ class _MagnesiumSulfateDetailsState extends State<MagnesiumSulfateDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -142,12 +143,32 @@ class _MagnesiumSulfateDetailsState extends State<MagnesiumSulfateDetails> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MagnesiumSulfateCartPage(),
-                      ),
-                    ),
+                    onPressed: () {
+                      final product = Product(
+                        id: 'magnesium_sulfate',
+                        name: 'Magnesium Sulfate',
+                        category: 'Fertilizers',
+                        price: _unitPrice.toDouble(),
+                        unit: '25kg bag',
+                        image: 'assets/images/magnesium_sulfate.png',
+                        description: 'Magnesium sulfate for crop health',
+                        sellerId: 'agrolync_fertilizers',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF026139),
                       foregroundColor: Colors.white,

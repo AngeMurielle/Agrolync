@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/onion_seeds_card.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 
 class OnionSeedsDetails extends StatefulWidget {
   const OnionSeedsDetails({super.key});
@@ -10,7 +14,7 @@ class OnionSeedsDetails extends StatefulWidget {
 
 class _OnionSeedsDetailsState extends State<OnionSeedsDetails> {
   int _quantity = 1;
-  final double _unitPrice = 18.00;
+  final int _unitPrice = 1800;
 
   void _incrementQuantity() {
     setState(() {
@@ -36,10 +40,7 @@ class _OnionSeedsDetailsState extends State<OnionSeedsDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -150,10 +151,28 @@ class _OnionSeedsDetailsState extends State<OnionSeedsDetails> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OnionSeedsCartPage(),
+                      final product = Product(
+                        id: 'onion_seeds',
+                        name: 'Onion Seeds',
+                        category: 'Seeds',
+                        price: _unitPrice.toDouble(),
+                        unit: 'packet',
+                        image: 'assets/images/onion_seeds.jpg',
+                        description: 'Premium onion seeds for cultivation',
+                        sellerId: 'agrolync_seeds',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
                         ),
                       );
                     },

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pepper_seeds_card.dart';
 
 class PepperSeedsDetails extends StatefulWidget {
@@ -10,7 +14,7 @@ class PepperSeedsDetails extends StatefulWidget {
 
 class _PepperSeedsDetailsState extends State<PepperSeedsDetails> {
   int _quantity = 1;
-  final double _unitPrice = 16.00;
+  final int _unitPrice = 1600;
 
   void _incrementQuantity() {
     setState(() {
@@ -36,10 +40,7 @@ class _PepperSeedsDetailsState extends State<PepperSeedsDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -150,10 +151,28 @@ class _PepperSeedsDetailsState extends State<PepperSeedsDetails> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PepperSeedsCartPage(),
+                      final product = Product(
+                        id: 'pepper_seeds',
+                        name: 'Pepper Seeds',
+                        category: 'Seeds',
+                        price: _unitPrice.toDouble(),
+                        unit: 'packet',
+                        image: 'assets/images/pepper_seeds.jpg',
+                        description: 'Quality pepper seeds for farming',
+                        sellerId: 'agrolync_seeds',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
                         ),
                       );
                     },

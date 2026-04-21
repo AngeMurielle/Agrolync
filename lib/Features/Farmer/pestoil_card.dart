@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 
 class PestoilCardPage extends StatefulWidget {
   const PestoilCardPage({super.key});
@@ -9,7 +12,7 @@ class PestoilCardPage extends StatefulWidget {
 
 class _PestoilCardPageState extends State<PestoilCardPage> {
   int quantity = 1;
-  final double pricePerUnit = 18.99;
+  final double pricePerUnit = 1899;
 
   double get totalPrice => quantity * pricePerUnit;
 
@@ -56,7 +59,7 @@ class _PestoilCardPageState extends State<PestoilCardPage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${pricePerUnit.toStringAsFixed(2)} XAF / 1L bottle',
+                            '${pricePerUnit.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF / 1L bottle',
                             style: const TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.w600,
@@ -143,7 +146,7 @@ class _PestoilCardPageState extends State<PestoilCardPage> {
                     ),
                   ),
                   Text(
-                    '${totalPrice.toStringAsFixed(2)} XAF',
+                    '${totalPrice.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -175,7 +178,21 @@ class _PestoilCardPageState extends State<PestoilCardPage> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add to cart logic here
+                      final product = Product(
+                        id: 'pest_oil',
+                        name: 'Pest Oil',
+                        category: 'Pesticides',
+                        price: pricePerUnit.toDouble(),
+                        unit: '1L bottle',
+                        image: 'assets/images/pest_oil.jpg',
+                        description: 'Natural organic pest control oil',
+                        sellerId: 'green_farm',
+                        sellerName: 'GreenFarm Solutions',
+                        location: 'Limbe, Cameroon',
+                      );
+                      for (var i = 0; i < quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(

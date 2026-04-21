@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/synthetic_insecticide_card.dart';
 
 class SyntheticInsecticideDetails extends StatefulWidget {
@@ -12,7 +16,7 @@ class SyntheticInsecticideDetails extends StatefulWidget {
 class _SyntheticInsecticideDetailsState
     extends State<SyntheticInsecticideDetails> {
   int _quantity = 1;
-  final double _unitPrice = 25.00;
+  final int _unitPrice = 2500;
 
   void _incrementQuantity() {
     setState(() {
@@ -38,10 +42,7 @@ class _SyntheticInsecticideDetailsState
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -153,11 +154,28 @@ class _SyntheticInsecticideDetailsState
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const SyntheticInsecticideCartPage(),
+                      final product = Product(
+                        id: 'synthetic_insecticide',
+                        name: 'Synthetic Insecticide',
+                        category: 'Pesticides',
+                        price: _unitPrice.toDouble(),
+                        unit: '500ml bottle',
+                        image: 'assets/images/insecticide.jpg',
+                        description: 'Effective synthetic insecticide',
+                        sellerId: 'agrolync_pesticides',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
                         ),
                       );
                     },

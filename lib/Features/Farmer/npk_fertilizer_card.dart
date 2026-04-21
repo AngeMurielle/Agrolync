@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 
 class NpkFertilizerCardPage extends StatefulWidget {
   const NpkFertilizerCardPage({super.key});
@@ -9,7 +12,7 @@ class NpkFertilizerCardPage extends StatefulWidget {
 
 class _NpkFertilizerCardPageState extends State<NpkFertilizerCardPage> {
   int quantity = 1;
-  final double pricePerUnit = 32.50;
+  final double pricePerUnit = 3250;
 
   double get totalPrice => quantity * pricePerUnit;
 
@@ -56,7 +59,7 @@ class _NpkFertilizerCardPageState extends State<NpkFertilizerCardPage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${pricePerUnit.toStringAsFixed(2)} XAF / 50kg bag',
+                            '${pricePerUnit.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF / 50kg bag',
                             style: const TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.w600,
@@ -143,7 +146,7 @@ class _NpkFertilizerCardPageState extends State<NpkFertilizerCardPage> {
                     ),
                   ),
                   Text(
-                    '${totalPrice.toStringAsFixed(2)} XAF',
+                    '${totalPrice.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -175,7 +178,22 @@ class _NpkFertilizerCardPageState extends State<NpkFertilizerCardPage> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add to cart logic here
+                      final product = Product(
+                        id: 'npk_fertilizer',
+                        name: 'NPK Fertilizer',
+                        category: 'Fertilizers',
+                        price: pricePerUnit.toDouble(),
+                        unit: 'bag',
+                        image: 'assets/images/npk_fertilizer.jpg',
+                        description:
+                            'Balanced NPK fertilizer for strong growth',
+                        sellerId: 'fertilizer_hub',
+                        sellerName: 'Fertilizer Hub',
+                        location: 'Bamenda, Cameroon',
+                      );
+                      for (var i = 0; i < quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(

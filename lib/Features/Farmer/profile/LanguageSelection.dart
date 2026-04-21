@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../drawer.dart';
 
 class LanguagePage extends StatefulWidget {
   const LanguagePage({super.key});
@@ -26,6 +27,7 @@ class _LanguagePageState extends State<LanguagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundGrey,
+      drawer: const DrawerPage(initialSelectedItem: 'Profile'),
       appBar: AppBar(
         backgroundColor: backgroundGrey,
         elevation: 0,
@@ -222,9 +224,8 @@ class _LanguagePageState extends State<LanguagePage> {
                 color: isSelected ? activeGreen : Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: isSelected
-                      ? activeGreen
-                      : subTextColor.withOpacity(0.5),
+                  color:
+                      isSelected ? activeGreen : subTextColor.withOpacity(0.5),
                   width: 2,
                 ),
               ),

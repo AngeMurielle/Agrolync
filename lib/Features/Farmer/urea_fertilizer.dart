@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/urea_fertilizer_card.dart';
 
 class UreaFertilizerDetails extends StatefulWidget {
@@ -10,7 +14,7 @@ class UreaFertilizerDetails extends StatefulWidget {
 
 class _UreaFertilizerDetailsState extends State<UreaFertilizerDetails> {
   int _quantity = 1;
-  final double _unitPrice = 25.00;
+  final int _unitPrice = 2500;
 
   void _incrementQuantity() {
     setState(() {
@@ -36,10 +40,7 @@ class _UreaFertilizerDetailsState extends State<UreaFertilizerDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -150,10 +151,29 @@ class _UreaFertilizerDetailsState extends State<UreaFertilizerDetails> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const UreaFertilizerCartPage(),
+                      final product = Product(
+                        id: 'urea_fertilizer',
+                        name: 'Urea Fertilizer',
+                        category: 'Fertilizers',
+                        price: _unitPrice.toDouble(),
+                        unit: '50kg bag',
+                        image: 'assets/images/urea_fertilizer.jpg',
+                        description:
+                            'High-quality nitrogen-rich urea fertilizer',
+                        sellerId: 'agrolync_fertilizers',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
                         ),
                       );
                     },

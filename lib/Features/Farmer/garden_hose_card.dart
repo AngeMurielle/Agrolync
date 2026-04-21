@@ -13,7 +13,7 @@ class _GardenHoseCartPageState extends State<GardenHoseCartPage> {
     {
       'name': 'Garden Hose',
       'weight': 'unit',
-      'price': 25.00,
+      'price': 2500,
       'quantity': 1,
       'image': 'assets/images/garden_hose.jpg'
     },
@@ -103,7 +103,7 @@ class _GardenHoseCartPageState extends State<GardenHoseCartPage> {
                                           color: Colors.grey, fontSize: 12)),
                                   const SizedBox(height: 4),
                                   Text(
-                                      "Total: ${(item['price'] * item['quantity']).toStringAsFixed(2)} XAF",
+                                      "Total: ${((item['price'] * item['quantity']).toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                                       style: const TextStyle(
                                           color: Color(0xFF026139),
                                           fontWeight: FontWeight.bold)),
@@ -180,7 +180,8 @@ class _GardenHoseCartPageState extends State<GardenHoseCartPage> {
                     const Text("Total:",
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16)),
-                    Text("${_totalPrice.toStringAsFixed(2)} XAF",
+                    Text(
+                        "${(_totalPrice.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,

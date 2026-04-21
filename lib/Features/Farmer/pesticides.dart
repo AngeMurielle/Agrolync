@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 // Ensure these paths match your project structure exactly
 import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
 //import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
@@ -35,8 +39,8 @@ class _PesticidesPageState extends State<PesticidesPage> {
     Widget destination;
     switch (category) {
       case "All":
-        // Navigate back to main marketplace
-        Navigator.pop(context);
+        // Navigate back to main marketplace while preserving navigation state
+        Navigator.of(context).popUntil((route) => route.isFirst);
         return;
       case "Seeds":
         destination = const SeedsPage();
@@ -65,11 +69,11 @@ class _PesticidesPageState extends State<PesticidesPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Search Products'),
+          title: const Text('Search Marketplace'),
           content: TextField(
             controller: _searchController,
             decoration: const InputDecoration(
-              hintText: 'Search for pesticides...',
+              hintText: 'Search all marketplace products...',
               prefixIcon: Icon(Icons.search),
             ),
             onChanged: (value) {
@@ -143,7 +147,7 @@ class _PesticidesPageState extends State<PesticidesPage> {
     final allProducts = [
       {
         'name': 'Organic Pest Oil',
-        'price': '1.899',
+        'price': '1899',
         'unit': '1L bottle',
         'rating': '4.5',
         'reviews': '43',
@@ -151,7 +155,7 @@ class _PesticidesPageState extends State<PesticidesPage> {
       },
       {
         'name': 'Synthetic Insecticide',
-        'price': '2.500',
+        'price': '2500',
         'unit': '500ml bottle',
         'rating': '4.6',
         'reviews': '78',
@@ -159,7 +163,7 @@ class _PesticidesPageState extends State<PesticidesPage> {
       },
       {
         'name': 'Herbicide',
-        'price': '3.000',
+        'price': '3000',
         'unit': '1L bottle',
         'rating': '4.7',
         'reviews': '92',
@@ -167,7 +171,7 @@ class _PesticidesPageState extends State<PesticidesPage> {
       },
       {
         'name': 'Fungicide',
-        'price': '2.200',
+        'price': '2200',
         'unit': '500ml bottle',
         'rating': '4.8',
         'reviews': '156',
@@ -175,7 +179,7 @@ class _PesticidesPageState extends State<PesticidesPage> {
       },
       {
         'name': 'Rodenticide',
-        'price': '1.500',
+        'price': '1500',
         'unit': 'box',
         'rating': '4.4',
         'reviews': '67',
@@ -183,7 +187,7 @@ class _PesticidesPageState extends State<PesticidesPage> {
       },
       {
         'name': 'Natural Repellent',
-        'price': '1.200',
+        'price': '1200',
         'unit': '500ml bottle',
         'rating': '4.6',
         'reviews': '89',
@@ -223,9 +227,48 @@ class _PesticidesPageState extends State<PesticidesPage> {
               color: Colors.grey.shade100,
               shape: BoxShape.circle,
             ),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.tune, color: Colors.black, size: 20),
+            child: Consumer<FarmerCartProvider>(
+              builder: (context, cart, child) {
+                return IconButton(
+                  icon: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      const Icon(Icons.shopping_cart_outlined,
+                          color: Colors.black, size: 20),
+                      if (cart.items.length > 0)
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: const BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            constraints: const BoxConstraints(
+                              minWidth: 16,
+                              minHeight: 16,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${cart.items.length}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FarmerCartScreen(),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -516,52 +559,39 @@ class _PesticidesPageState extends State<PesticidesPage> {
                                 height: 32,
                                 child: ElevatedButton.icon(
                                     onPressed: () {
-                                      if (p['name'] == 'Organic Pest Oil') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PestoilCardPage()));
-                                      } else if (p['name'] ==
-                                          'Synthetic Insecticide') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const SyntheticInsecticideCartPage()));
-                                      } else if (p['name'] == 'Herbicide') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const SyntheticHerbicideCartPage()));
-                                      } else if (p['name'] == 'Fungicide') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const FungicideCartPage()));
-                                      } else if (p['name'] == 'Rodenticide') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const RodenticideCartPage()));
-                                      } else if (p['name'] ==
-                                          'Natural Repellent') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const NaturalRepellentCartPage()));
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    '${p['name']} added to cart')));
-                                      }
+                                      final product = Product(
+                                        id: p['name']!
+                                            .toLowerCase()
+                                            .replaceAll(' ', '_'),
+                                        name: p['name']!,
+                                        category: 'Pesticides',
+                                        price: double.parse(p['price']!),
+                                        unit: p['unit']!,
+                                        image: p['image']!,
+                                        description:
+                                            'High-quality ${p['name']} for farming',
+                                        sellerId: 'agrolync_pesticides',
+                                        sellerName: 'AgroLync Marketplace',
+                                        location: 'Cameroon',
+                                      );
+                                      context
+                                          .read<FarmerCartProvider>()
+                                          .addToCart(product);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              '${product.name} added to cart!'),
+                                          duration: const Duration(
+                                              milliseconds: 1500),
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor:
+                                              const Color(0xFF026139),
+                                        ),
+                                      );
                                     },
-                                    icon: const Icon(Icons.shopping_cart,
+                                    icon: const Icon(
+                                        Icons.shopping_cart_outlined,
                                         size: 16),
                                     label: const Text("Add to Cart"),
                                     style: ElevatedButton.styleFrom(

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 
 class TrowelCartPage extends StatefulWidget {
   const TrowelCartPage({super.key});
@@ -56,7 +59,7 @@ class _TrowelCartPageState extends State<TrowelCartPage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${pricePerUnit.toStringAsFixed(2)} XAF / unit',
+                            '${pricePerUnit.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF / unit',
                             style: const TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.w600,
@@ -143,7 +146,7 @@ class _TrowelCartPageState extends State<TrowelCartPage> {
                     ),
                   ),
                   Text(
-                    '${totalPrice.toStringAsFixed(2)} XAF',
+                    '${totalPrice.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -175,7 +178,21 @@ class _TrowelCartPageState extends State<TrowelCartPage> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add to cart logic here
+                      final product = Product(
+                        id: 'trowel',
+                        name: 'Trowel',
+                        category: 'Tools',
+                        price: pricePerUnit.toDouble(),
+                        unit: 'unit',
+                        image: 'assets/images/trowel.jpg',
+                        description: 'Sturdy gardening trowel',
+                        sellerId: 'tool_smart',
+                        sellerName: 'ToolSmart Cameroon',
+                        location: 'Buea, Cameroon',
+                      );
+                      for (var i = 0; i < quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(

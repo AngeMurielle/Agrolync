@@ -16,6 +16,10 @@ import 'package:flutter_agrolync_pro/Features/Farmer/herbicide.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/herbicide_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tomatoseed.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tomatoseed_card.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
+import 'package:provider/provider.dart';
 
 class MarketplaceView extends StatelessWidget {
   const MarketplaceView({super.key});
@@ -53,54 +57,78 @@ class MarketplaceView extends StatelessWidget {
   Widget build(BuildContext context) {
     // 6 Products using Asset Images (Ensure these exist in your pubspec.yaml)
     final products = [
-      {
-        'name': 'Hybrid Maize Seeds',
-        'price': '4.500',
-        'unit': '25kg bag',
-        'rating': '4.8',
-        'reviews': '124',
-        'image': 'assets/images/maizeseed.jpg'
-      },
-      {
-        'name': 'NPK Fertilizer',
-        'price': '3.250',
-        'unit': '50kg bag',
-        'rating': '4.9',
-        'reviews': '86',
-        'image': 'assets/images/npk_fertilizer.jpg'
-      },
-      {
-        'name': 'Steel Hand Trowel',
-        'price': '1.200',
-        'unit': 'unit',
-        'rating': '4.7',
-        'reviews': '210',
-        'image': 'assets/images/trowel.jpg'
-      },
-      {
-        'name': 'Organic Pest Oil',
-        'price': '1.899',
-        'unit': '1L bottle',
-        'rating': '4.5',
-        'reviews': '43',
-        'image': 'assets/images/pest_oil.jpg'
-      },
-      {
-        'name': 'Herbicide',
-        'price': '2.500',
-        'unit': 'unit',
-        'rating': '4.6',
-        'reviews': '55',
-        'image': 'assets/images/herbicide.jpg'
-      },
-      {
-        'name': 'Tomato Seeds',
-        'price': '1.000',
-        'unit': 'pkt',
-        'rating': '4.8',
-        'reviews': '92',
-        'image': 'assets/images/tomatoseed.jpg'
-      },
+      Product(
+        id: 'maize_seeds',
+        name: 'Hybrid Maize Seeds',
+        category: 'Seeds',
+        price: 45000,
+        unit: '25kg bag',
+        image: 'assets/images/maizeseed.jpg',
+        description: 'High-quality hybrid maize seeds for better yield',
+        sellerId: 'farmer_coop',
+        sellerName: 'AgroLync Cooperative',
+        location: 'Douala, Cameroon',
+      ),
+      Product(
+        id: 'npk_fertilizer',
+        name: 'NPK Fertilizer',
+        category: 'Fertilizers',
+        price: 32500,
+        unit: '50kg bag',
+        image: 'assets/images/npk_fertilizer.jpg',
+        description: 'Balanced NPK fertilizer for optimal plant growth',
+        sellerId: 'agri_supply',
+        sellerName: 'AgriSupply Ltd',
+        location: 'Yaoundé, Cameroon',
+      ),
+      Product(
+        id: 'steel_trowel',
+        name: 'Steel Hand Trowel',
+        category: 'Tools',
+        price: 1200,
+        unit: 'unit',
+        image: 'assets/images/trowel.jpg',
+        description: 'Durable steel hand trowel for gardening',
+        sellerId: 'tool_master',
+        sellerName: 'ToolMaster Cameroon',
+        location: 'Bamenda, Cameroon',
+      ),
+      Product(
+        id: 'pest_oil',
+        name: 'Organic Pest Oil',
+        category: 'Pesticides',
+        price: 1899,
+        unit: '1L bottle',
+        image: 'assets/images/pest_oil.jpg',
+        description: 'Natural organic pest control oil',
+        sellerId: 'green_farm',
+        sellerName: 'GreenFarm Solutions',
+        location: 'Limbe, Cameroon',
+      ),
+      Product(
+        id: 'herbicide',
+        name: 'Herbicide',
+        category: 'Pesticides',
+        price: 2500,
+        unit: 'unit',
+        image: 'assets/images/herbicide.jpg',
+        description: 'Effective weed control herbicide',
+        sellerId: 'crop_protect',
+        sellerName: 'CropProtect Cameroon',
+        location: 'Bafoussam, Cameroon',
+      ),
+      Product(
+        id: 'tomato_seeds',
+        name: 'Tomato Seeds',
+        category: 'Seeds',
+        price: 1000,
+        unit: 'pkt',
+        image: 'assets/images/tomatoseed.jpg',
+        description: 'Premium tomato seeds for home gardening',
+        sellerId: 'seed_haven',
+        sellerName: 'Seed Haven',
+        location: 'Kribi, Cameroon',
+      ),
     ];
 
     return Column(
@@ -139,170 +167,17 @@ class MarketplaceView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
-                      child: product['name'] == 'Hybrid Maize Seeds'
-                          ? GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const HybridMaizeDetails(),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(12.0),
-                                  ),
-                                  image: DecorationImage(
-                                    image: AssetImage(product['image']!),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            )
-                          : product['name'] == 'NPK Fertilizer'
-                              ? GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const NpkFertilizerDetails(),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.vertical(
-                                        top: Radius.circular(12.0),
-                                      ),
-                                      image: DecorationImage(
-                                        image: AssetImage(product['image']!),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : product['name'] == 'Steel Hand Trowel'
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const TrowelDetails(),
-                                          ),
-                                        );
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              const BorderRadius.vertical(
-                                            top: Radius.circular(12.0),
-                                          ),
-                                          image: DecorationImage(
-                                            image:
-                                                AssetImage(product['image']!),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : product['name'] == 'Organic Pest Oil'
-                                      ? GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PestoilDetails(),
-                                              ),
-                                            );
-                                          },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  const BorderRadius.vertical(
-                                                top: Radius.circular(12.0),
-                                              ),
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    product['image']!),
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : product['name'] == 'Herbicide'
-                                          ? GestureDetector(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const HerbicideDetails(),
-                                                  ),
-                                                );
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      const BorderRadius
-                                                          .vertical(
-                                                    top: Radius.circular(12.0),
-                                                  ),
-                                                  image: DecorationImage(
-                                                    image: AssetImage(
-                                                        product['image']!),
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                              ),
-                                            )
-                                          : product['name'] == 'Tomato Seeds'
-                                              ? GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const TomatoseedDetails(),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          const BorderRadius
-                                                              .vertical(
-                                                        top: Radius.circular(
-                                                            12.0),
-                                                      ),
-                                                      image: DecorationImage(
-                                                        image: AssetImage(
-                                                            product['image']!),
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              : Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        const BorderRadius
-                                                            .vertical(
-                                                      top:
-                                                          Radius.circular(12.0),
-                                                    ),
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          product['image']!),
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.vertical(
+                            top: Radius.circular(12.0),
+                          ),
+                          image: DecorationImage(
+                            image: AssetImage(product.image),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -310,7 +185,7 @@ class MarketplaceView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            product['name']!,
+                            product.name,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14.0,
@@ -320,7 +195,7 @@ class MarketplaceView extends StatelessWidget {
                           ),
                           const SizedBox(height: 4.0),
                           Text(
-                            '${product['price']} XAF / ${product['unit']}',
+                            '${product.price.toStringAsFixed(0)} XAF / ${product.unit}',
                             style: TextStyle(
                               color: Colors.green[700],
                               fontWeight: FontWeight.w600,
@@ -328,98 +203,49 @@ class MarketplaceView extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 4.0),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 14.0,
-                              ),
-                              const SizedBox(width: 4.0),
-                              Text(
-                                product['rating']!,
-                                style: const TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const SizedBox(width: 8.0),
-                              Text(
-                                '(${product['reviews']})',
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                  fontSize: 10.0,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            product.sellerName,
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 10.0,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 8.0),
                           SizedBox(
                             width: double.infinity,
                             child: ElevatedButton.icon(
                               onPressed: () {
-                                if (product['name'] == 'Hybrid Maize Seeds') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const MaizeSeedCartPage(),
+                                context
+                                    .read<FarmerCartProvider>()
+                                    .addToCart(product);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content:
+                                        Text("${product.name} added to cart!"),
+                                    duration:
+                                        const Duration(milliseconds: 1500),
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: const Color(0xFF026139),
+                                    action: SnackBarAction(
+                                      label: "View Cart",
+                                      textColor: Colors.white,
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const FarmerCartScreen(),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                } else if (product['name'] ==
-                                    'NPK Fertilizer') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NpkFertilizerCardPage(),
-                                    ),
-                                  );
-                                } else if (product['name'] ==
-                                    'Steel Hand Trowel') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const TrowelCartPage(),
-                                    ),
-                                  );
-                                } else if (product['name'] ==
-                                    'Organic Pest Oil') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const PestoilCardPage(),
-                                    ),
-                                  );
-                                } else if (product['name'] == 'Herbicide') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HerbicideCardPage(),
-                                    ),
-                                  );
-                                } else if (product['name'] == 'Tomato Seeds') {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const TomatoseedCardPage(),
-                                    ),
-                                  );
-                                } else {
-                                  // TODO: add to cart logic / state update
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          '${product['name']} added to cart'),
-                                    ),
-                                  );
-                                }
+                                  ),
+                                );
                               },
-                              icon: const Icon(Icons.shopping_cart, size: 16),
+                              icon: const Icon(Icons.shopping_cart_outlined,
+                                  size: 16),
                               label: const Text('Add to Cart'),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF026139),

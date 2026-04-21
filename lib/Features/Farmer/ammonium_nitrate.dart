@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/ammonium_nitrate_card.dart';
 
 class AmmoniumNitrateDetails extends StatefulWidget {
@@ -10,7 +14,7 @@ class AmmoniumNitrateDetails extends StatefulWidget {
 
 class _AmmoniumNitrateDetailsState extends State<AmmoniumNitrateDetails> {
   int _quantity = 1;
-  final double _unitPrice = 28.00;
+  final int _unitPrice = 28000;
 
   void _incrementQuantity() => setState(() => _quantity++);
   void _decrementQuantity() {
@@ -27,10 +31,7 @@ class _AmmoniumNitrateDetailsState extends State<AmmoniumNitrateDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16)
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -116,11 +117,35 @@ class _AmmoniumNitrateDetailsState extends State<AmmoniumNitrateDetails> {
                 SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const AmmoniumNitrateCartPage())),
+                        onPressed: () {
+                          final product = Product(
+                            id: 'ammonium_nitrate',
+                            name: 'Ammonium Nitrate',
+                            category: 'Fertilizers',
+                            price: _unitPrice.toDouble(),
+                            unit: '50kg bag',
+                            image: 'assets/images/ammonium_nitrate1.png',
+                            description:
+                                'Nitrogen-rich ammonium nitrate fertilizer',
+                            sellerId: 'agrolync_fertilizers',
+                            sellerName: 'AgroLync Marketplace',
+                            location: 'Cameroon',
+                          );
+                          for (int i = 0; i < _quantity; i++) {
+                            context
+                                .read<FarmerCartProvider>()
+                                .addToCart(product);
+                          }
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'Added $_quantity x ${product.name} to cart!'),
+                              duration: const Duration(milliseconds: 1500),
+                              behavior: SnackBarBehavior.floating,
+                              backgroundColor: const Color(0xFF026139),
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF026139),
                             foregroundColor: Colors.white,

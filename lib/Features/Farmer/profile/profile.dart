@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/profile/setting.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'dart:io';
 
 // Internal Imports
@@ -16,6 +18,10 @@ import 'LanguageSelection.dart' as languageSelection;
 import 'SupportHelp.dart' as supportHelp;
 // ignore: library_prefixes
 import '../Home.dart' as HomePage;
+import '../drawer.dart';
+import '../Market.dart';
+import '../order/order.dart';
+import '../wallet/wallet_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -37,7 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
       final XFile? pickedFile = await picker.pickImage(
         source: ImageSource.gallery,
         maxWidth: 800, // Optimized for mobile performance
-        imageQuality: 85, 
+        imageQuality: 85,
       );
 
       if (pickedFile != null) {
@@ -54,7 +60,9 @@ class _ProfilePageState extends State<ProfilePage> {
       debugPrint("Error picking image: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Could not access gallery. Check app permissions.")),
+          const SnackBar(
+              content:
+                  Text("Could not access gallery. Check app permissions.")),
         );
       }
     }
@@ -64,16 +72,25 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FBF9),
+      drawer: const DrawerPage(initialSelectedItem: 'Profile'),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: brandGreen),
-          onPressed: () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(
-              builder: (context) => const HomePage.FarmerHomeScreen(),
-            ),
-          ),
+          onPressed: () {
+            try {
+              final navProvider = context.read<FarmerNavigationProvider>();
+              navProvider.setIndex(3); // Set to Profile index
+              Navigator.of(context).pop();
+            } catch (e) {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const HomePage.FarmerHomeScreen(),
+                ),
+              );
+            }
+          },
         ),
         title: const Text(
           "Profile",
@@ -96,7 +113,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            
+
             // --- PROFILE PICTURE SECTION ---
             Center(
               child: Stack(
@@ -109,7 +126,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       backgroundColor: Colors.grey.shade200,
                       backgroundImage: _image != null
                           ? FileImage(_image!)
-                          : const NetworkImage('https://i.pravatar.cc/150?u=elias') as ImageProvider,
+                          : const NetworkImage(
+                                  'https://i.pravatar.cc/150?u=elias')
+                              as ImageProvider,
                     ),
                   ),
                   Positioned(
@@ -125,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           border: Border.all(color: Colors.white, width: 2),
                         ),
                         child: const Icon(
-                          Icons.camera_alt, 
+                          Icons.camera_alt,
                           color: Colors.white,
                           size: 20,
                         ),
@@ -135,7 +154,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 16),
             Text(
               _userName,
@@ -153,13 +172,25 @@ class _ProfilePageState extends State<ProfilePage> {
             // --- NAVIGATION LIST ---
             _buildProfileCard([
               _profileTile(Icons.person_outline, "Personal Information", () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const personalInfo.PersonalInfoPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const personalInfo.PersonalInfoPage()));
               }),
               _profileTile(Icons.agriculture_outlined, "Farm Details", () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const farmDetails.FarmDetailsPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const farmDetails.FarmDetailsPage()));
               }),
               _profileTile(Icons.payments_outlined, "Payment Methods", () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const paymentMethod.PaymentMethodPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const paymentMethod.PaymentMethodPage()));
               }),
             ]),
 
@@ -167,10 +198,18 @@ class _ProfilePageState extends State<ProfilePage> {
 
             _buildProfileCard([
               _profileTile(Icons.language, "Language Selection", () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const languageSelection.LanguagePage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const languageSelection.LanguagePage()));
               }, trailingText: "English"),
               _profileTile(Icons.help_outline, "Support/Help", () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const supportHelp.SupportHelpPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            const supportHelp.SupportHelpPage()));
               }),
             ]),
 
@@ -185,15 +224,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 icon: const Icon(Icons.logout, color: Colors.red),
                 label: const Text(
                   "Log Out",
-                  style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold, fontSize: 18),
+                  style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
                 style: TextButton.styleFrom(
                   backgroundColor: Colors.red.withOpacity(0.08),
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
                 ),
               ),
             ),
-            
+
             const SizedBox(height: 25),
             const Text(
               "AgroLync v2.4.1",
@@ -228,7 +271,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Widget _profileTile(IconData icon, String title, VoidCallback onTap, {String? trailingText}) {
+  Widget _profileTile(IconData icon, String title, VoidCallback onTap,
+      {String? trailingText}) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       leading: Container(
@@ -247,7 +291,8 @@ class _ProfilePageState extends State<ProfilePage> {
         mainAxisSize: MainAxisSize.min,
         children: [
           if (trailingText != null)
-            Text(trailingText, style: const TextStyle(color: Colors.grey, fontSize: 14)),
+            Text(trailingText,
+                style: const TextStyle(color: Colors.grey, fontSize: 14)),
           const SizedBox(width: 8),
           const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
         ],
@@ -264,7 +309,9 @@ class _ProfilePageState extends State<ProfilePage> {
         title: const Text("Log Out"),
         content: const Text("Are you sure you want to log out of AgroLync?"),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel")),
+          TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("Cancel")),
           TextButton(
             onPressed: () {
               Navigator.pop(context);

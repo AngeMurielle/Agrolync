@@ -1,7 +1,7 @@
 enum CameroonRegion { sameTown, northRegion, otherRegions }
 
 class DeliveryService {
-  static const double taxRate = 0.10; // 10% Tax
+  static const double taxRate = 0.05; // 5% Tax
 
   static double calculateShippingFee({
     required double subtotal,

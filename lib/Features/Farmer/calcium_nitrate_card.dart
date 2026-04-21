@@ -12,7 +12,7 @@ class _CalciumNitrateCartPageState extends State<CalciumNitrateCartPage> {
     {
       'name': 'Calcium Nitrate',
       'weight': '25kg bag',
-      'price': 35.00,
+      'price': 35000,
       'quantity': 1,
       'image': 'assets/images/calcium_nitrate.jpg'
     }
@@ -90,7 +90,7 @@ class _CalciumNitrateCartPageState extends State<CalciumNitrateCartPage> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    "Total: ${(item['price'] * item['quantity']).toStringAsFixed(2)} XAF",
+                                    "Total: ${((item['price'] * item['quantity']).toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                                     style: const TextStyle(
                                       color: Color(0xFF026139),
                                       fontWeight: FontWeight.bold,
@@ -181,7 +181,7 @@ class _CalciumNitrateCartPageState extends State<CalciumNitrateCartPage> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                     Text(
-                      "${_totalPrice.toStringAsFixed(2)} XAF",
+                      "${(_totalPrice.toStringAsFixed(2)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16,

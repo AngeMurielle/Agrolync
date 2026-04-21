@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 
 class TomatoseedCardPage extends StatefulWidget {
   const TomatoseedCardPage({super.key});
@@ -56,7 +59,7 @@ class _TomatoseedCardPageState extends State<TomatoseedCardPage> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            '${pricePerUnit.toStringAsFixed(2)} XAF / pkt',
+                            '${pricePerUnit.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF / pkt',
                             style: const TextStyle(
                               color: Colors.green,
                               fontWeight: FontWeight.w600,
@@ -143,7 +146,7 @@ class _TomatoseedCardPageState extends State<TomatoseedCardPage> {
                     ),
                   ),
                   Text(
-                    '${totalPrice.toStringAsFixed(2)} XAF',
+                    '${totalPrice.toStringAsFixed(2).replaceAll(RegExp(r'\.0+$'), '')} XAF',
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -175,7 +178,21 @@ class _TomatoseedCardPageState extends State<TomatoseedCardPage> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Add to cart logic here
+                      final product = Product(
+                        id: 'tomato_seeds',
+                        name: 'Tomato Seeds',
+                        category: 'Seeds',
+                        price: pricePerUnit.toDouble(),
+                        unit: 'pkt',
+                        image: 'assets/images/tomatoseed.jpg',
+                        description: 'Premium tomato seeds for home gardening',
+                        sellerId: 'seed_haven',
+                        sellerName: 'Seed Haven',
+                        location: 'Kribi, Cameroon',
+                      );
+                      for (var i = 0; i < quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(

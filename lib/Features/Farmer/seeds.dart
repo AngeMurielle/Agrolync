@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-// Ensure these paths match your project structure exactly
-//import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
@@ -35,8 +37,8 @@ class _SeedsPageState extends State<SeedsPage> {
     Widget destination;
     switch (category) {
       case "All":
-        // Navigate back to main marketplace
-        Navigator.pop(context);
+        // Navigate back to main marketplace while preserving navigation state
+        Navigator.of(context).popUntil((route) => route.isFirst);
         return;
       case "Seeds":
         // Already on seeds page
@@ -65,11 +67,11 @@ class _SeedsPageState extends State<SeedsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Search Products'),
+          title: const Text('Search Marketplace'),
           content: TextField(
             controller: _searchController,
             decoration: const InputDecoration(
-              hintText: 'Search for seeds...',
+              hintText: 'Search all marketplace products...',
               prefixIcon: Icon(Icons.search),
             ),
             onChanged: (value) {
@@ -138,9 +140,15 @@ class _SeedsPageState extends State<SeedsPage> {
   }
 
   @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // 6 Products using Asset Images (Ensure these exist in your pubspec.yaml)
-    final allProducts = [
+    final List<Map<String, String>> allProducts = [
       {
         'name': 'Hybrid Maize Seeds',
         'price': '45000',
@@ -151,7 +159,7 @@ class _SeedsPageState extends State<SeedsPage> {
       },
       {
         'name': 'Bean Seeds',
-        'price': '1.500',
+        'price': '1500',
         'unit': 'kg',
         'rating': '4.7',
         'reviews': '89',
@@ -159,7 +167,7 @@ class _SeedsPageState extends State<SeedsPage> {
       },
       {
         'name': 'Tomato Seeds',
-        'price': '1.200',
+        'price': '1200',
         'unit': 'pkt',
         'rating': '4.9',
         'reviews': '156',
@@ -167,7 +175,7 @@ class _SeedsPageState extends State<SeedsPage> {
       },
       {
         'name': 'Onion Seeds',
-        'price': '1.800',
+        'price': '1800',
         'unit': 'pkt',
         'rating': '4.6',
         'reviews': '78',
@@ -175,7 +183,7 @@ class _SeedsPageState extends State<SeedsPage> {
       },
       {
         'name': 'Carrot Seeds',
-        'price': '1.400',
+        'price': '1400',
         'unit': 'pkt',
         'rating': '4.8',
         'reviews': '92',
@@ -183,7 +191,7 @@ class _SeedsPageState extends State<SeedsPage> {
       },
       {
         'name': 'Pepper Seeds',
-        'price': '1.600',
+        'price': '1600',
         'unit': 'pkt',
         'rating': '4.7',
         'reviews': '67',
@@ -223,9 +231,48 @@ class _SeedsPageState extends State<SeedsPage> {
               color: Colors.grey.shade100,
               shape: BoxShape.circle,
             ),
-            child: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.tune, color: Colors.black, size: 20),
+            child: Consumer<FarmerCartProvider>(
+              builder: (context, cart, child) {
+                return IconButton(
+                  icon: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      const Icon(Icons.shopping_cart_outlined,
+                          color: Colors.black, size: 20),
+                      if (cart.items.length > 0)
+                        Positioned(
+                          right: 0,
+                          top: 0,
+                          child: Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: const BoxDecoration(
+                                color: Colors.red, shape: BoxShape.circle),
+                            constraints: const BoxConstraints(
+                              minWidth: 16,
+                              minHeight: 16,
+                            ),
+                            child: Center(
+                              child: Text(
+                                '${cart.items.length}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FarmerCartScreen(),
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -516,50 +563,39 @@ class _SeedsPageState extends State<SeedsPage> {
                                 height: 32,
                                 child: ElevatedButton.icon(
                                     onPressed: () {
-                                      if (p['name'] == 'Hybrid Maize Seeds') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const MaizeSeedCartPage()));
-                                      } else if (p['name'] == 'Bean Seeds') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const BeanSeedsCartPage()));
-                                      } else if (p['name'] == 'Tomato Seeds') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const TomatoseedCardPage()));
-                                      } else if (p['name'] == 'Onion Seeds') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const OnionSeedsCartPage()));
-                                      } else if (p['name'] == 'Carrot Seeds') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const CarrotSeedsCartPage()));
-                                      } else if (p['name'] == 'Pepper Seeds') {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PepperSeedsCartPage()));
-                                      } else {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content: Text(
-                                                    '${p['name']} added to cart')));
-                                      }
+                                      final product = Product(
+                                        id: p['name']!
+                                            .toLowerCase()
+                                            .replaceAll(' ', '_'),
+                                        name: p['name']!,
+                                        category: 'Seeds',
+                                        price: double.parse(p['price']!),
+                                        unit: p['unit']!,
+                                        image: p['image']!,
+                                        description:
+                                            'High-quality ${p['name']} for farming',
+                                        sellerId: 'agrolync_seeds',
+                                        sellerName: 'AgroLync Marketplace',
+                                        location: 'Cameroon',
+                                      );
+                                      context
+                                          .read<FarmerCartProvider>()
+                                          .addToCart(product);
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              '${product.name} added to cart!'),
+                                          duration: const Duration(
+                                              milliseconds: 1500),
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor:
+                                              const Color(0xFF026139),
+                                        ),
+                                      );
                                     },
-                                    icon: const Icon(Icons.shopping_cart,
+                                    icon: const Icon(
+                                        Icons.shopping_cart_outlined,
                                         size: 16),
                                     label: const Text("Add to Cart"),
                                     style: ElevatedButton.styleFrom(

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 
 class HerbicideDetails extends StatefulWidget {
   const HerbicideDetails({super.key});
@@ -27,6 +31,35 @@ class _HerbicideDetailsState extends State<HerbicideDetails> {
     }
   }
 
+  void _handleAddToCart() {
+    final product = Product(
+      id: 'herbicide',
+      name: 'Herbicide',
+      category: 'Pesticides',
+      price: _unitPrice.toDouble(),
+      unit: 'unit',
+      image: 'assets/images/herbicide.jpg',
+      description: 'Effective weed control herbicide',
+      sellerId: 'crop_protect',
+      sellerName: 'CropProtect Cameroon',
+      location: 'Bafoussam, Cameroon',
+    );
+
+    // Add quantity to cart
+    for (int i = 0; i < _quantity; i++) {
+      context.read<FarmerCartProvider>().addToCart(product);
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Added $_quantity x ${product.name} to cart!"),
+        duration: const Duration(milliseconds: 1000),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: const Color(0xFF026139),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +67,13 @@ class _HerbicideDetailsState extends State<HerbicideDetails> {
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            // Navigate back to marketplace while preserving navigation state
+            Navigator.of(context).popUntil((route) => route.isFirst);
+          },
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -180,9 +213,7 @@ class _HerbicideDetailsState extends State<HerbicideDetails> {
                 // Add to Cart Button
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Logic for adding (_quantity * _unitPrice) to cart
-                    },
+                    onPressed: _handleAddToCart,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF026139),
                       padding: const EdgeInsets.symmetric(vertical: 16),

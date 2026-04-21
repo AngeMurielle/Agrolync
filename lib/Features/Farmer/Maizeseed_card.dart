@@ -136,7 +136,7 @@ class _MaizeSeedCartPageState extends State<MaizeSeedCartPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        "${item['price'] >= 10 ? (item['price'] / 10).toStringAsFixed(3) : (item['price'] * 100).toStringAsFixed(0)} XAF",
+                        "${(item['price'] >= 10 ? (item['price'] / 10).toStringAsFixed(3) : (item['price'] * 100).toStringAsFixed(0)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                         style: const TextStyle(
                             color: Color(0xFF026139),
                             fontWeight: FontWeight.bold,
@@ -196,10 +196,10 @@ class _MaizeSeedCartPageState extends State<MaizeSeedCartPage> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
           const SizedBox(height: 16),
           _summaryRow("Subtotal",
-              "${_subtotal >= 10 ? (_subtotal / 10).toStringAsFixed(3) : (_subtotal * 100).toStringAsFixed(0)} XAF"),
+              "${(_subtotal >= 10 ? (_subtotal / 10).toStringAsFixed(3) : (_subtotal * 100).toStringAsFixed(0)).replaceAll(RegExp(r'\.0+$'), '')} XAF"),
           const SizedBox(height: 8),
           _summaryRow("Shipping Fee (7%)",
-              "${_shippingFee >= 10 ? (_shippingFee / 10).toStringAsFixed(3) : (_shippingFee * 100).toStringAsFixed(0)} XAF"),
+              "${(_shippingFee >= 10 ? (_shippingFee / 10).toStringAsFixed(3) : (_shippingFee * 100).toStringAsFixed(0)).replaceAll(RegExp(r'\.0+$'), '')} XAF"),
           const Divider(height: 24),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,7 +207,7 @@ class _MaizeSeedCartPageState extends State<MaizeSeedCartPage> {
               const Text("Total",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
               Text(
-                  "${_totalPrice >= 10 ? (_totalPrice / 10).toStringAsFixed(3) : (_totalPrice * 100).toStringAsFixed(0)} XAF",
+                  "${(_totalPrice >= 10 ? (_totalPrice / 10).toStringAsFixed(3) : (_totalPrice * 100).toStringAsFixed(0)).replaceAll(RegExp(r'\.0+$'), '')} XAF",
                   style: const TextStyle(
                       color: Color(0xFF026139),
                       fontWeight: FontWeight.bold,

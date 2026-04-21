@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pruning_shears_card.dart';
 
 class PruningshearsDetails extends StatefulWidget {
@@ -10,7 +14,7 @@ class PruningshearsDetails extends StatefulWidget {
 
 class _PruningshearsDetailsState extends State<PruningshearsDetails> {
   int _quantity = 1;
-  final double _unitPrice = 18.00;
+  final int _unitPrice = 1800;
 
   void _incrementQuantity() {
     setState(() {
@@ -36,10 +40,7 @@ class _PruningshearsDetailsState extends State<PruningshearsDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -150,10 +151,29 @@ class _PruningshearsDetailsState extends State<PruningshearsDetails> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const PruningshearsCartPage(),
+                      final product = Product(
+                        id: 'pruning_shears',
+                        name: 'Pruning Shears',
+                        category: 'Tools',
+                        price: _unitPrice.toDouble(),
+                        unit: 'unit',
+                        image: 'assets/images/pruning_shears.jpg',
+                        description:
+                            'Professional pruning shears for gardening',
+                        sellerId: 'agrolync_tools',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
                         ),
                       );
                     },

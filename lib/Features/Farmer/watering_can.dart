@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/watering_can_card.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 
 class WateringCanDetails extends StatefulWidget {
   const WateringCanDetails({super.key});
@@ -9,7 +13,7 @@ class WateringCanDetails extends StatefulWidget {
 
 class _WateringCanDetailsState extends State<WateringCanDetails> {
   int _quantity = 1;
-  final double _unitPrice = 8.00;
+  final int _unitPrice = 800;
   void _incrementQuantity() => setState(() => _quantity++);
   void _decrementQuantity() {
     if (_quantity > 1) setState(() => _quantity--);
@@ -25,10 +29,7 @@ class _WateringCanDetailsState extends State<WateringCanDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -140,12 +141,32 @@ class _WateringCanDetailsState extends State<WateringCanDetails> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const WateringCanCartPage(),
-                      ),
-                    ),
+                    onPressed: () {
+                      final product = Product(
+                        id: 'watering_can',
+                        name: 'Plastic Watering Can',
+                        category: 'Tools',
+                        price: _unitPrice.toDouble(),
+                        unit: 'unit',
+                        image: 'assets/images/watering_can.jpg',
+                        description: 'Durable plastic watering can for garden',
+                        sellerId: 'agrolync_tools',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
+                        ),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF026139),
                       foregroundColor: Colors.white,

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/natural_repellent_card.dart';
 
 class NaturalRepellentDetails extends StatefulWidget {
@@ -11,7 +15,7 @@ class NaturalRepellentDetails extends StatefulWidget {
 
 class _NaturalRepellentDetailsState extends State<NaturalRepellentDetails> {
   int _quantity = 1;
-  final double _unitPrice = 12.00;
+  final int _unitPrice = 1200;
 
   void _incrementQuantity() {
     setState(() {
@@ -37,10 +41,7 @@ class _NaturalRepellentDetailsState extends State<NaturalRepellentDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -152,11 +153,28 @@ class _NaturalRepellentDetailsState extends State<NaturalRepellentDetails> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const NaturalRepellentCartPage(),
+                      final product = Product(
+                        id: 'natural_repellent',
+                        name: 'Natural Repellent',
+                        category: 'Pesticides',
+                        price: _unitPrice.toDouble(),
+                        unit: '500ml bottle',
+                        image: 'assets/images/repellent.jpg',
+                        description: 'Natural organic pest repellent',
+                        sellerId: 'agrolync_pesticides',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
                         ),
                       );
                     },

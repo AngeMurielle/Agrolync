@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/compost_bin_card.dart';
 
 class CompostBinDetails extends StatefulWidget {
@@ -10,7 +14,7 @@ class CompostBinDetails extends StatefulWidget {
 
 class _CompostBinDetailsState extends State<CompostBinDetails> {
   int _quantity = 1;
-  final double _unitPrice = 30.00;
+  final int _unitPrice = 3000;
 
   void _incrementQuantity() {
     setState(() {
@@ -36,10 +40,7 @@ class _CompostBinDetailsState extends State<CompostBinDetails> {
           onPressed: () => Navigator.pop(context),
         ),
         actions: const [
-          Icon(Icons.favorite_border, color: Colors.black),
-          SizedBox(width: 16),
-          Icon(Icons.share, color: Colors.black),
-          SizedBox(width: 16),
+          ProductDetailAppBarActions(),
         ],
         backgroundColor: Colors.white,
         elevation: 0,
@@ -150,10 +151,28 @@ class _CompostBinDetailsState extends State<CompostBinDetails> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CompostBinCartPage(),
+                      final product = Product(
+                        id: 'compost_bin',
+                        name: 'Compost Bin',
+                        category: 'Tools',
+                        price: _unitPrice.toDouble(),
+                        unit: 'unit',
+                        image: 'assets/images/compost_bin.jpg',
+                        description: 'Compost bin for waste management',
+                        sellerId: 'agrolync_tools',
+                        sellerName: 'AgroLync Marketplace',
+                        location: 'Cameroon',
+                      );
+                      for (int i = 0; i < _quantity; i++) {
+                        context.read<FarmerCartProvider>().addToCart(product);
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                              'Added $_quantity x ${product.name} to cart!'),
+                          duration: const Duration(milliseconds: 1500),
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: const Color(0xFF026139),
                         ),
                       );
                     },

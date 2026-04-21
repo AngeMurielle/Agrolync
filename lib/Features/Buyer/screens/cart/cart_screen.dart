@@ -215,7 +215,7 @@ class CartScreen extends StatelessWidget {
           const Divider(height: 30),
           _summaryRow("Subtotal", "${cart.subtotal.toInt()} XAF"),
           _summaryRow("Shipping Fee", "${cart.shippingFee.toInt()} XAF"),
-          _summaryRow("Taxes", "${cart.tax.toInt()} XAF"),
+          _summaryRow("Tax (5%)", "${cart.tax.toInt()} XAF"),
           const Divider(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
