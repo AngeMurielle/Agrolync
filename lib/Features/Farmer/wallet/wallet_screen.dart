@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/drawer.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/profile/profile.dart';
 import 'package:provider/provider.dart';
 import '../providers/farmer_navigation_provider.dart';
 
@@ -59,18 +55,8 @@ class _FarmerWalletScreenState extends State<FarmerWalletScreen> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFF026139)),
           onPressed: () {
-            try {
-              final navProvider = context.read<FarmerNavigationProvider>();
-              navProvider.setIndex(
-                  0); // Set to Home index (Wallet doesn't have its own index)
-              Navigator.of(context).pop();
-            } catch (e) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const FarmerHomeScreen()),
-              );
-            }
+            final navProvider = context.read<FarmerNavigationProvider>();
+            navProvider.setIndex(0); // Set to Home index
           },
         ),
         title: const Text("AgroLync",

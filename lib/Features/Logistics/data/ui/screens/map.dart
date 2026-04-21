@@ -128,9 +128,9 @@ class _LogisticsMapScreenState extends State<LogisticsMapScreen> {
 
     if (result.points.isNotEmpty) {
       polylineCoordinates.clear();
-      result.points.forEach((PointLatLng point) {
+      for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
+      }
       _calculateRouteDistance();
     }
 

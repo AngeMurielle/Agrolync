@@ -28,7 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   String? selectedRole;
   bool agreeToTerms = false;
-  bool _isLoading = false;
+  final bool _isLoading = false;
 
   @override
   void dispose() {

@@ -17,11 +17,7 @@ import 'LanguageSelection.dart' as languageSelection;
 // ignore: library_prefixes
 import 'SupportHelp.dart' as supportHelp;
 // ignore: library_prefixes
-import '../Home.dart' as HomePage;
 import '../drawer.dart';
-import '../Market.dart';
-import '../order/order.dart';
-import '../wallet/wallet_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -79,17 +75,8 @@ class _ProfilePageState extends State<ProfilePage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: brandGreen),
           onPressed: () {
-            try {
-              final navProvider = context.read<FarmerNavigationProvider>();
-              navProvider.setIndex(3); // Set to Profile index
-              Navigator.of(context).pop();
-            } catch (e) {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => const HomePage.FarmerHomeScreen(),
-                ),
-              );
-            }
+            final navProvider = context.read<FarmerNavigationProvider>();
+            navProvider.setIndex(0); // Set to Home index
           },
         ),
         title: const Text(

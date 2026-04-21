@@ -4,20 +4,7 @@ import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_prov
 import 'package:flutter_agrolync_pro/Features/Farmer/models/notification_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip1.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip2.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip3.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip4.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip5.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip6.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip7.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip8.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip9.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tip10.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product1.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/product2.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/product3.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/product4.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/product5.dart';
 
 class NotificationPage extends StatelessWidget {
   const NotificationPage({super.key});

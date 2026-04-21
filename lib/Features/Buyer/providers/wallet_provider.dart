@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/order_model.dart';
 
 class WalletTransaction {
   final String id;

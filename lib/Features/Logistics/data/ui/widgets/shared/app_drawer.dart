@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_agrolync_pro/Core/Constants/colors.dart';
 // Corrected the double slash in the import path
 import 'package:flutter_agrolync_pro/Core/Constants/dimensions.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/dashboard_screen.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/market_screen.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/myroute.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/wallet/wallet.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/profile/profile_screen.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 
 class AppDrawer extends StatefulWidget {

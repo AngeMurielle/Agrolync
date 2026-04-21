@@ -10,9 +10,12 @@ class FarmerNavigationProvider extends ChangeNotifier {
   void setIndex(int index) {
     _currentIndex = index;
     // Update drawer selection based on index
-    final items = ['Home', 'Marketplace', 'My Orders', 'Profile'];
+    final items = ['Home', 'Marketplace', 'My Orders', 'Wallet', 'Profile'];
     if (index < items.length) {
       _selectedDrawerItem = items[index];
+    } else {
+      // For category pages (indices 5-8), keep marketplace selected
+      _selectedDrawerItem = 'Marketplace';
     }
     notifyListeners();
   }
@@ -20,11 +23,16 @@ class FarmerNavigationProvider extends ChangeNotifier {
   void setDrawerItem(String item) {
     _selectedDrawerItem = item;
     // Update index based on drawer selection
-    final items = ['Home', 'Marketplace', 'My Orders', 'Profile'];
+    final items = ['Home', 'Marketplace', 'My Orders', 'Wallet', 'Profile'];
     final index = items.indexOf(item);
     if (index != -1) {
       _currentIndex = index;
     }
+    notifyListeners();
+  }
+
+  void setTabIndex(int index) {
+    _currentIndex = index;
     notifyListeners();
   }
 

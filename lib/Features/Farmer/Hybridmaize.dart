@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Maizeseed_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
 
 class HybridMaizeDetails extends StatefulWidget {

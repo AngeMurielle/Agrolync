@@ -4,11 +4,6 @@ import 'package:flutter_agrolync_pro/Core/Constants/colors.dart';
 import 'package:flutter_agrolync_pro/Core/Constants/dimensions.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/wallet/wallet_screen.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/profile/profile.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -56,22 +51,7 @@ class DrawerPage extends StatelessWidget {
             'Wallet',
             isActive: _isItemActive(context, 'Wallet'),
             onTap: () {
-              // Navigate to wallet while preserving navigation state
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => const FarmerHomeScreen(initialTabIndex: 2), // Keep Orders tab active
-                ),
-                (route) => false,
-              );
-              // Push wallet screen on top after navigation completes
-              Future.delayed(const Duration(milliseconds: 100), () {
-                if (context.mounted) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const FarmerWalletScreen()),
-                  );
-                }
-              });
+              _handleNavigation(context, 'Wallet', 3);
             },
           ),
           const SizedBox(height: 10),
@@ -82,7 +62,7 @@ class DrawerPage extends StatelessWidget {
             'Profile',
             isActive: _isItemActive(context, 'Profile'),
             onTap: () {
-              _handleNavigation(context, 'Profile', 3);
+              _handleNavigation(context, 'Profile', 4);
             },
           ),
           const SizedBox(height: 10),
@@ -114,52 +94,10 @@ class DrawerPage extends StatelessWidget {
     try {
       final navProvider = context.read<FarmerNavigationProvider>();
       navProvider.setDrawerItem(item);
+      navProvider.setTabIndex(index);
     } catch (e) {
-      // Fallback to old navigation if provider not available
-      switch (item) {
-        case 'Home':
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const FarmerHomeScreen()),
-          );
-          break;
-        case 'Marketplace':
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const MarketPage()),
-          );
-          break;
-        case 'My Orders':
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const OrderPage()),
-          );
-          break;
-        case 'Wallet':
-          // Navigate to wallet page while preserving navigation state
-          Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (context) => const FarmerHomeScreen(initialTabIndex: 2), // Keep Orders tab active
-            ),
-            (route) => false,
-          );
-          // Push wallet screen on top after navigation completes
-          Future.delayed(const Duration(milliseconds: 100), () {
-            if (context.mounted) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const FarmerWalletScreen()),
-              );
-            }
-          });
-          break;
-        case 'Profile':
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const ProfilePage()),
-          );
-          break;
-      }
+      // Fallback - just close the drawer
+      debugPrint('Navigation provider error: $e');
     }
   }
 

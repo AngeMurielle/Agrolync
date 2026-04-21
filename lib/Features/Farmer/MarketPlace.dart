@@ -1,23 +1,8 @@
 import 'package:flutter/material.dart';
 // Ensure these paths match your project structure exactly
-import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Hybridmaize.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Maizeseed_card.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/npk_fertilizer.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/npk_fertilizer_card.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/trowel.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/trowel_cart.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pestoil.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pestoil_card.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/herbicide.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/herbicide_card.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tomatoseed.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tomatoseed_card.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -26,31 +11,29 @@ class MarketplaceView extends StatelessWidget {
 
   // Fixed Navigation Logic
   void _navigateToCategory(BuildContext context, String category) {
-    Widget destination;
+    int index;
     switch (category) {
       case "All":
         // Stay on the current page (MarketplaceView)
         return;
       case "Seeds":
-        destination = const SeedsPage();
+        index = 5;
         break;
       case "Fertilizers":
-        destination = const FertilizersPage();
+        index = 6;
         break;
       case "Tools":
-        destination = const ToolsPage();
+        index = 7;
         break;
       case "Pesticides":
-        destination = const PesticidesPage();
+        index = 8;
         break;
       default:
         return;
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => destination),
-    );
+    final navProvider = context.read<FarmerNavigationProvider>();
+    navProvider.setIndex(index);
   }
 
   @override

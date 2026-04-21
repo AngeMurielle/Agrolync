@@ -372,7 +372,7 @@ class _DrivingDocumentsPageState extends State<DrivingDocumentsPage> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Container(
+            child: SizedBox(
               height: 150,
               width: double.infinity,
               child: kIsWeb

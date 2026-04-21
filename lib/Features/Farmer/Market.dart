@@ -111,17 +111,8 @@ class _MarketPageState extends State<MarketPage>
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {
-            try {
-              final navProvider = context.read<FarmerNavigationProvider>();
-              navProvider.setIndex(1); // Set to Marketplace index
-              Navigator.of(context).pop();
-            } catch (e) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const FarmerHomeScreen()),
-              );
-            }
+            final navProvider = context.read<FarmerNavigationProvider>();
+            navProvider.setIndex(0); // Set to Home index
           },
         ),
         title: const Text(
@@ -145,7 +136,7 @@ class _MarketPageState extends State<MarketPage>
                   children: [
                     const Icon(Icons.shopping_cart_outlined,
                         color: Colors.black, size: 26),
-                    if (cart.items.length > 0)
+                    if (cart.items.isNotEmpty)
                       Positioned(
                         right: 0,
                         top: 0,

@@ -7,6 +7,7 @@ import 'package:flutter_agrolync_pro/Features/Buyer/providers/order_provider.dar
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/wallet_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/home/home_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/search/search_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/cart/cart_screen.dart';
@@ -14,11 +15,8 @@ import 'package:flutter_agrolync_pro/Features/Buyer/screens/orders/orders_screen
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/wallet/wallet_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/profile/profile_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/checkout/checkout_screen.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/myroute.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/market_screen.dart';
 // Make sure to import the file where your SplashScreen is defined
 // import 'splash_screen.dart';
 
@@ -43,6 +41,7 @@ class AgrolyncApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => WalletProvider()),
         ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
         ChangeNotifierProvider(create: (_) => FarmerCartProvider()),
+        ChangeNotifierProvider(create: (_) => FarmerNavigationProvider()),
       ],
       child: MaterialApp(
         title: 'Agrolync',

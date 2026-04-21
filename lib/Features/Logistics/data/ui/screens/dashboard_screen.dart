@@ -13,7 +13,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
-  int _notificationCount = 3;
+  final int _notificationCount = 3;
 
   void _onItemTapped(int index) {
     setState(() {

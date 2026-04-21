@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 // Ensure these paths match your project structure exactly
 import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
@@ -208,6 +209,13 @@ class _FertilizersPageState extends State<FertilizersPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            final navProvider = context.read<FarmerNavigationProvider>();
+            navProvider.setIndex(1); // Set to Market index
+          },
+        ),
         title: const Text(
           "Market",
           style: TextStyle(
@@ -235,7 +243,7 @@ class _FertilizersPageState extends State<FertilizersPage> {
                     children: [
                       const Icon(Icons.shopping_cart_outlined,
                           color: Colors.black, size: 20),
-                      if (cart.items.length > 0)
+                      if (cart.items.isNotEmpty)
                         Positioned(
                           right: 0,
                           top: 0,

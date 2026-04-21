@@ -155,7 +155,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
         ],
       ),
       child: SwitchListTile(
-        activeColor: primaryGreen,
+        activeThumbColor: primaryGreen,
         contentPadding: const EdgeInsets.all(16),
         secondary: Container(
           padding: const EdgeInsets.all(10),

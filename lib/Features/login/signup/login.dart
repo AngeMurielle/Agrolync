@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Features/Buyer/main.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';

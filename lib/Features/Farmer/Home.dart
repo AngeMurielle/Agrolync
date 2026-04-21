@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
 // import unchanged - already correct for order.dart
 import 'package:flutter_agrolync_pro/Features/Farmer/profile/profile.dart';
@@ -9,6 +10,10 @@ import 'package:flutter_agrolync_pro/Features/Farmer/drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/search.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/notification.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/wallet/wallet_screen.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip1.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip2.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip3.dart';
@@ -24,6 +29,7 @@ import 'package:flutter_agrolync_pro/Features/Farmer/product2.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product3.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product4.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product5.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 //lib\Features\Farmer\order\order.dart
 
 class FarmerHomeScreen extends StatefulWidget {
@@ -36,49 +42,78 @@ class FarmerHomeScreen extends StatefulWidget {
 }
 
 class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
-  int _currentIndex = 0;
+  late int _currentIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentIndex = widget.initialTabIndex;
+  }
 
   final List<Widget> _pages = [
     const HomeContent(),
     const MarketPage(),
     const OrderPage(),
-    const ProfilePage(),
     const FarmerWalletScreen(),
+    const ProfilePage(),
+    const SeedsPage(),
+    const FertilizersPage(),
+    const ToolsPage(),
+    const PesticidesPage(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: _pages),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF026139),
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() => _currentIndex = index);
-        },
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_rounded), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.storefront_outlined), label: "Market"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long_outlined), label: "Orders"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance_wallet_outlined),
-              label: "Wallet"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: "Profile"),
-        ],
-      ),
+    return Consumer<FarmerNavigationProvider>(
+      builder: (context, navProvider, child) {
+        // Update local index when provider changes
+        _currentIndex = navProvider.currentIndex;
+        return Scaffold(
+          body: IndexedStack(index: _currentIndex, children: _pages),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: const Color(0xFF026139),
+            unselectedItemColor: Colors.grey,
+            showUnselectedLabels: true,
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              navProvider.setIndex(index);
+            },
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.storefront_outlined), label: "Market"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.receipt_long_outlined), label: "Orders"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.account_balance_wallet_outlined),
+                  label: "Wallet"),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.person_outline), label: "Profile"),
+            ],
+          ),
+        );
+      },
     );
   }
 }
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
+
+  @override
+  State<HomeContent> createState() => _HomeContentState();
+}
+
+class _HomeContentState extends State<HomeContent> {
+  late GlobalKey<ScaffoldState> _scaffoldKey;
+
+  @override
+  void initState() {
+    super.initState();
+    _scaffoldKey = GlobalKey<ScaffoldState>();
+  }
+
   static const Color brandGreen = Color(0xFF026139);
 
   static const List<Map<String, String>> _tips = [
@@ -224,12 +259,16 @@ class HomeContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: const Color(0xFFF8F9FA),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        automaticallyImplyLeading: false,
         title: GestureDetector(
-          onTap: () => Scaffold.of(context).openDrawer(),
+          onTap: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
           child: Row(
             children: [
               CircleAvatar(

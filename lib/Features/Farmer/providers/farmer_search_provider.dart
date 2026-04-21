@@ -36,7 +36,7 @@ class FarmerSearchProvider extends ChangeNotifier {
   List<FarmerProduct> _allProducts = [];
   List<FarmerProduct> _myProducts = []; // Only farmer's uploaded products
   List<FarmerProduct> _searchResults = [];
-  String _currentFilter = 'my_product'; // Default filter: show only my products
+  final String _currentFilter = 'my_product'; // Default filter: show only my products
   String _selectedCategory = '';
   String _selectedType = '';
 

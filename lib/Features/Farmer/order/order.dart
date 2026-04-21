@@ -5,9 +5,6 @@ import 'package:flutter_agrolync_pro/Features/Farmer/order/completed_orders.dart
 // ignore: unused_import
 import '../Home.dart' as home_page;
 import '../drawer.dart';
-import '../wallet/wallet_screen.dart';
-import '../profile/profile.dart';
-import '../Market.dart';
 import 'package:provider/provider.dart';
 import '../providers/farmer_navigation_provider.dart';
 
@@ -186,17 +183,8 @@ class _OrderPageState extends State<OrderPage>
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: brandGreen),
           onPressed: () {
-            try {
-              final navProvider = context.read<FarmerNavigationProvider>();
-              navProvider.setIndex(2); // Set to Orders index
-              Navigator.of(context).pop();
-            } catch (e) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const home_page.FarmerHomeScreen()),
-              );
-            }
+            final navProvider = context.read<FarmerNavigationProvider>();
+            navProvider.setIndex(0); // Set to Home index
           },
         ),
         centerTitle: false,

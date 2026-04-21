@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product_detail_actions.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/fungicide_card.dart';
 
 class FungicideDetails extends StatefulWidget {
   const FungicideDetails({super.key});
