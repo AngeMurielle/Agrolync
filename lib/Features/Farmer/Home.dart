@@ -8,6 +8,7 @@ import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/search.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/notification.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/wallet/wallet_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip1.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip2.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip3.dart';
@@ -42,6 +43,7 @@ class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
     const MarketPage(),
     const OrderPage(),
     const ProfilePage(),
+    const FarmerWalletScreen(),
   ];
 
   @override
@@ -64,6 +66,9 @@ class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
               icon: Icon(Icons.storefront_outlined), label: "Market"),
           BottomNavigationBarItem(
               icon: Icon(Icons.receipt_long_outlined), label: "Orders"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_balance_wallet_outlined),
+              label: "Wallet"),
           BottomNavigationBarItem(
               icon: Icon(Icons.person_outline), label: "Profile"),
         ],
@@ -223,35 +228,31 @@ class HomeContent extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Colors.black),
-            onPressed: () => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const DrawerPage())),
-          ),
-        ),
-        title: Row(
-          children: [
-            CircleAvatar(
-                radius: 18, backgroundImage: AssetImage(AppImages.person)),
-            const SizedBox(width: 10),
-            const Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("Welcome back,",
-                      style: TextStyle(color: Colors.grey, fontSize: 10)),
-                  Text("Ange Murielle",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14),
-                      overflow: TextOverflow.ellipsis),
-                ],
+        title: GestureDetector(
+          onTap: () => Scaffold.of(context).openDrawer(),
+          child: Row(
+            children: [
+              CircleAvatar(
+                  radius: 18, backgroundImage: AssetImage(AppImages.person)),
+              const SizedBox(width: 10),
+              const Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Welcome back,",
+                        style: TextStyle(color: Colors.grey, fontSize: 10)),
+                    Text("Ange Murielle",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                        overflow: TextOverflow.ellipsis),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         actions: [
           IconButton(
@@ -267,6 +268,7 @@ class HomeContent extends StatelessWidget {
                       builder: (context) => const NotificationPage()))),
         ],
       ),
+      drawer: const DrawerPage(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -351,7 +353,7 @@ class HomeContent extends StatelessWidget {
         children: [
           Expanded(
               child: _actionItem(
-                  context, Icons.playlist_add_check_rounded, "Add Harvest",
+                  context, Icons.playlist_add_check_rounded, "Add Product",
                   onTap: () => _navigateToAddProduct(context))),
           Expanded(
               child: _actionItem(
@@ -525,11 +527,13 @@ class HomeContent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // TODO: Replace 'tag' here for each Agronomic Tip (e.g., 'CROP CARE')
-                    Text(tip['tag']!,
-                        style: const TextStyle(
-                            color: brandGreen,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10),),
+                    Text(
+                      tip['tag']!,
+                      style: const TextStyle(
+                          color: brandGreen,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 10),
+                    ),
                     // TODO: Replace 'title' here for each Agronomic Tip (e.g., 'Pro Tip #1')
                     Text(tip['title']!,
                         style: const TextStyle(
