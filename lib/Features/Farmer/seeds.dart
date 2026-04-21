@@ -9,17 +9,11 @@ import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Hybridmaize.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Maizeseed_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/bean_seeds.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/bean_seeds_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/onion_seeds.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/onion_seeds_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/carrot_seeds.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/carrot_seeds_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pepper_seeds.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pepper_seeds_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tomatoseed.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tomatoseed_card.dart';
 
 class SeedsPage extends StatefulWidget {
   const SeedsPage({super.key});

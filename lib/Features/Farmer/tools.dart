@@ -11,17 +11,11 @@ import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 //import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/trowel.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/trowel_cart.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/watering_can.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/watering_can_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/garden_hoe.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/garden_hoe_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pruning_shears.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pruning_shears_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/garden_hose.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/garden_hose_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/compost_bin.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/compost_bin_card.dart';
 
 class ToolsPage extends StatefulWidget {
   const ToolsPage({super.key});

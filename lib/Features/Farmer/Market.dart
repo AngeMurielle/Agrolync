@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Listing.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/MarketPlace.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/new_product.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/drawer.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/wallet/wallet_screen.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/profile/profile.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';

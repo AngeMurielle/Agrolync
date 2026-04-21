@@ -11,17 +11,11 @@ import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pestoil.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pestoil_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/synthetic_insecticide.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/synthetic_insecticide_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/synthetic_herbicide.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/synthetic_herbicide_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/fungicide.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/fungicide_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/rodenticide.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/rodenticide_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/natural_repellent.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/natural_repellent_card.dart';
 
 class PesticidesPage extends StatefulWidget {
   const PesticidesPage({super.key});

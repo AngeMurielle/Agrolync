@@ -11,17 +11,11 @@ import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dar
 //import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/npk_fertilizer.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/npk_fertilizer_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/urea_fertilizer.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/urea_fertilizer_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/potassium_chloride.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/potassium_chloride_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/ammonium_nitrate.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/ammonium_nitrate_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/calcium_nitrate.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/calcium_nitrate_card.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/magnesium_sulfate.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/magnesium_sulfate_card.dart';
 
 class FertilizersPage extends StatefulWidget {
   const FertilizersPage({super.key});
