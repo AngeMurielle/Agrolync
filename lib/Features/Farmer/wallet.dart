@@ -11,7 +11,7 @@ class _FarmerWalletScreenState extends State<FarmerWalletScreen> {
   static const Color brandGreen = Color(0xFF026139);
   static const Color darkGreen = Color(0xFF014D2E);
 
-  double _balance = 250000.0; // XAF 250,000 (Synced with Home earnings)
+  double _balance = 250000; // XAF 250,000 (Synced with Home earnings)
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +200,7 @@ class _FarmerWalletScreenState extends State<FarmerWalletScreen> {
 
             _buildTransactionItem(
               'Sale - Tomatoes',
-              '+XAF 28,000',
+              '+XAF 28000',
               '2 days ago',
               Icons.trending_up,
               Colors.green,
@@ -208,7 +208,7 @@ class _FarmerWalletScreenState extends State<FarmerWalletScreen> {
 
             _buildTransactionItem(
               'Equipment Purchase',
-              '-XAF 35,000',
+              '-XAF 35000',
               '3 days ago',
               Icons.trending_down,
               Colors.red,
@@ -216,7 +216,7 @@ class _FarmerWalletScreenState extends State<FarmerWalletScreen> {
 
             _buildTransactionItem(
               'Top Up - MTN MoMo',
-              '+XAF 50,000',
+              '+XAF 50000',
               '5 days ago',
               Icons.add_circle,
               Colors.blue,

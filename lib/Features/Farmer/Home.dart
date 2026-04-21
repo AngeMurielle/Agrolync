@@ -30,7 +30,7 @@ import 'package:flutter_agrolync_pro/Features/Farmer/product3.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product4.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product5.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
-//lib\Features\Farmer\order\order.dart
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
 
 class FarmerHomeScreen extends StatefulWidget {
   final int initialTabIndex;
@@ -68,6 +68,8 @@ class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
       builder: (context, navProvider, child) {
         // Update local index when provider changes
         _currentIndex = navProvider.currentIndex;
+        // For category pages (indices 5-8), show Market (index 1) as selected in bottom nav
+        int bottomNavIndex = _currentIndex > 4 ? 1 : _currentIndex;
         return Scaffold(
           body: IndexedStack(index: _currentIndex, children: _pages),
           bottomNavigationBar: BottomNavigationBar(
@@ -75,7 +77,7 @@ class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
             selectedItemColor: const Color(0xFF026139),
             unselectedItemColor: Colors.grey,
             showUnselectedLabels: true,
-            currentIndex: _currentIndex,
+            currentIndex: bottomNavIndex,
             onTap: (index) {
               navProvider.setIndex(index);
             },
@@ -107,6 +109,39 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   late GlobalKey<ScaffoldState> _scaffoldKey;
+
+  late List<Map<String, String>> products = [
+    {
+      'title': 'Organic Maize',
+      'image': 'assets/images/maize.jpg',
+      'subtitle': '500 bags available',
+      'price': '35000 XAF/bag of 100 kg',
+    },
+    {
+      'title': 'Red Onions',
+      'image': 'assets/images/onions.jpg',
+      'subtitle': '200 bags available',
+      'price': '45000 XAF/bag of 100 kg',
+    },
+    {
+      'title': 'Fresh Tomatoes',
+      'image': 'assets/images/tomato.jpg',
+      'subtitle': '350 baskets available',
+      'price': '2500 XAF/basket',
+    },
+    {
+      'title': 'Green Beans',
+      'image': 'assets/images/beans.jpg',
+      'subtitle': '300 bags available',
+      'price': '55000 XAF/bag of 50 kg',
+    },
+    {
+      'title': 'Carrots',
+      'image': 'assets/images/carrot.jpg',
+      'subtitle': '250 bags available',
+      'price': '15000 XAF/bag of 50 kg',
+    },
+  ];
 
   @override
   void initState() {
@@ -191,6 +226,45 @@ class _HomeContentState extends State<HomeContent> {
   void _navigateToAddProduct(BuildContext context) {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const AddNewProductPage()));
+  }
+
+  void _editProduct(BuildContext context, int index) {
+    // Navigate to new_product.dart with product data
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => AddNewProductPage(
+                  editData: products[index],
+                )));
+  }
+
+  void _deleteProduct(int index) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text("Delete Product"),
+        content: Text(
+            "Are you sure you want to delete ${products[index]['title']}?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                products.removeAt(index);
+              });
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("Product deleted successfully")),
+              );
+            },
+            child: const Text("Delete", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
   }
 
   void _navigateToTip(BuildContext context, int tipIndex) {
@@ -298,13 +372,42 @@ class _HomeContentState extends State<HomeContent> {
               icon: const Icon(Icons.search, color: Colors.black),
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SearchPage()))),
-          IconButton(
-              icon: const Icon(Icons.notifications_none_rounded,
-                  color: Colors.black),
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const NotificationPage()))),
+          Consumer<NotificationProvider>(
+            builder: (context, notificationProvider, child) {
+              final unreadCount = notificationProvider?.unreadCount ?? 0;
+              return Stack(
+                children: [
+                  IconButton(
+                      icon: const Icon(Icons.notifications_none_rounded,
+                          color: Colors.black),
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const NotificationPage()))),
+                  if (unreadCount > 0)
+                    Positioned(
+                      right: 8,
+                      top: 8,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        padding: const EdgeInsets.all(4),
+                        child: Text(
+                          unreadCount.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
         ],
       ),
       drawer: const DrawerPage(),
@@ -350,10 +453,10 @@ class _HomeContentState extends State<HomeContent> {
           children: [
             const Text("Total Earnings",
                 style: TextStyle(color: Colors.white70, fontSize: 14)),
-            const FittedBox(
+            FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text("14,250.00 XAF",
-                  style: TextStyle(
+              child: Text("250000 XAF",
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 36,
                       fontWeight: FontWeight.bold)),
@@ -598,52 +701,30 @@ class _HomeContentState extends State<HomeContent> {
   Widget _buildProductList(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: ListView(
+      child: ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        children: [
-          _productItem(
-              "Organic Maize",
-              "assets/images/maize.jpg",
-              "500 bags available",
-              "35000 XAF/bag of 100 kg",
-              Colors.black54,
-              () => _navigateToProduct(context, 0)),
-          _productItem(
-              "Red Onions",
-              "assets/images/onions.jpg",
-              "200 bags available",
-              "45000 XAF/bag of 100 kg",
-              Colors.black54,
-              () => _navigateToProduct(context, 1)),
-          _productItem(
-              "Fresh Tomatoes",
-              "assets/images/tomato.jpg",
-              "350 baskets available",
-              "2500 XAF/basket",
-              Colors.black54,
-              () => _navigateToProduct(context, 2)),
-          _productItem(
-              "Green Beans",
-              "assets/images/beans.jpg",
-              "300 bags available",
-              "55000 XAF/bag of 50 kg",
-              Colors.black54,
-              () => _navigateToProduct(context, 3)),
-          _productItem(
-              "Carrots",
-              "assets/images/carrot.jpg",
-              "250 bags available",
-              "15000 XAF/bag of 50 kg",
-              Colors.black54,
-              () => _navigateToProduct(context, 4)),
-        ],
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          final product = products[index];
+          return _productItem(
+            product['title']!,
+            product['image']!,
+            product['subtitle']!,
+            product['price']!,
+            Colors.black54,
+            () => _navigateToProduct(context, index),
+            onEdit: () => _editProduct(context, index),
+            onDelete: () => _deleteProduct(index),
+          );
+        },
       ),
     );
   }
 
   Widget _productItem(String title, String imagePath, String subtitle,
-      String price, Color subColor, VoidCallback onTap) {
+      String price, Color subColor, VoidCallback onTap,
+      {required VoidCallback onEdit, required VoidCallback onDelete}) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -700,11 +781,11 @@ class _HomeContentState extends State<HomeContent> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                    onPressed: () {},
+                    onPressed: onEdit,
                     icon: const Icon(Icons.edit, size: 18, color: Colors.grey),
                     constraints: const BoxConstraints()),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: onDelete,
                     icon: const Icon(Icons.delete_outline,
                         size: 18, color: Colors.redAccent),
                     constraints: const BoxConstraints()),
