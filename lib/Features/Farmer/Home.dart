@@ -469,7 +469,9 @@ class _HomeContentState extends State<HomeContent> {
                       style: TextStyle(color: Colors.white, fontSize: 16)),
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<FarmerNavigationProvider>().setIndex(3);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: brandGreen,
