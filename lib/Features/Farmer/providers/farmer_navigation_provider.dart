@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class FarmerNavigationProvider extends ChangeNotifier {
   int _currentIndex = 0;
   String _selectedDrawerItem = 'Home';
+  String? _profileImagePath;
 
   int get currentIndex => _currentIndex;
+  String? get profileImagePath => _profileImagePath;
   String get selectedDrawerItem => _selectedDrawerItem;
 
   void setIndex(int index) {
@@ -39,6 +41,11 @@ class FarmerNavigationProvider extends ChangeNotifier {
   void resetNavigation() {
     _currentIndex = 0;
     _selectedDrawerItem = 'Home';
+    notifyListeners();
+  }
+
+  void setProfileImage(String? path) {
+    _profileImagePath = path;
     notifyListeners();
   }
 }

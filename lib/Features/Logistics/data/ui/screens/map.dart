@@ -120,10 +120,13 @@ class _LogisticsMapScreenState extends State<LogisticsMapScreen> {
   // --- Logic: Routing ---
   Future<void> _getPolyline() async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      kGoogleApiKey,
-      PointLatLng(_pickupLocation.latitude, _pickupLocation.longitude),
-      PointLatLng(_dropoffLocation.latitude, _dropoffLocation.longitude),
-      travelMode: TravelMode.driving,
+      googleApiKey: kGoogleApiKey,
+      request: PolylineRequest(
+        origin: PointLatLng(_pickupLocation.latitude, _pickupLocation.longitude),
+        destination:
+            PointLatLng(_dropoffLocation.latitude, _dropoffLocation.longitude),
+        mode: TravelMode.driving,
+      ),
     );
 
     if (result.points.isNotEmpty) {

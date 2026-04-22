@@ -620,24 +620,7 @@ class _SeedsPageState extends State<SeedsPage> {
           )
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF026139),
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        currentIndex: _currentIndex,
-        onTap: _onBottomNavTap,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_rounded), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.storefront_outlined), label: "Market"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long_outlined), label: "Orders"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: "Profile"),
-        ],
-      ),
+      // FIX: Removed bottomNavigationBar to prevent duplicate navigation when this page is pushed
     );
   }
 

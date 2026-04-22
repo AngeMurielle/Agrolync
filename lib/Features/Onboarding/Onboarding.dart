@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Core/Utilities/responsive_utils.dart';
+//import 'package:flutter_agrolync_pro/Core/Utilities/responsive_utils.dart';
 import 'package:flutter_agrolync_pro/Features/Onboarding/Onboarding1.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
-//import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -30,20 +31,24 @@ class OnboardingScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildIllustration(),
-                    const SizedBox(height: 30), // Saved Gap
+                    _buildIllustration(context),
+                    SizedBox(
+                        height: context.responsiveGap *
+                            0.6), // FIXED: Responsive gap
                     _buildTextContent(),
                   ],
                 ),
               ),
             ),
 
-            // FIXED: Footer and Elevated Button at the bottom
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              padding:
+                  EdgeInsets.symmetric(horizontal: context.responsiveGap * 0.8),
               child: _buildFooter(context),
             ),
-            const SizedBox(height: 30), // Saved Bottom Safe-Area Padding
+            SizedBox(
+                height: context.bottomNavPadding *
+                    0.5), // Extra safe bottom padding
           ],
         ),
       ),
@@ -71,12 +76,13 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildIllustration() {
-    // SAVED SIZE: 180x180 for logo
+  Widget _buildIllustration(BuildContext context) {
+    // FIXED: Responsive image height - prevents overflow on small/landscape devices
+    // Uses responsiveImageHeight (20% screen height, clamped 120-180px)
     return Image.asset(
       AppImages.logo5,
-      height: 180,
-      width: 180,
+      height: context.responsiveImageHeight,
+      width: context.responsiveImageHeight,
       fit: BoxFit.contain,
     );
   }
@@ -108,37 +114,42 @@ class OnboardingScreen extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // SAVED WIDTH: Long active indicator (70px)
+        // FIXED: Responsive active indicator width (15% screen width)
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              width: 70,
+              width: context.screenWidth * 0.18, // Responsive width
               height: 8,
               decoration: BoxDecoration(
                 color: brandGreen,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
-            const SizedBox(width: 6),
+            SizedBox(width: 6),
             _buildDot(),
-            const SizedBox(width: 6),
+            SizedBox(width: 6),
             _buildDot(),
-            const SizedBox(width: 6),
+            SizedBox(width: 6),
             _buildDot(),
           ],
         ),
         const SizedBox(height: 32),
-        // SAVED HEIGHT: Primary Button (56px)
+        // FIXED: Responsive button using responsiveButtonHeight
         SizedBox(
           width: double.infinity,
-          height: 65.0,
-          child: ElevatedButton(
+          height: context.responsiveButtonHeight,
+          child: ElevatedButton.icon(
             onPressed: () => Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const OnboardingScreen1(),
               ),
+            ),
+            icon: const Icon(Icons.arrow_forward, size: 20),
+            label: const Text(
+              'Next',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: brandGreen,
@@ -148,17 +159,6 @@ class OnboardingScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
             ),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Next',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-                Icon(Icons.arrow_forward, size: 20),
-              ],
-            ),
           ),
         ),
       ],
@@ -166,8 +166,9 @@ class OnboardingScreen extends StatelessWidget {
   }
 
   Widget _buildDot() => Container(
-    width: 8,
-    height: 8,
-    decoration: const BoxDecoration(color: inactiveDot, shape: BoxShape.circle),
-  );
+        width: 8,
+        height: 8,
+        decoration:
+            const BoxDecoration(color: inactiveDot, shape: BoxShape.circle),
+      );
 }

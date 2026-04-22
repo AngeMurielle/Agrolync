@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/models/notification_model.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip1.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product1.dart';
 
