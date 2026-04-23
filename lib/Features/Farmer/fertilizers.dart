@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
-// Ensure these paths match your project structure exactly
-import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 
 //import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/npk_fertilizer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/urea_fertilizer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/potassium_chloride.dart';
@@ -30,32 +26,30 @@ class _FertilizersPageState extends State<FertilizersPage> {
 
   // Fixed Navigation Logic
   void _navigateToCategory(BuildContext context, String category) {
-    Widget destination;
+    final navProvider = context.read<FarmerNavigationProvider>();
     switch (category) {
       case "All":
-        // Navigate back to main marketplace while preserving navigation state
-        Navigator.of(context).popUntil((route) => route.isFirst);
+        // Navigate to Market page (index 1)
+        navProvider.setIndex(1);
         return;
       case "Seeds":
-        destination = const SeedsPage();
-        break;
+        // Navigate to Seeds (index 5)
+        navProvider.setIndex(5);
+        return;
       case "Fertilizers":
-        // Already on fertilizers page
+        // Already on fertilizers page (index 6)
         return;
       case "Tools":
-        destination = const ToolsPage();
-        break;
+        // Navigate to Tools (index 7)
+        navProvider.setIndex(7);
+        return;
       case "Pesticides":
-        destination = const PesticidesPage();
-        break;
+        // Navigate to Pesticides (index 8)
+        navProvider.setIndex(8);
+        return;
       default:
         return;
     }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => destination),
-    );
   }
 
   void _showSearchDialog() {
