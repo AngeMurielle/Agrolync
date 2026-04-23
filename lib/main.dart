@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:flutter_agrolync_pro/Features/Onboarding/Splash.dart';
+
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/product_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/order_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/wallet_provider.dart';
+
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
+
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/home/home_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/search/search_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/cart/cart_screen.dart';
@@ -16,19 +21,28 @@ import 'package:flutter_agrolync_pro/Features/Buyer/screens/orders/orders_screen
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/wallet/wallet_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/profile/profile_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/checkout/checkout_screen.dart';
+
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
-// Make sure to import the file where your SplashScreen is defined
-// import 'splash_screen.dart';
 
+/// ===============================
+/// APP ENTRY POINT
+/// ===============================
 void main() async {
-  // 1. Ensure Flutter is ready
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. Start the App
+  /// ✅ SUPABASE INITIALIZATION
+  await Supabase.initialize(
+    url: 'https://supabase.com/dashboard/project/hbxknoolhrqmmvhimmyw/settings/general',
+    anonKey: 'sb_publishable_BQZEhzpvBQbOaWJjPWwDew_-3Z8egHt',
+  );
+
   runApp(const AgrolyncApp());
 }
 
+/// ===============================
+/// ROOT APPLICATION
+/// ===============================
 class AgrolyncApp extends StatelessWidget {
   const AgrolyncApp({super.key});
 
@@ -47,25 +61,36 @@ class AgrolyncApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Agrolync',
-        debugShowCheckedModeBanner: false, // Cleaner look without the banner
+        debugShowCheckedModeBanner: false,
+
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF006837)),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF006837),
+          ),
           useMaterial3: true,
         ),
+
         initialRoute: '/',
+
         routes: {
           '/': (context) => const SplashScreen(),
+
+          /// BUYER
           '/home': (context) => const HomeScreen(),
           '/search': (context) => const SearchScreen(),
           '/cart': (context) => const CartScreen(),
           '/orders': (context) => const OrdersScreen(),
           '/wallet': (context) => const WalletScreen(),
           '/profile': (context) => const ProfileScreen(),
-          '/map': (context) => const LogisticsMapScreen(),
           '/checkout': (context) => const CheckoutScreen(),
+
+          /// LOGISTICS
+          '/map': (context) => const LogisticsMapScreen(),
           '/logistics_home': (context) => const MainNavWrapper(),
-          '/market_screen': (context) => const MainNavWrapper(initialIndex: 1),
-          '/myroute': (context) => const MainNavWrapper(initialIndex: 2),
+          '/market_screen': (context) =>
+              const MainNavWrapper(initialIndex: 1),
+          '/myroute': (context) =>
+              const MainNavWrapper(initialIndex: 2),
         },
       ),
     );
