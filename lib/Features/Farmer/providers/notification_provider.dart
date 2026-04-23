@@ -3,16 +3,16 @@ import 'package:flutter_agrolync_pro/Features/Farmer/models/notification_model.d
 
 class NotificationProvider extends ChangeNotifier {
   List<FarmerNotification> _notifications = [];
-
+  
   NotificationProvider() {
     _loadInitialNotifications();
   }
 
   List<FarmerNotification> get notifications => _notifications;
-
+  
   List<FarmerNotification> get unreadNotifications =>
       _notifications.where((n) => !n.isRead).toList();
-
+  
   int get unreadCount => unreadNotifications.length;
 
   void _loadInitialNotifications() {
@@ -91,7 +91,8 @@ class NotificationProvider extends ChangeNotifier {
 
   /// Mark notification as read
   void markAsRead(String notificationId) {
-    final index = _notifications.indexWhere((n) => n.id == notificationId);
+    final index =
+        _notifications.indexWhere((n) => n.id == notificationId);
     if (index != -1) {
       _notifications[index].isRead = true;
       notifyListeners();
@@ -125,8 +126,8 @@ class NotificationProvider extends ChangeNotifier {
 
   /// Accept an order
   void acceptOrder(String orderId) {
-    final index = _notifications
-        .indexWhere((n) => n.type == 'order' && n.data['orderId'] == orderId);
+    final index = _notifications.indexWhere((n) =>
+        n.type == 'order' && n.data['orderId'] == orderId);
     if (index != -1) {
       _notifications[index].data['status'] = 'accepted';
       notifyListeners();
@@ -135,8 +136,8 @@ class NotificationProvider extends ChangeNotifier {
 
   /// Reject an order
   void rejectOrder(String orderId) {
-    final index = _notifications
-        .indexWhere((n) => n.type == 'order' && n.data['orderId'] == orderId);
+    final index = _notifications.indexWhere((n) =>
+        n.type == 'order' && n.data['orderId'] == orderId);
     if (index != -1) {
       _notifications[index].data['status'] = 'rejected';
       notifyListeners();

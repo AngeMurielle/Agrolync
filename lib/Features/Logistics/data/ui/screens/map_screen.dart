@@ -4,19 +4,14 @@ import 'package:flutter_agrolync_pro/Core/Constants/colors.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/widgets/shared/logistics_bottom_nav.dart';
 import 'package:google_maps_webservice/places.dart' hide TravelMode;
-import 'package:flutter_google_places_hoc081098/flutter_google_places_hoc081098.dart';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
-import 'package:flutter_agrolync_pro/Features/Buyer/main.dart'; // Import Buyer's main screen (MainNavigationWrapper)
-
-enum NavigationSource { farmer, buyer, logistics }
 
 class MapScreen extends StatefulWidget {
   final LatLng? pickupLocation;
   final LatLng? dropoffLocation;
   final String? pickupName;
   final String? dropoffName;
-  final NavigationSource source;
 
   const MapScreen({
     super.key,
@@ -24,7 +19,6 @@ class MapScreen extends StatefulWidget {
     this.dropoffLocation,
     this.pickupName,
     this.dropoffName,
-    required this.source,
   });
 
   @override
@@ -84,12 +78,10 @@ class _MapScreenState extends State<MapScreen> {
   // UPDATED: Compatibility for flutter_polyline_points ^1.0.0
   Future<void> _getPolyline() async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey: kGoogleApiKey,
-      request: PolylineRequest(
-        origin: PointLatLng(_pickup.latitude, _pickup.longitude),
-        destination: PointLatLng(_dropoff.latitude, _dropoff.longitude),
-        mode: TravelMode.driving,
-      ),
+      kGoogleApiKey, // No parameter label for API Key in v1.0.0
+      PointLatLng(_pickup.latitude, _pickup.longitude),
+      PointLatLng(_dropoff.latitude, _dropoff.longitude),
+      travelMode: TravelMode.driving,
     );
 
     if (result.points.isNotEmpty) {
@@ -149,116 +141,83 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // FIX: Replaced deprecated WillPopScope with PopScope for Flutter 3.12+
-    return PopScope(
-      canPop: true,
-      onPopInvokedWithResult: (didPop, result) async {
-        if (!didPop) {
-          await _onWillPop();
-        }
-      },
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            GoogleMap(
-              initialCameraPosition: CameraPosition(target: _douala, zoom: 7.5),
-              onMapCreated: (controller) => _mapController = controller,
-              markers: _markers,
-              polylines: _polylines, // Renders the green route line
-              zoomControlsEnabled: false,
-              myLocationButtonEnabled: false,
-              mapToolbarEnabled: false,
-            ),
-            Positioned(
-              top: MediaQuery.of(context).padding.top + 10,
-              left: 20,
-              right: 20,
-              child: Row(
-                children: [
-                  _buildCircularButton(
-                    icon: Icons.arrow_back_ios_new,
-                    onTap: _onWillPop,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: CameraPosition(target: _douala, zoom: 7.5),
+            onMapCreated: (controller) => _mapController = controller,
+            markers: _markers,
+            polylines: _polylines, // Renders the green route line
+            zoomControlsEnabled: false,
+            myLocationButtonEnabled: false,
+            mapToolbarEnabled: false,
+          ),
+          Positioned(
+            top: MediaQuery.of(context).padding.top + 10,
+            left: 20,
+            right: 20,
+            child: Row(
+              children: [
+                _buildCircularButton(
+                  icon: Icons.arrow_back_ios_new,
+                  onTap: () => Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const MainNavWrapper(initialIndex: 0),
+                    ),
+                    (route) => false,
                   ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: GestureDetector(
-                      onTap: _handleSearchAction,
-                      child: Container(
-                        height: 55,
-                        padding: const EdgeInsets.symmetric(horizontal: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15),
-                          boxShadow: const [
-                            BoxShadow(color: Colors.black12, blurRadius: 10)
-                          ],
-                        ),
-                        child: Row(
-                          children: const [
-                            Icon(Icons.search, color: Colors.grey),
-                            SizedBox(width: 10),
-                            Text("Search Cameroon markets...",
-                                style: TextStyle(
-                                    color: Colors.grey, fontSize: 14)),
-                          ],
-                        ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: _handleSearchAction,
+                    child: Container(
+                      height: 55,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15),
+                        boxShadow: const [
+                          BoxShadow(color: Colors.black12, blurRadius: 10)
+                        ],
+                      ),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.search, color: Colors.grey),
+                          SizedBox(width: 10),
+                          Text("Search Cameroon markets...",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 14)),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: _buildBottomDetails(),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _buildBottomDetails(),
+          ),
+        ],
+      ),
+      bottomNavigationBar: LogisticsBottomNavBar(
+        selectedIndex: 1,
+        onTap: (index) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (_) => MainNavWrapper(initialIndex: index),
             ),
-          ],
-        ),
-        bottomNavigationBar: (widget.source == NavigationSource.logistics)
-            ? LogisticsBottomNavBar(
-                selectedIndex: 1,
-                onTap: (index) {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => MainNavWrapper(initialIndex: index),
-                    ),
-                    (route) => false,
-                  );
-                },
-              )
-            : null,
+            (route) => false,
+          );
+        },
       ),
     );
-  }
-
-  Future<bool> _onWillPop() async {
-    switch (widget.source) {
-      case NavigationSource.farmer:
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const FarmerHomeScreen(initialTabIndex: 2)),
-          (route) => false,
-        );
-        break;
-      case NavigationSource.buyer:
-        // FIX: Changed MainBuyerScreen to MainNavigationWrapper (correct class name)
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const MainNavigationWrapper()),
-          (route) => false,
-        );
-        break;
-      case NavigationSource.logistics:
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const MainNavWrapper(initialIndex: 0)),
-          (route) => false,
-        );
-        break;
-    }
-    return Future.value(false); // Prevent default pop behavior
   }
 
   Widget _buildCircularButton(
@@ -277,7 +236,6 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Widget _buildBottomDetails() {
-    // FIX: Corrected broken widget structure with proper nesting
     return Container(
       height: MediaQuery.of(context).size.height * 0.52,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 15),
@@ -320,7 +278,6 @@ class _MapScreenState extends State<MapScreen> {
                   const Text("Pickup: Today • 06:30 AM",
                       style: TextStyle(color: Colors.grey, fontSize: 13)),
                   const SizedBox(height: 20),
-                  // FIX: Wrapped GridView in SizedBox to prevent layout errors
                   GridView.count(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
@@ -352,15 +309,7 @@ class _MapScreenState extends State<MapScreen> {
                       city: "Yaoundé, Centre"),
                   const SizedBox(height: 25),
                   ElevatedButton(
-                    onPressed: () {
-                      // FIX: Added action handler for Accept button
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text("Delivery job accepted!"),
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryGreen,
                       minimumSize: const Size(double.infinity, 55),

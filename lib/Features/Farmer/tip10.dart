@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
 
-class Tip10Page extends StatefulWidget {
+class Tip10Page extends StatelessWidget {
   const Tip10Page({super.key});
-
-  @override
-  State<Tip10Page> createState() => _Tip10PageState();
-}
-
-class _Tip10PageState extends State<Tip10Page> {
-  bool _notificationsEnabled = false;
 
   static const Color brandGreen = Color(0xFF026139);
   static const Color lightGreenSurface = Color(0xFFEFF7F2);
@@ -52,10 +43,7 @@ class _Tip10PageState extends State<Tip10Page> {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.transparent,
-                        Colors.black.withOpacity(0.7)
-                      ],
+                      colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
                     ),
                   ),
                 ),
@@ -67,18 +55,14 @@ class _Tip10PageState extends State<Tip10Page> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: brandGreen,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
                           "BEST PRACTICE",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -105,16 +89,12 @@ class _Tip10PageState extends State<Tip10Page> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4))
+                    BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))
                   ],
                 ),
                 child: const Text(
                   "Enhance operational safety by inspecting equipment before the busy season to avoid costly delays.\nWell-maintained machinery operates more efficiently and prevents injuries. Always shut off power before leaving an operator's station and ensure all workers are trained on safety procedures.",
-                  style:
-                      TextStyle(color: bodyGreyText, height: 1.5, fontSize: 14),
+                  style: TextStyle(color: bodyGreyText, height: 1.5, fontSize: 14),
                 ),
               ),
             ),
@@ -127,15 +107,11 @@ class _Tip10PageState extends State<Tip10Page> {
                 children: const [
                   Text(
                     "Core Strategies",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: brandGreen),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: brandGreen),
                   ),
                   Text(
                     "2 RECOMMENDED",
-                    style: TextStyle(
-                        fontSize: 12, color: bodyGreyText, letterSpacing: 1),
+                    style: TextStyle(fontSize: 12, color: bodyGreyText, letterSpacing: 1),
                   ),
                 ],
               ),
@@ -145,8 +121,7 @@ class _Tip10PageState extends State<Tip10Page> {
             _buildStrategyCard(
               index: "1",
               title: "The 50-Hour Checklist",
-              description:
-                  " Perform a systematic check of fluids, belts, and sharp edges every 50 hours of machine operation.",
+              description: " Perform a systematic check of fluids, belts, and sharp edges every 50 hours of machine operation.",
               icon: Icons.grass,
               efficiency: "HIGH",
               cost: "LOW",
@@ -155,8 +130,7 @@ class _Tip10PageState extends State<Tip10Page> {
             _buildStrategyCard(
               index: "2",
               title: "Post-Season Storage",
-              description:
-                  "Clean, lubricate, and store all equipment under cover immediately after the harvest to prevent rust and degradation.",
+              description: "Clean, lubricate, and store all equipment under cover immediately after the harvest to prevent rust and degradation.",
               icon: Icons.sync,
               efficiency: "VITAL",
               cost: "MEDIUM",
@@ -179,10 +153,7 @@ class _Tip10PageState extends State<Tip10Page> {
                   children: [
                     const Text(
                       "Stay Informed",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     const Text(
@@ -191,43 +162,14 @@ class _Tip10PageState extends State<Tip10Page> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {
-                        if (!_notificationsEnabled) {
-                          setState(() {
-                            _notificationsEnabled = true;
-                          });
-                          final notificationProvider =
-                              context.read<NotificationProvider>();
-                          notificationProvider.addAgronomicTipsNotification(
-                            tipsTitle: 'Preventive Equipment Maintenance',
-                            tipsContent:
-                                'Inspect equipment before the busy season to avoid costly delays.',
-                            category: 'Operational Safety',
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Notifications enabled!'),
-                              backgroundColor: Color(0xFF026139),
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        }
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _notificationsEnabled
-                            ? Colors.grey[400]
-                            : Colors.white,
+                        backgroundColor: Colors.white,
                         foregroundColor: brandGreen,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                       ),
-                      child: Text(
-                          _notificationsEnabled
-                              ? "Notifications Enabled ✓"
-                              : "Enable Notifications",
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      child: const Text("Enable Notifications", style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -258,15 +200,10 @@ class _Tip10PageState extends State<Tip10Page> {
         ),
         child: Row(
           children: [
-            Container(
-                width: 6,
-                height: 140,
-                decoration: const BoxDecoration(
-                  color: brandGreen,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      bottomLeft: Radius.circular(16)),
-                )),
+            Container(width: 6, height: 140, decoration: const BoxDecoration(
+              color: brandGreen,
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
+            )),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -277,27 +214,20 @@ class _Tip10PageState extends State<Tip10Page> {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              color: lightGreenSurface,
-                              borderRadius: BorderRadius.circular(12)),
+                          decoration: BoxDecoration(color: lightGreenSurface, borderRadius: BorderRadius.circular(12)),
                           child: Icon(icon, color: brandGreen, size: 24),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             "$index. $title",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: darkBlueText,
-                                fontSize: 16),
+                            style: const TextStyle(fontWeight: FontWeight.bold, color: darkBlueText, fontSize: 16),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
-                    Text(description,
-                        style: const TextStyle(
-                            color: bodyGreyText, fontSize: 13, height: 1.4)),
+                    Text(description, style: const TextStyle(color: bodyGreyText, fontSize: 13, height: 1.4)),
                     const SizedBox(height: 16),
                     Row(
                       children: [

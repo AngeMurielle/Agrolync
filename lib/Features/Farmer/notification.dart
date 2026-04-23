@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/models/notification_model.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tip1.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product1.dart';
 
@@ -60,8 +60,7 @@ class NotificationPage extends StatelessWidget {
                         color: Colors.grey[600],
                       )),
                   const SizedBox(height: 16),
-                  Text(
-                      'Notifications about orders and agronomic tips will appear here',
+                  Text('Notifications about orders and agronomic tips will appear here',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
@@ -134,33 +133,28 @@ class NotificationTile extends StatelessWidget {
       provider.markAsRead(notification.id);
     }
 
-    final navProvider = context.read<FarmerNavigationProvider>();
-
-    // Close notification page first
-    Navigator.pop(context);
-
+    Widget page;
+    
     switch (notification.type) {
       case 'order':
-        // Navigate to Orders page using provider
-        navProvider.setIndex(2);
+        page = const OrderPage();
         break;
       case 'agronomic_tips':
-        // Navigate to tip page
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Tip1Page()),
-        );
+        // Navigate to a default tips page or based on category
+        page = const Tip1Page();
         break;
       case 'new_product':
-        // Navigate to products page
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Product1Page()),
-        );
+        // Navigate to products page (default to product 1)
+        page = const Product1Page();
         break;
       default:
-        break;
+        return;
     }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => page),
+    );
   }
 
   @override
@@ -192,135 +186,134 @@ class NotificationTile extends StatelessWidget {
                       child: Image.asset(
                         notification.image!,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Icon(
-                            _getNotificationIcon(),
-                            color: Colors.white,
-                            size: 28),
+                        errorBuilder: (context, error, stackTrace) =>
+                            Icon(_getNotificationIcon(),
+                                color: Colors.white, size: 28),
                       ),
                     )
-                  : Icon(_getNotificationIcon(), color: Colors.white, size: 28),
+                  : Icon(_getNotificationIcon(),
+                      color: Colors.white, size: 28),
             ),
             const SizedBox(width: 12),
-            // Notification Content
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          notification.title,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
+          // Notification Content
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        notification.title,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black87,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    if (!notification.isRead)
+                      Container(
+                        width: 8,
+                        height: 8,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF026139),
+                          shape: BoxShape.circle,
                         ),
                       ),
-                      if (!notification.isRead)
-                        Container(
-                          width: 8,
-                          height: 8,
-                          decoration: const BoxDecoration(
-                            color: Color(0xFF026139),
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                    ],
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  notification.message,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.grey[600],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    notification.message,
-                    style: TextStyle(
-                      fontSize: 13,
-                      color: Colors.grey[600],
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    notification.getTimeAgo(),
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey[500],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(width: 8),
-            // Action Buttons
-            PopupMenuButton(
-              itemBuilder: (context) => [
-                if (!notification.isRead)
-                  PopupMenuItem(
-                    onTap: () {
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        provider.markAsRead(notification.id);
-                      });
-                    },
-                    child: const Text('Mark as read'),
-                  ),
-                if (notification.type == 'order')
-                  PopupMenuItem(
-                    onTap: () {
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        final orderId = notification.data['orderId'] as String?;
-                        if (orderId != null) {
-                          provider.acceptOrder(orderId);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'Order accepted! Navigate to orders to manage it.'),
-                              backgroundColor: Colors.green,
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        }
-                      });
-                    },
-                    child: const Text('Accept'),
-                  ),
-                if (notification.type == 'order')
-                  PopupMenuItem(
-                    onTap: () {
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        final orderId = notification.data['orderId'] as String?;
-                        if (orderId != null) {
-                          provider.rejectOrder(orderId);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Order rejected.'),
-                              backgroundColor: Colors.orange,
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        }
-                      });
-                    },
-                    child: const Text('Reject'),
-                  ),
-                PopupMenuItem(
-                  onTap: () {
-                    Future.delayed(const Duration(milliseconds: 100), () {
-                      provider.deleteNotification(notification.id);
-                    });
-                  },
-                  child: const Text(
-                    'Delete',
-                    style: TextStyle(color: Colors.red),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  notification.getTimeAgo(),
+                  style: TextStyle(
+                    fontSize: 11,
+                    color: Colors.grey[500],
                   ),
                 ),
               ],
-              child: Icon(Icons.more_vert, color: Colors.grey[400]),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 8),
+          // Action Buttons
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              if (!notification.isRead)
+                PopupMenuItem(
+                  onTap: () {
+                    Future.delayed(const Duration(milliseconds: 100), () {
+                      provider.markAsRead(notification.id);
+                    });
+                  },
+                  child: const Text('Mark as read'),
+                ),
+              if (notification.type == 'order')
+                PopupMenuItem(
+                  onTap: () {
+                    Future.delayed(const Duration(milliseconds: 100), () {
+                      final orderId = notification.data['orderId'] as String?;
+                      if (orderId != null) {
+                        provider.acceptOrder(orderId);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Order accepted! Navigate to orders to manage it.'),
+                            backgroundColor: Colors.green,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                    });
+                  },
+                  child: const Text('Accept'),
+                ),
+              if (notification.type == 'order')
+                PopupMenuItem(
+                  onTap: () {
+                    Future.delayed(const Duration(milliseconds: 100), () {
+                      final orderId = notification.data['orderId'] as String?;
+                      if (orderId != null) {
+                        provider.rejectOrder(orderId);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Order rejected.'),
+                            backgroundColor: Colors.orange,
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      }
+                    });
+                  },
+                  child: const Text('Reject'),
+                ),
+              PopupMenuItem(
+                onTap: () {
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    provider.deleteNotification(notification.id);
+                  });
+                },
+                child: const Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+            child: Icon(Icons.more_vert, color: Colors.grey[400]),
+          ),
+        ],
+      ),
       ),
     );
   }

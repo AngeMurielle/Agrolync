@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
-
+// Ensure these paths match your project structure exactly
+import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 //import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/npk_fertilizer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/urea_fertilizer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/potassium_chloride.dart';
@@ -21,35 +25,38 @@ class FertilizersPage extends StatefulWidget {
 }
 
 class _FertilizersPageState extends State<FertilizersPage> {
+  final int _currentIndex = 1; // Market tab is selected
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
   // Fixed Navigation Logic
   void _navigateToCategory(BuildContext context, String category) {
-    final navProvider = context.read<FarmerNavigationProvider>();
+    Widget destination;
     switch (category) {
       case "All":
-        // Navigate to Market page (index 1)
-        navProvider.setIndex(1);
+        // Navigate back to main marketplace while preserving navigation state
+        Navigator.of(context).popUntil((route) => route.isFirst);
         return;
       case "Seeds":
-        // Navigate to Seeds (index 5)
-        navProvider.setIndex(5);
-        return;
+        destination = const SeedsPage();
+        break;
       case "Fertilizers":
-        // Already on fertilizers page (index 6)
+        // Already on fertilizers page
         return;
       case "Tools":
-        // Navigate to Tools (index 7)
-        navProvider.setIndex(7);
-        return;
+        destination = const ToolsPage();
+        break;
       case "Pesticides":
-        // Navigate to Pesticides (index 8)
-        navProvider.setIndex(8);
-        return;
+        destination = const PesticidesPage();
+        break;
       default:
         return;
     }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+    );
   }
 
   void _showSearchDialog() {
@@ -91,6 +98,42 @@ class _FertilizersPageState extends State<FertilizersPage> {
         );
       },
     );
+  }
+
+  void _onBottomNavTap(int index) {
+    if (index == _currentIndex) return; // Already on this tab
+
+    switch (index) {
+      case 0: // Home
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FarmerHomeScreen(),
+          ),
+        );
+        break;
+      case 1: // Market - go back to main market
+        Navigator.pop(context);
+        break;
+      case 2: // Orders
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FarmerHomeScreen(),
+          ),
+        );
+        // TODO: Set the index to 2 when navigating to home screen
+        break;
+      case 3: // Profile
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const FarmerHomeScreen(),
+          ),
+        );
+        // TODO: Set the index to 3 when navigating to home screen
+        break;
+    }
   }
 
   @override
@@ -571,6 +614,24 @@ class _FertilizersPageState extends State<FertilizersPage> {
               },
             ),
           )
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: const Color(0xFF026139),
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        currentIndex: _currentIndex,
+        onTap: _onBottomNavTap,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.grid_view_rounded), label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.storefront_outlined), label: "Market"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_long_outlined), label: "Orders"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person_outline), label: "Profile"),
         ],
       ),
     );

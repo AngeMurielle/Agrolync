@@ -44,7 +44,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     const double headerHeight = 420.0;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(

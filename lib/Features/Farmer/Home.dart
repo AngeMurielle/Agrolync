@@ -6,7 +6,6 @@ import 'package:flutter_agrolync_pro/Features/Farmer/profile/profile.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/new_product.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/order/order.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/order/truck_selection.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/search.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/notification.dart';
@@ -31,11 +30,7 @@ import 'package:flutter_agrolync_pro/Features/Farmer/product3.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product4.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/product5.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/services/WeatherService.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/models/WeatherModel.dart';
-import 'dart:io';
-import 'package:flutter/foundation.dart' show kIsWeb;
+//lib\Features\Farmer\order\order.dart
 
 class FarmerHomeScreen extends StatefulWidget {
   final int initialTabIndex;
@@ -73,8 +68,6 @@ class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
       builder: (context, navProvider, child) {
         // Update local index when provider changes
         _currentIndex = navProvider.currentIndex;
-        // For category pages (indices 5-8), show Market (index 1) as selected in bottom nav
-        int bottomNavIndex = _currentIndex > 4 ? 1 : _currentIndex;
         return Scaffold(
           body: IndexedStack(index: _currentIndex, children: _pages),
           bottomNavigationBar: BottomNavigationBar(
@@ -82,7 +75,7 @@ class _FarmerHomeScreenState extends State<FarmerHomeScreen> {
             selectedItemColor: const Color(0xFF026139),
             unselectedItemColor: Colors.grey,
             showUnselectedLabels: true,
-            currentIndex: bottomNavIndex,
+            currentIndex: _currentIndex,
             onTap: (index) {
               navProvider.setIndex(index);
             },
@@ -114,39 +107,6 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   late GlobalKey<ScaffoldState> _scaffoldKey;
-
-  late List<Map<String, String>> products = [
-    {
-      'title': 'Organic Maize',
-      'image': 'assets/images/maize.jpg',
-      'subtitle': '500 bags available',
-      'price': '35000 XAF/bag of 100 kg',
-    },
-    {
-      'title': 'Red Onions',
-      'image': 'assets/images/onions.jpg',
-      'subtitle': '200 bags available',
-      'price': '45000 XAF/bag of 100 kg',
-    },
-    {
-      'title': 'Fresh Tomatoes',
-      'image': 'assets/images/tomato.jpg',
-      'subtitle': '350 baskets available',
-      'price': '2500 XAF/basket',
-    },
-    {
-      'title': 'Green Beans',
-      'image': 'assets/images/beans.jpg',
-      'subtitle': '300 bags available',
-      'price': '55000 XAF/bag of 50 kg',
-    },
-    {
-      'title': 'Carrots',
-      'image': 'assets/images/carrot.jpg',
-      'subtitle': '250 bags available',
-      'price': '15000 XAF/bag of 50 kg',
-    },
-  ];
 
   @override
   void initState() {
@@ -233,45 +193,6 @@ class _HomeContentState extends State<HomeContent> {
         MaterialPageRoute(builder: (context) => const AddNewProductPage()));
   }
 
-  void _editProduct(BuildContext context, int index) {
-    // Navigate to new_product.dart with product data
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => AddNewProductPage(
-                  editData: products[index],
-                )));
-  }
-
-  void _deleteProduct(int index) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text("Delete Product"),
-        content: Text(
-            "Are you sure you want to delete ${products[index]['title']}?"),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                products.removeAt(index);
-              });
-              Navigator.pop(context);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("Product deleted successfully")),
-              );
-            },
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      ),
-    );
-  }
-
   void _navigateToTip(BuildContext context, int tipIndex) {
     Widget page;
     switch (tipIndex) {
@@ -350,19 +271,8 @@ class _HomeContentState extends State<HomeContent> {
           },
           child: Row(
             children: [
-              Consumer<FarmerNavigationProvider>(
-                builder: (context, navProvider, child) {
-                  final imagePath = navProvider.profileImagePath;
-                  return CircleAvatar(
-                    radius: 18,
-                    backgroundImage: imagePath != null
-                        ? (kIsWeb
-                            ? NetworkImage(imagePath)
-                            : FileImage(File(imagePath))) as ImageProvider
-                        : AssetImage(AppImages.person),
-                  );
-                },
-              ),
+              CircleAvatar(
+                  radius: 18, backgroundImage: AssetImage(AppImages.person)),
               const SizedBox(width: 10),
               const Expanded(
                 child: Column(
@@ -388,42 +298,13 @@ class _HomeContentState extends State<HomeContent> {
               icon: const Icon(Icons.search, color: Colors.black),
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SearchPage()))),
-          Consumer<NotificationProvider>(
-            builder: (context, notificationProvider, child) {
-              final unreadCount = notificationProvider.unreadCount ?? 0;
-              return Stack(
-                children: [
-                  IconButton(
-                      icon: const Icon(Icons.notifications_none_rounded,
-                          color: Colors.black),
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const NotificationPage()))),
-                  if (unreadCount > 0)
-                    Positioned(
-                      right: 8,
-                      top: 8,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        padding: const EdgeInsets.all(4),
-                        child: Text(
-                          unreadCount.toString(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                ],
-              );
-            },
-          ),
+          IconButton(
+              icon: const Icon(Icons.notifications_none_rounded,
+                  color: Colors.black),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const NotificationPage()))),
         ],
       ),
       drawer: const DrawerPage(),
@@ -469,10 +350,10 @@ class _HomeContentState extends State<HomeContent> {
           children: [
             const Text("Total Earnings",
                 style: TextStyle(color: Colors.white70, fontSize: 14)),
-            FittedBox(
+            const FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text("250000 XAF",
-                  style: const TextStyle(
+              child: Text("14,250.00 XAF",
+                  style: TextStyle(
                       color: Colors.white,
                       fontSize: 36,
                       fontWeight: FontWeight.bold)),
@@ -484,24 +365,16 @@ class _HomeContentState extends State<HomeContent> {
                   child: Text("12 Active Orders",
                       style: TextStyle(color: Colors.white, fontSize: 16)),
                 ),
-                Flexible(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      context.read<FarmerNavigationProvider>().setIndex(3);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: brandGreen,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
-                    ),
-                    child: const Text(
-                      "View Details", 
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: brandGreen,
+                    minimumSize: const Size(100, 36),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                   ),
+                  child: const Text("Details", style: TextStyle(fontSize: 12)),
                 ),
               ],
             ),
@@ -521,19 +394,15 @@ class _HomeContentState extends State<HomeContent> {
               child: _actionItem(
                   context, Icons.playlist_add_check_rounded, "Add Product",
                   onTap: () => _navigateToAddProduct(context))),
-        
           Expanded(
               child: _actionItem(
-                  context, Icons.account_balance_wallet_outlined, "Withdraw",
-                  onTap: () {
-            context.read<FarmerNavigationProvider>().setIndex(3);
-          })),
+                  context, Icons.local_shipping_outlined, "Logistics")),
           Expanded(
               child: _actionItem(
-                  context, Icons.shopping_basket_outlined, "Sell Product",
-                  onTap: () {
-            context.read<FarmerNavigationProvider>().setIndex(1);
-          })),
+                  context, Icons.account_balance_wallet_outlined, "Withdraw")),
+          Expanded(
+              child: _actionItem(
+                  context, Icons.shopping_basket_outlined, "Sell Crop")),
         ],
       ),
     );
@@ -593,133 +462,43 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget _buildWeatherForecast() {
-    return FutureBuilder<WeatherForecast>(
-      future: WeatherService.getWeatherForecast(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          // Loading state
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: SizedBox(
-              height: 150,
-              child: Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(brandGreen),
-                ),
-              ),
-            ),
-          );
-        }
-
-        if (snapshot.hasError) {
-          // Error state
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            child: Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.red.shade50,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.red.shade200),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.warning_rounded, color: Colors.red.shade700),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          'Weather unavailable',
-                          style: TextStyle(
-                            color: Colors.red.shade700,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    snapshot.error.toString(),
-                    style: TextStyle(
-                      color: Colors.red.shade600,
-                      fontSize: 12,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-
-        if (!snapshot.hasData || snapshot.data!.forecast.isEmpty) {
-          // No data state
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Center(
-              child: Text(
-                'No weather data available',
-                style: TextStyle(color: Colors.grey.shade600),
-              ),
-            ),
-          );
-        }
-
-        // Success state - display weather forecast
-        final weatherForecast = snapshot.data!;
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.only(left: 20, right: 20),
-          child: Row(
-            children: weatherForecast.forecast
-                .map((weatherDay) => _weatherDay(weatherDay))
-                .toList(),
-          ),
-        );
-      },
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.only(left: 20, right: 20),
+      child: Row(
+        children: [
+          _weatherDay("Mon", Icons.wb_sunny, "28°C", false),
+          _weatherDay("Tue", Icons.wb_cloudy, "26°C", true),
+          _weatherDay("Wed", Icons.water_drop, "22°C", false),
+          _weatherDay("Thu", Icons.cloud, "25°C", false),
+          _weatherDay("Fri", Icons.wb_sunny, "28°C", false),
+          _weatherDay("Sat", Icons.wb_cloudy, "26°C", true),
+          _weatherDay("Sun", Icons.water_drop, "22°C", false),
+        ],
+      ),
     );
   }
 
-  Widget _weatherDay(WeatherDay weatherData) {
-    final isToday = weatherData.isToday;
-    final icon = WeatherService.getWeatherIcon(weatherData.weatherCondition);
-    final tempRounded = weatherData.temperatureCelsius.toStringAsFixed(0);
-
+  Widget _weatherDay(String day, IconData icon, String temp, bool active) {
     return Container(
       margin: const EdgeInsets.only(right: 12),
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
       decoration: BoxDecoration(
-          color: isToday ? brandGreen : Colors.white,
+          color: active ? brandGreen : Colors.white,
           borderRadius: BorderRadius.circular(20)),
       child: Column(
         children: [
-          Text(
-            weatherData.dayName,
-            style: TextStyle(
-              color: isToday ? Colors.white70 : Colors.grey,
-              fontSize: 12,
-            ),
-          ),
+          Text(day,
+              style: TextStyle(
+                  color: active ? Colors.white70 : Colors.grey, fontSize: 12)),
           const SizedBox(height: 8),
-          Icon(
-            icon,
-            color: isToday ? Colors.white : Colors.orange,
-            size: 24,
-          ),
+          Icon(icon, color: active ? Colors.white : Colors.orange, size: 24),
           const SizedBox(height: 8),
-          Text(
-            "$tempRounded°C",
-            style: TextStyle(
-              color: isToday ? Colors.white : Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          Text(temp,
+              style: TextStyle(
+                  color: active ? Colors.white : Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14)),
         ],
       ),
     );
@@ -819,30 +598,52 @@ class _HomeContentState extends State<HomeContent> {
   Widget _buildProductList(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: ListView.builder(
+      child: ListView(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          final product = products[index];
-          return _productItem(
-            product['title']!,
-            product['image']!,
-            product['subtitle']!,
-            product['price']!,
-            Colors.black54,
-            () => _navigateToProduct(context, index),
-            onEdit: () => _editProduct(context, index),
-            onDelete: () => _deleteProduct(index),
-          );
-        },
+        children: [
+          _productItem(
+              "Organic Maize",
+              "assets/images/maize.jpg",
+              "500 bags available",
+              "35000 XAF/bag of 100 kg",
+              Colors.black54,
+              () => _navigateToProduct(context, 0)),
+          _productItem(
+              "Red Onions",
+              "assets/images/onions.jpg",
+              "200 bags available",
+              "45000 XAF/bag of 100 kg",
+              Colors.black54,
+              () => _navigateToProduct(context, 1)),
+          _productItem(
+              "Fresh Tomatoes",
+              "assets/images/tomato.jpg",
+              "350 baskets available",
+              "2500 XAF/basket",
+              Colors.black54,
+              () => _navigateToProduct(context, 2)),
+          _productItem(
+              "Green Beans",
+              "assets/images/beans.jpg",
+              "300 bags available",
+              "55000 XAF/bag of 50 kg",
+              Colors.black54,
+              () => _navigateToProduct(context, 3)),
+          _productItem(
+              "Carrots",
+              "assets/images/carrot.jpg",
+              "250 bags available",
+              "15000 XAF/bag of 50 kg",
+              Colors.black54,
+              () => _navigateToProduct(context, 4)),
+        ],
       ),
     );
   }
 
   Widget _productItem(String title, String imagePath, String subtitle,
-      String price, Color subColor, VoidCallback onTap,
-      {required VoidCallback onEdit, required VoidCallback onDelete}) {
+      String price, Color subColor, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -899,11 +700,11 @@ class _HomeContentState extends State<HomeContent> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IconButton(
-                    onPressed: onEdit,
+                    onPressed: () {},
                     icon: const Icon(Icons.edit, size: 18, color: Colors.grey),
                     constraints: const BoxConstraints()),
                 IconButton(
-                    onPressed: onDelete,
+                    onPressed: () {},
                     icon: const Icon(Icons.delete_outline,
                         size: 18, color: Colors.redAccent),
                     constraints: const BoxConstraints()),

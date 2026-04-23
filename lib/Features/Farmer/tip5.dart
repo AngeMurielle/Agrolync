@@ -1,16 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
 
-class Tip5Page extends StatefulWidget {
+class Tip5Page extends StatelessWidget {
   const Tip5Page({super.key});
-
-  @override
-  State<Tip5Page> createState() => _Tip5PageState();
-}
-
-class _Tip5PageState extends State<Tip5Page> {
-  bool _notificationsEnabled = false;
 
   static const Color brandGreen = Color(0xFF026139);
   static const Color lightGreenSurface = Color(0xFFEFF7F2);
@@ -191,43 +182,17 @@ class _Tip5PageState extends State<Tip5Page> {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {
-                        if (!_notificationsEnabled) {
-                          setState(() {
-                            _notificationsEnabled = true;
-                          });
-                          final notificationProvider =
-                              context.read<NotificationProvider>();
-                          notificationProvider.addAgronomicTipsNotification(
-                            tipsTitle: 'Systematic Crop Rotation',
-                            tipsContent:
-                                'Rotate different types of crops sequentially on the same land to boost fertility.',
-                            category: 'Soil Health & Fertility',
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Notifications enabled!'),
-                              backgroundColor: Color(0xFF026139),
-                              duration: Duration(seconds: 2),
-                            ),
-                          );
-                        }
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: _notificationsEnabled
-                            ? Colors.grey[400]
-                            : Colors.white,
+                        backgroundColor: Colors.white,
                         foregroundColor: brandGreen,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12)),
                         padding: const EdgeInsets.symmetric(
                             horizontal: 24, vertical: 12),
                       ),
-                      child: Text(
-                          _notificationsEnabled
-                              ? "Notifications Enabled ✓"
-                              : "Enable Notifications",
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      child: const Text("Enable Notifications",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),

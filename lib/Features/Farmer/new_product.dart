@@ -23,15 +23,17 @@ class _AddNewProductPageState extends State<AddNewProductPage> {
   XFile? _pickedFile;
   final ImagePicker _picker = ImagePicker();
   final List<String> crops = [
-    'Grains',
-    'Vegetables',
-    'Fruits',
-    'Tubers',
-    'Seeds',
-    'Fertilizers',
-    'Tools',
-    'Pesticides',
-    'Others',
+    'Cereals(Grains)',
+    'Pulses (Legumes)',
+    'Root and Tuber Crops',
+    'Oilseeds',
+    'Fiber Crops',
+    'Beverage and Stimulant',
+    'Forage Crops',
+    "Fruits",
+    'Vegetables' 'Herbs and Spices',
+    'Forage Crops',
+    'Medicinal Plants'
   ];
   final List<String> units = [
     'KG',

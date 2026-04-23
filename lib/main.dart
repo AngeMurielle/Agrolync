@@ -8,7 +8,6 @@ import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provide
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/wallet_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/home/home_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/search/search_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/cart/cart_screen.dart';
@@ -43,7 +42,6 @@ class AgrolyncApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
         ChangeNotifierProvider(create: (_) => FarmerCartProvider()),
         ChangeNotifierProvider(create: (_) => FarmerNavigationProvider()),
-        ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ],
       child: MaterialApp(
         title: 'Agrolync',

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
+import 'logistics_tracking.dart';
 import 'chat_page.dart';
 import 'truck_selection.dart';
 
@@ -399,8 +399,10 @@ class ActiveOrdersView extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const MapScreen(source: NavigationSource.farmer),
+                      builder: (context) => LogisticsTrackingPage(
+                        order: order,
+                        onDeliveryConfirmed: () => onOrderDelivered(index),
+                      ),
                     ),
                   );
                 },
@@ -553,8 +555,11 @@ class ActiveOrdersView extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    const MapScreen(source: NavigationSource.farmer),
+                                builder: (context) => LogisticsTrackingPage(
+                                  order: order,
+                                  onDeliveryConfirmed: () =>
+                                      onOrderDelivered(index),
+                                ),
                               ),
                             );
                           } else {

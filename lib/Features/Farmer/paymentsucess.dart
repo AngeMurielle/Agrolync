@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
+// 1. IMPORT YOUR LOGISTICS HOME SCREEN
+//C:\flutter\flutter_agrolync_pro\lib\Features\Logistics\Home\Home.dart
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
@@ -58,6 +58,8 @@ class PaymentSuccessScreen extends StatelessWidget {
     );
   }
 
+  // ... (Keeping _buildReceiptCard, _getMonth, _receiptDetail, _buildTimelineSection, _nextStepItem exactly as you have them)
+
   Widget _buildActionButtons(BuildContext context) {
     return Column(
       children: [
@@ -66,17 +68,16 @@ class PaymentSuccessScreen extends StatelessWidget {
           height: 55,
           child: ElevatedButton.icon(
             onPressed: () {
-              Navigator.of(context).push(
+              // 🚦 ROUTING TO LOGISTICS HOME SCREEN
+              Navigator.push(
+                context,
                 MaterialPageRoute(
-                  builder: (context) => const LogisticsMapScreen(
-                    fromBuyer: false,
-                    source: NavigationSource.farmer,
-                  ),
+                  builder: (context) => const MainNavWrapper(),
                 ),
               );
             },
-            icon: const Icon(Icons.track_changes, color: Colors.white),
-            label: const Text("Track order",
+            icon: const Icon(Icons.explore_outlined, color: Colors.white),
+            label: const Text("Track Order",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold)),
             style: ElevatedButton.styleFrom(
@@ -92,10 +93,10 @@ class PaymentSuccessScreen extends StatelessWidget {
           height: 55,
           child: OutlinedButton.icon(
             onPressed: () {
-              context.read<FarmerNavigationProvider>().setIndex(1);
-              Navigator.of(context).pushReplacement(
+              Navigator.pushReplacement(
+                context,
                 MaterialPageRoute(
-                  builder: (context) => const MarketPage(),
+                  builder: (context) => const MarketPage(initialTabIndex: 1),
                 ),
               );
             },
@@ -115,6 +116,7 @@ class PaymentSuccessScreen extends StatelessWidget {
     );
   }
 
+  // Re-pasting helper methods for completeness in your file
   Widget _buildReceiptCard() {
     String formattedAmount = totalAmount.toInt().toString().replaceAllMapped(
         RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');

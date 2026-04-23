@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'map_screen.dart'; // FIX: Added to get NavigationSource enum
+import 'map_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/widgets/shared/app_drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/myroute.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/delivered.dart';
@@ -580,13 +580,10 @@ class JobCard extends StatelessWidget {
                   children: [
                     Expanded(
                       child: OutlinedButton(
-                        // FIX: Added required NavigationSource parameter
                         onPressed: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const MapScreen(
-                                      source: NavigationSource.logistics,
-                                    ))),
+                                builder: (context) => const MapScreen())),
                         style: OutlinedButton.styleFrom(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12))),
@@ -668,9 +665,7 @@ class SpecialOfferCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFFF1F8F4),
         borderRadius: BorderRadius.circular(20),
-        // FIX: Replaced deprecated withOpacity with withValues
-        border:
-            Border.all(color: const Color(0xFF015E38).withValues(alpha: 0.1)),
+        border: Border.all(color: const Color(0xFF015E38).withOpacity(0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,7 +4,6 @@ import 'package:flutter_agrolync_pro/Features/Farmer/profile/setting.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'dart:io';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 // Internal Imports
 // ignore: library_prefixes
@@ -28,123 +27,38 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  XFile? _pickedFile;
+  File? _image;
   final String _userName = "Ange Awagoum";
   final String _location = "Buea, Cameroon";
   final Color brandGreen = const Color(0xFF026139);
 
   // --- FIXED IMAGE PICKER LOGIC ---
   Future<void> _pickImage() async {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) => SafeArea(
-        child: Wrap(
-          children: [
-            ListTile(
-              leading: const Icon(Icons.photo_library),
-              title: const Text('Gallery'),
-              onTap: () {
-                Navigator.of(context).pop();
-                _getImage(ImageSource.gallery);
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.camera_alt),
-              title: const Text('Camera'),
-              onTap: () {
-                Navigator.of(context).pop();
-                _getImage(ImageSource.camera);
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _getImage(ImageSource source) async {
     try {
       final ImagePicker picker = ImagePicker();
       final XFile? pickedFile = await picker.pickImage(
-        source: source,
-        maxWidth: 800,
+        source: ImageSource.gallery,
+        maxWidth: 800, // Optimized for mobile performance
         imageQuality: 85,
       );
 
       if (pickedFile != null) {
         setState(() {
-          _pickedFile = pickedFile;
+          _image = File(pickedFile.path);
         });
-        // Update provider to sync with Home.dart
         if (mounted) {
-          context.read<FarmerNavigationProvider>().setProfileImage(pickedFile.path);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Profile picture updated!")),
+          );
         }
-        // Call upload function after selecting the image
-        await _uploadImage(pickedFile);
       }
     } catch (e) {
       debugPrint("Error picking image: $e");
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text("Could not access image source. Check permissions."),
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> _uploadImage(XFile imageFile) async {
-    // Show loading indicator
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Row(
-          children: [
-            SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(width: 20),
-            Text("Uploading image..."),
-          ],
-        ),
-        duration: Duration(seconds: 2),
-      ),
-    );
-
-    try {
-      // Simulate network delay for upload
-      await Future.delayed(const Duration(seconds: 2));
-
-      // Here you would normally perform the actual upload to your server/Supabase
-      // Example: 
-      // await supabase.storage.from('avatars').upload('path/to/image.png', imageFile);
-
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text("Profile picture uploaded successfully!",
-                style: TextStyle(color: Colors.white)),
-            backgroundColor: brandGreen,
-          ),
-        );
-      }
-    } catch (e) {
-      debugPrint("Error uploading image: $e");
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Failed to upload image. Please try again."),
-            backgroundColor: Colors.red,
-          ),
+              content:
+                  Text("Could not access gallery. Check app permissions.")),
         );
       }
     }
@@ -195,13 +109,14 @@ class _ProfilePageState extends State<ProfilePage> {
                     radius: 65,
                     backgroundColor: Colors.white,
                     child: CircleAvatar(
-                        radius: 60,
-                        backgroundColor: Colors.grey.shade200,
-                        backgroundImage: _pickedFile != null
-                            ? (kIsWeb
-                                ? NetworkImage(_pickedFile!.path)
-                                : FileImage(File(_pickedFile!.path))) as ImageProvider
-                            : const NetworkImage('https://i.pravatar.cc/150?u=elias')),
+                      radius: 60,
+                      backgroundColor: Colors.grey.shade200,
+                      backgroundImage: _image != null
+                          ? FileImage(_image!)
+                          : const NetworkImage(
+                                  'https://i.pravatar.cc/150?u=elias')
+                              as ImageProvider,
+                    ),
                   ),
                   Positioned(
                     bottom: 0,

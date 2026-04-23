@@ -11,10 +11,7 @@ import 'package:flutter_agrolync_pro/Features/Farmer/order/chat_page.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/main.dart' as buyer_main;
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/widgets/shared/logistics_bottom_nav.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'complete.dart';
-
-enum NavigationSource { farmer, buyer, logistics }
 
 class LogisticsMapScreen extends StatefulWidget {
   final LatLng? pickupLocation;
@@ -23,7 +20,6 @@ class LogisticsMapScreen extends StatefulWidget {
   final String? dropoffAddress;
   final Map<String, dynamic>? jobData;
   final bool fromBuyer;
-  final NavigationSource source;
 
   const LogisticsMapScreen({
     super.key,
@@ -33,7 +29,6 @@ class LogisticsMapScreen extends StatefulWidget {
     this.dropoffAddress,
     this.jobData,
     this.fromBuyer = false,
-    this.source = NavigationSource.farmer,
   });
 
   @override
@@ -97,33 +92,6 @@ class _LogisticsMapScreenState extends State<LogisticsMapScreen> {
     );
   }
 
-  Future<bool> _onWillPop() async {
-    switch (widget.source) {
-      case NavigationSource.farmer:
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const FarmerHomeScreen(initialTabIndex: 2)),
-          (route) => false,
-        );
-        break;
-      case NavigationSource.buyer:
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const buyer_main.MainNavigationWrapper()),
-          (route) => false,
-        );
-        break;
-      case NavigationSource.logistics:
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(
-              builder: (context) => const MainNavWrapper(initialIndex: 0)),
-          (route) => false,
-        );
-        break;
-    }
-    return Future.value(false); // Prevent default pop behavior
-  }
-
   void _onBottomNavTap(int index) {
     final Widget destination = widget.fromBuyer
         ? const buyer_main.MainNavigationWrapper()
@@ -152,14 +120,10 @@ class _LogisticsMapScreenState extends State<LogisticsMapScreen> {
   // --- Logic: Routing ---
   Future<void> _getPolyline() async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      googleApiKey: kGoogleApiKey,
-      request: PolylineRequest(
-        origin:
-            PointLatLng(_pickupLocation.latitude, _pickupLocation.longitude),
-        destination:
-            PointLatLng(_dropoffLocation.latitude, _dropoffLocation.longitude),
-        mode: TravelMode.driving,
-      ),
+      kGoogleApiKey,
+      PointLatLng(_pickupLocation.latitude, _pickupLocation.longitude),
+      PointLatLng(_dropoffLocation.latitude, _dropoffLocation.longitude),
+      travelMode: TravelMode.driving,
     );
 
     if (result.points.isNotEmpty) {
@@ -254,7 +218,23 @@ class _LogisticsMapScreenState extends State<LogisticsMapScreen> {
               child: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
-                  _onWillPop();
+                  if (widget.fromBuyer) {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const buyer_main.MainNavigationWrapper(),
+                      ),
+                      (route) => false,
+                    );
+                  } else {
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const MainNavWrapper(initialIndex: 0),
+                      ),
+                      (route) => false,
+                    );
+                  }
                 },
               ),
             ),

@@ -34,7 +34,6 @@ class _SignInScreenState extends State<SignInScreen> {
     const double globalButtonHeight = 65.0;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -246,6 +245,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ],
             ),
+
             const SizedBox(height: 40),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -316,8 +316,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Please provide both email and password.')),
+        const SnackBar(content: Text('Please provide both email and password.')),
       );
       return;
     }

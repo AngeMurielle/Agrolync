@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Core/Utilities/responsive_utils.dart';
-//import 'package:flutter_agrolync_pro/Core/Utilities/responsive_utils.dart';
 import 'package:flutter_agrolync_pro/utils/images.dart';
+//import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 
 class OnboardingScreen3 extends StatelessWidget {
@@ -30,10 +29,8 @@ class OnboardingScreen3 extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildIllustration(context),
-                    SizedBox(
-                        height: context.responsiveGap *
-                            0.6), // FIXED: Responsive gap
+                    _buildIllustration(),
+                    const SizedBox(height: 30), // Consistent 30px gap
                     _buildTextContent(),
                   ],
                 ),
@@ -42,13 +39,10 @@ class OnboardingScreen3 extends StatelessWidget {
 
             // Footer (Dots and Final Button)
             Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: context.responsiveGap * 0.8),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: _buildFooter(context),
             ),
-            SizedBox(
-                height: context.bottomNavPadding *
-                    0.5), // FIXED: Responsive bottom padding
+            const SizedBox(height: 30), // Consistent bottom padding
           ],
         ),
       ),
@@ -76,12 +70,12 @@ class OnboardingScreen3 extends StatelessWidget {
     );
   }
 
-  Widget _buildIllustration(BuildContext context) {
-    // FIXED: Responsive image height across all onboarding screens
+  Widget _buildIllustration() {
+    // MATCHED SIZE: 180x180 for visual consistency across all 4 screens
     return Image.asset(
       AppImages.logo3,
-      height: context.responsiveImageHeight,
-      width: context.responsiveImageHeight * 0.95,
+      height: 150,
+      width: 150,
       fit: BoxFit.contain,
     );
   }
@@ -137,7 +131,7 @@ class OnboardingScreen3 extends StatelessWidget {
         // Final Action Button: "Get Started"
         SizedBox(
           width: double.infinity,
-          height: context.responsiveButtonHeight,
+          height: 65.0, // Consistent 65.0px height
           child: ElevatedButton(
             onPressed: () => Navigator.pushReplacement(
               context,
@@ -162,9 +156,8 @@ class OnboardingScreen3 extends StatelessWidget {
   }
 
   Widget _buildDot() => Container(
-        width: 8,
-        height: 8,
-        decoration:
-            const BoxDecoration(color: inactiveDot, shape: BoxShape.circle),
-      );
+    width: 8,
+    height: 8,
+    decoration: const BoxDecoration(color: inactiveDot, shape: BoxShape.circle),
+  );
 }

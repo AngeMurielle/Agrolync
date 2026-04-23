@@ -7,7 +7,7 @@ import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/drawer/drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/product/product_details_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/order/chat_page.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart'; // Import the new MapScreen
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
@@ -359,13 +359,13 @@ class _OrdersScreenState extends State<OrdersScreen>
                         ? () {
                             Navigator.push(
                               context,
-                                MaterialPageRoute(
-                                  builder: (_) =>
-                                      const MapScreen(source: NavigationSource.buyer),
-                                ),
-                              );
-                            }
-                          : null,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    const LogisticsMapScreen(fromBuyer: true),
+                              ),
+                            );
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF015E38),
                       shape: RoundedRectangleBorder(
