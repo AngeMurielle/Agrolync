@@ -84,6 +84,8 @@ class WeatherDay {
       case 85:
       case 86:
         return 'Snow';
+      case 80:
+        return 'Showers';
       case 95:
       case 96:
       case 99:

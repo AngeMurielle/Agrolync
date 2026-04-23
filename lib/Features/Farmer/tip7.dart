@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/notification_provider.dart';
 
-class Tip7Page extends StatelessWidget {
+class Tip7Page extends StatefulWidget {
   const Tip7Page({super.key});
+
+  @override
+  State<Tip7Page> createState() => _Tip7PageState();
+}
+
+class _Tip7PageState extends State<Tip7Page> {
+  bool _notificationsEnabled = false;
 
   static const Color brandGreen = Color(0xFF026139);
   static const Color lightGreenSurface = Color(0xFFEFF7F2);
@@ -43,7 +52,10 @@ class Tip7Page extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black.withOpacity(0.7)],
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.7)
+                      ],
                     ),
                   ),
                 ),
@@ -55,14 +67,18 @@ class Tip7Page extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
                           color: brandGreen,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
                           "BEST PRACTICE",
-                          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -89,12 +105,16 @@ class Tip7Page extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
-                    BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, 4))
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4))
                   ],
                 ),
                 child: const Text(
                   "Minimize resource competition by removing weeds in the first month to stop them from stealing essential nutrients.\nWeeds grow faster than crops and compete for water, light, and nutrients. Aim for a first weeding within 2–3 weeks of planting and a second before the crop canopy closes to ensure your plants have the space they need to thrive.",
-                  style: TextStyle(color: bodyGreyText, height: 1.5, fontSize: 14),
+                  style:
+                      TextStyle(color: bodyGreyText, height: 1.5, fontSize: 14),
                 ),
               ),
             ),
@@ -107,11 +127,15 @@ class Tip7Page extends StatelessWidget {
                 children: const [
                   Text(
                     "Core Strategies",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: brandGreen),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: brandGreen),
                   ),
                   Text(
                     "2 RECOMMENDED",
-                    style: TextStyle(fontSize: 12, color: bodyGreyText, letterSpacing: 1),
+                    style: TextStyle(
+                        fontSize: 12, color: bodyGreyText, letterSpacing: 1),
                   ),
                 ],
               ),
@@ -121,7 +145,8 @@ class Tip7Page extends StatelessWidget {
             _buildStrategyCard(
               index: "1",
               title: "Stale Seedbed Method",
-              description: "Prepare the soil, wait for the first flush of weeds to sprout, kill them, and then sow your crop.",
+              description:
+                  "Prepare the soil, wait for the first flush of weeds to sprout, kill them, and then sow your crop.",
               icon: Icons.grass,
               efficiency: "HIGH",
               cost: "LOW",
@@ -130,7 +155,8 @@ class Tip7Page extends StatelessWidget {
             _buildStrategyCard(
               index: "2",
               title: "Organic Mulching",
-              description: "Use crop residues or straw between rows to block sunlight and prevent weed seeds from germinating.",
+              description:
+                  "Use crop residues or straw between rows to block sunlight and prevent weed seeds from germinating.",
               icon: Icons.sync,
               efficiency: "VITAL",
               cost: "MEDIUM",
@@ -153,7 +179,10 @@ class Tip7Page extends StatelessWidget {
                   children: [
                     const Text(
                       "Stay Informed",
-                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
                     const Text(
@@ -162,14 +191,43 @@ class Tip7Page extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (!_notificationsEnabled) {
+                          setState(() {
+                            _notificationsEnabled = true;
+                          });
+                          final notificationProvider =
+                              context.read<NotificationProvider>();
+                          notificationProvider.addAgronomicTipsNotification(
+                            tipsTitle: 'Early-Stage Weed Suppression',
+                            tipsContent:
+                                'Remove weeds in the first month to stop them from stealing nutrients.',
+                            category: 'Resource Competition',
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Notifications enabled!'),
+                              backgroundColor: Color(0xFF026139),
+                              duration: Duration(seconds: 2),
+                            ),
+                          );
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
+                        backgroundColor: _notificationsEnabled
+                            ? Colors.grey[400]
+                            : Colors.white,
                         foregroundColor: brandGreen,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
                       ),
-                      child: const Text("Enable Notifications", style: TextStyle(fontWeight: FontWeight.bold)),
+                      child: Text(
+                          _notificationsEnabled
+                              ? "Notifications Enabled ✓"
+                              : "Enable Notifications",
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
                     ),
                   ],
                 ),
@@ -200,10 +258,15 @@ class Tip7Page extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(width: 6, height: 140, decoration: const BoxDecoration(
-              color: brandGreen,
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(16), bottomLeft: Radius.circular(16)),
-            )),
+            Container(
+                width: 6,
+                height: 140,
+                decoration: const BoxDecoration(
+                  color: brandGreen,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      bottomLeft: Radius.circular(16)),
+                )),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16),
@@ -214,20 +277,27 @@ class Tip7Page extends StatelessWidget {
                       children: [
                         Container(
                           padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(color: lightGreenSurface, borderRadius: BorderRadius.circular(12)),
+                          decoration: BoxDecoration(
+                              color: lightGreenSurface,
+                              borderRadius: BorderRadius.circular(12)),
                           child: Icon(icon, color: brandGreen, size: 24),
                         ),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             "$index. $title",
-                            style: const TextStyle(fontWeight: FontWeight.bold, color: darkBlueText, fontSize: 16),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: darkBlueText,
+                                fontSize: 16),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 12),
-                    Text(description, style: const TextStyle(color: bodyGreyText, fontSize: 13, height: 1.4)),
+                    Text(description,
+                        style: const TextStyle(
+                            color: bodyGreyText, fontSize: 13, height: 1.4)),
                     const SizedBox(height: 16),
                     Row(
                       children: [

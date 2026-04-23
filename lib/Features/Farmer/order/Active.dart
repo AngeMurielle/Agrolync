@@ -1,4 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart'; // FIX: Added for NavigationSource enum
+
+// FIX: Added proper class naming and documentation
+/// Active orders view for farmers - displays ongoing delivery orders
+class Active extends StatelessWidget {
+  const Active({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const ActiveOrdersView();
+  }
+}
 
 class ActiveOrdersView extends StatelessWidget {
   const ActiveOrdersView({super.key});
@@ -11,7 +23,8 @@ class ActiveOrdersView extends StatelessWidget {
         'buyer': 'Green Grocers Ltd.',
         'item': '250kg Irish Potatoes',
         // High-quality potato image
-        'image': 'https://images.unsplash.com/photo-1518977676601-b53f02ac6d31?auto=format&fit=crop&q=80&w=500',
+        'image':
+            'https://images.unsplash.com/photo-1518977676601-b53f02ac6d31?auto=format&fit=crop&q=80&w=500',
         'status': 'In Transit',
         'statusIcon': Icons.local_shipping,
         'actionIcon': Icons.location_on_outlined,
@@ -22,7 +35,8 @@ class ActiveOrdersView extends StatelessWidget {
         'buyer': 'Harvest Market',
         'item': '500kg Sweet Corn',
         // High-quality corn image
-        'image': 'https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&q=80&w=500',
+        'image':
+            'https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&q=80&w=500',
         'status': 'Awaiting Pickup',
         'statusIcon': Icons.inventory_2,
         'actionIcon': Icons.calendar_today_outlined,
@@ -70,7 +84,8 @@ class ActiveOrdersView extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            // FIX: Replaced deprecated withOpacity with withValues
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           )
@@ -83,7 +98,8 @@ class ActiveOrdersView extends StatelessWidget {
           Stack(
             children: [
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20)),
                 child: Image.network(
                   imageUrl,
                   height: 160,
@@ -116,9 +132,11 @@ class ActiveOrdersView extends StatelessWidget {
                       child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.broken_image_outlined, color: Colors.grey, size: 40),
+                          Icon(Icons.broken_image_outlined,
+                              color: Colors.grey, size: 40),
                           SizedBox(height: 8),
-                          Text("Image unavailable", style: TextStyle(color: Colors.grey)),
+                          Text("Image unavailable",
+                              style: TextStyle(color: Colors.grey)),
                         ],
                       ),
                     );
@@ -129,7 +147,8 @@ class ActiveOrdersView extends StatelessWidget {
                 top: 12,
                 right: 12,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
                     color: brandGreen,
                     borderRadius: BorderRadius.circular(20),
@@ -161,7 +180,10 @@ class ActiveOrdersView extends StatelessWidget {
               children: [
                 Text(
                   "ID: $orderId",
-                  style: TextStyle(color: Colors.grey.shade500, fontSize: 12, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: Colors.grey.shade500,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 6),
                 Row(
@@ -169,17 +191,22 @@ class ActiveOrdersView extends StatelessWidget {
                   children: [
                     Text(
                       buyerName,
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(
                         color: const Color(0xFFE8F3EE),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: const Text(
                         "Buyer Profile",
-                        style: TextStyle(color: brandGreen, fontSize: 11, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            color: brandGreen,
+                            fontSize: 11,
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
@@ -187,11 +214,13 @@ class ActiveOrdersView extends StatelessWidget {
                 const SizedBox(height: 12),
                 Row(
                   children: [
-                    const Icon(Icons.shopping_bag_outlined, size: 16, color: Colors.blueGrey),
+                    const Icon(Icons.shopping_bag_outlined,
+                        size: 16, color: Colors.blueGrey),
                     const SizedBox(width: 8),
                     Text(
                       details,
-                      style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+                      style:
+                          TextStyle(color: Colors.grey.shade600, fontSize: 14),
                     ),
                   ],
                 ),
@@ -202,12 +231,14 @@ class ActiveOrdersView extends StatelessWidget {
                       child: OutlinedButton.icon(
                         onPressed: () {},
                         icon: const Icon(Icons.chat_bubble_outline, size: 18),
-                        label: const Text("Message Buyer", overflow: TextOverflow.ellipsis),
+                        label: const Text("Message Buyer",
+                            overflow: TextOverflow.ellipsis),
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.black87,
                           backgroundColor: const Color(0xFFF1F5F3),
                           side: BorderSide.none,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
                       ),
@@ -215,14 +246,27 @@ class ActiveOrdersView extends StatelessWidget {
                     const SizedBox(width: 12),
                     Expanded(
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          // Navigate to map screen for tracking delivery
+                          if (primaryActionText == 'Track Delivery') {
+                            // FIX: Changed to use proper NavigationSource enum instead of isFarmerContext parameter
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const MapScreen(
+                                    source: NavigationSource.farmer),
+                              ),
+                            );
+                          }
+                        },
                         icon: Icon(primaryActionIcon, size: 18),
-                        label: Text(primaryActionText, overflow: TextOverflow.ellipsis),
+                        label: Text(primaryActionText,
+                            overflow: TextOverflow.ellipsis),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: brandGreen,
                           foregroundColor: Colors.white,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
                           padding: const EdgeInsets.symmetric(vertical: 14),
                         ),
                       ),

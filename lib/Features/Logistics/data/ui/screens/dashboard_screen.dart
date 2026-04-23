@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/market_screen.dart';
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart'; // FIX: Added for MapScreen and NavigationSource
 import '../widgets/shared/app_drawer.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -11,14 +12,8 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _selectedIndex = 0;
   final int _notificationCount = 3;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  // FIX: Removed unused _selectedIndex and _onItemTapped
 
   @override
   Widget build(BuildContext context) {
@@ -144,8 +139,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF015E38))),
                 TextButton(
-                  onPressed: () => Navigator.pushNamed(
-                      context, '/map'), // Routes to map_screen.dart
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          const MapScreen(source: NavigationSource.logistics),
+                    ),
+                  ),
                   child: const Text("View Map",
                       style: TextStyle(
                           color: Color(0xFF015E38),
@@ -153,6 +153,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ],
             ),
+            const SizedBox(height: 15),
             _buildFeaturedRequest(),
             const SizedBox(height: 25),
             const Text("TODAY'S OPPORTUNITIES",
@@ -296,7 +297,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                // FIX: Replaced deprecated withOpacity with withValues
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4))
           ],
@@ -316,7 +318,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     : Colors.white70),
             const SizedBox(height: 12),
             Text(title,
-                style: TextStyle(color: text.withOpacity(0.6), fontSize: 13)),
+                style: TextStyle(
+                    // FIX: Replaced deprecated withOpacity with withValues
+                    color: text.withValues(alpha: 0.6),
+                    fontSize: 13)),
             Text(value,
                 style: TextStyle(
                     color: text, fontSize: 22, fontWeight: FontWeight.bold)),
@@ -336,7 +341,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
           border: Border.all(color: const Color(0xFFE8F3EF), width: 2),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                // FIX: Replaced deprecated withOpacity with withValues
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4))
           ]),
@@ -443,7 +449,8 @@ Widget _buildOpportunityItem(BuildContext context, IconData icon, String price,
           border: Border.all(color: const Color(0xFFE8F3EF), width: 1),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.03),
+                // FIX: Replaced deprecated withOpacity with withValues
+                color: Colors.black.withValues(alpha: 0.03),
                 blurRadius: 8,
                 offset: const Offset(0, 2))
           ]),

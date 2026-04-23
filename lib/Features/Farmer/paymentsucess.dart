@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-// 1. IMPORT YOUR LOGISTICS HOME SCREEN
-//C:\flutter\flutter_agrolync_pro\lib\Features\Logistics\Home\Home.dart
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
+//import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
   final double totalAmount;
@@ -58,8 +58,6 @@ class PaymentSuccessScreen extends StatelessWidget {
     );
   }
 
-  // ... (Keeping _buildReceiptCard, _getMonth, _receiptDetail, _buildTimelineSection, _nextStepItem exactly as you have them)
-
   Widget _buildActionButtons(BuildContext context) {
     return Column(
       children: [
@@ -68,11 +66,11 @@ class PaymentSuccessScreen extends StatelessWidget {
           height: 55,
           child: ElevatedButton.icon(
             onPressed: () {
-              // 🚦 ROUTING TO LOGISTICS HOME SCREEN
-              Navigator.push(
-                context,
+              Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const MainNavWrapper(),
+                  builder: (context) => const MapScreen(
+                    source: NavigationSource.farmer,
+                  ),
                 ),
               );
             },
@@ -92,13 +90,11 @@ class PaymentSuccessScreen extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: OutlinedButton.icon(
+            // FIX: Changed to properly navigate back to MarketPlace
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const MarketPage(initialTabIndex: 1),
-                ),
-              );
+              // Pop payment success screen and set navigation to Marketplace (index 1)
+              Navigator.of(context).pop();
+              context.read<FarmerNavigationProvider>().setIndex(1);
             },
             icon: const Icon(Icons.home, color: Colors.black87),
             label: const Text("Back to Home",
@@ -116,9 +112,8 @@ class PaymentSuccessScreen extends StatelessWidget {
     );
   }
 
-  // Re-pasting helper methods for completeness in your file
   Widget _buildReceiptCard() {
-    String formattedAmount = totalAmount.toInt().toString().replaceAllMapped(
+    String formattedAmount = totalAmount.toStringAsFixed(0).replaceAllMapped(
         RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
 
     return Container(

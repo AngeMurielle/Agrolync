@@ -206,7 +206,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           ? Stack(
               children: [
                 SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(16, 16, 16, 280),
+                  padding: EdgeInsets.fromLTRB(
+                      16,
+                      16,
+                      16,
+                      MediaQuery.of(context)
+                              .viewInsets
+                              .bottom
+                              .clamp(0.0, double.infinity) +
+                          120 +
+                          MediaQuery.of(context).padding.bottom),
                   physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

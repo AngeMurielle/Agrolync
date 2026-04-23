@@ -90,13 +90,6 @@ class _MyListingsViewState extends State<MyListingsView> {
     );
   }
 
-  void _toggleStatus(int index) {
-    setState(() {
-      products[index]['status'] =
-          products[index]['status'] == 'ACTIVE' ? 'SOLD OUT' : 'ACTIVE';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -104,7 +97,12 @@ class _MyListingsViewState extends State<MyListingsView> {
       itemCount: products.length,
       itemBuilder: (context, index) {
         final item = products[index];
-        bool isSoldOut = item['status'] == 'SOLD OUT';
+        
+        // Automatic status based on stock
+        String stockStr = item['stock'] ?? '0';
+        int stockValue = int.tryParse(stockStr.split(' ')[0]) ?? 0;
+        bool isSoldOut = stockValue <= 0;
+        String status = isSoldOut ? 'SOLD OUT' : 'ACTIVE';
 
         return Container(
           margin: const EdgeInsets.only(bottom: 16),
@@ -160,17 +158,17 @@ class _MyListingsViewState extends State<MyListingsView> {
                             Expanded(
                               child: Text(
                                 item['name']!,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: isSoldOut ? Colors.grey : Colors.black,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: isSoldOut ? Colors.grey : Colors.black,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                            _buildStatusBadge(item['status']!),
-                          ],
-                        ),
+                              _buildStatusBadge(status),
+                            ],
+                          ),
                         const SizedBox(height: 12),
                         _buildRow(Icons.scale_outlined,
                             "Stock: ${item['stock']}", isSoldOut),
@@ -209,25 +207,28 @@ class _MyListingsViewState extends State<MyListingsView> {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: ElevatedButton.icon(
-                      onPressed: () => _toggleStatus(index),
-                      icon: Icon(
-                        isSoldOut
-                            ? Icons.visibility_outlined
-                            : Icons.visibility_off_outlined,
-                        size: 18,
-                      ),
-                      label: Text(isSoldOut ? "Activate" : "Deactivate"),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: isSoldOut
-                            ? const Color(0xFFE8F3EE)
-                            : const Color(0xFFF1F5F9),
-                        foregroundColor:
-                            isSoldOut ? brandGreen : Colors.redAccent.shade700,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: IgnorePointer(
+                      ignoring: true, // Farmer cannot click this anymore
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                          isSoldOut
+                              ? Icons.remove_shopping_cart_outlined
+                              : Icons.check_circle_outline,
+                          size: 18,
+                        ),
+                        label: Text(isSoldOut ? "Sold Out" : "Active"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: isSoldOut
+                              ? Colors.grey.shade100
+                              : const Color(0xFFE8F3EE),
+                          foregroundColor:
+                              isSoldOut ? Colors.grey.shade600 : brandGreen,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                        ),
                       ),
                     ),
                   ),

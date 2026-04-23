@@ -157,9 +157,7 @@ class _FarmerWalletScreenState extends State<FarmerWalletScreen> {
             textBaseline: TextBaseline.alphabetic,
             children: [
               Text(
-                balance.toStringAsFixed(0).replaceAllMapped(
-                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    (Match m) => '${m[1]},'),
+                balance.toStringAsFixed(0),
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 32,
