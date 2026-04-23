@@ -4,10 +4,6 @@ import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Hybridmaize.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/bean_seeds.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/onion_seeds.dart';
@@ -23,38 +19,31 @@ class SeedsPage extends StatefulWidget {
 }
 
 class _SeedsPageState extends State<SeedsPage> {
-  final int _currentIndex = 1; // Market tab is selected
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
-  // Fixed Navigation Logic
   void _navigateToCategory(BuildContext context, String category) {
-    Widget destination;
+    int index;
     switch (category) {
       case "All":
-        // Navigate back to main marketplace while preserving navigation state
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        return;
+        index = 1;
+        break;
       case "Seeds":
-        // Already on seeds page
         return;
       case "Fertilizers":
-        destination = const FertilizersPage();
+        index = 6;
         break;
       case "Tools":
-        destination = const ToolsPage();
+        index = 7;
         break;
       case "Pesticides":
-        destination = const PesticidesPage();
+        index = 8;
         break;
       default:
         return;
     }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => destination),
-    );
+    final navProvider = context.read<FarmerNavigationProvider>();
+    navProvider.setIndex(index);
   }
 
   void _showSearchDialog() {
@@ -96,42 +85,6 @@ class _SeedsPageState extends State<SeedsPage> {
         );
       },
     );
-  }
-
-  void _onBottomNavTap(int index) {
-    if (index == _currentIndex) return; // Already on this tab
-
-    switch (index) {
-      case 0: // Home
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        break;
-      case 1: // Market - go back to main market
-        Navigator.pop(context);
-        break;
-      case 2: // Orders
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        // TODO: Set the index to 2 when navigating to home screen
-        break;
-      case 3: // Profile
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        // TODO: Set the index to 3 when navigating to home screen
-        break;
-    }
   }
 
   @override
@@ -215,7 +168,7 @@ class _SeedsPageState extends State<SeedsPage> {
           },
         ),
         title: const Text(
-          "Market",
+          "Seeds Market",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -227,258 +180,255 @@ class _SeedsPageState extends State<SeedsPage> {
             onPressed: _showSearchDialog,
             icon: const Icon(Icons.search, color: Colors.black),
           ),
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              shape: BoxShape.circle,
-            ),
-            child: Consumer<FarmerCartProvider>(
-              builder: (context, cart, child) {
-                return IconButton(
-                  icon: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      const Icon(Icons.shopping_cart_outlined,
-                          color: Colors.black, size: 20),
-                      if (cart.items.isNotEmpty)
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: const BoxDecoration(
-                                color: Colors.red, shape: BoxShape.circle),
-                            constraints: const BoxConstraints(
-                              minWidth: 16,
-                              minHeight: 16,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${cart.items.length}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
+          Consumer<FarmerCartProvider>(
+            builder: (context, cart, child) {
+              return IconButton(
+                icon: Badge(
+                  label: Text(cart.items.length.toString()),
+                  isLabelVisible: cart.items.isNotEmpty,
+                  child: const Icon(Icons.shopping_cart_outlined,
+                      color: Colors.black),
+                ),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const FarmerCartScreen(),
                   ),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FarmerCartScreen(),
-                    ),
-                  ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
+          const SizedBox(width: 8),
         ],
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildCat(context, "All", Icons.grid_view, false),
-                _buildCat(context, "Seeds", Icons.agriculture, true),
-                _buildCat(context, "Fertilizers", Icons.science, false),
-                _buildCat(context, "Tools", Icons.handyman, false),
-                _buildCat(context, "Pesticides", Icons.bug_report, false),
-              ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildCat(context, "All", Icons.grid_view, false),
+                  _buildCat(context, "Seeds", Icons.agriculture, true),
+                  _buildCat(context, "Fertilizers", Icons.science, false),
+                  _buildCat(context, "Tools", Icons.handyman, false),
+                  _buildCat(context, "Pesticides", Icons.bug_report, false),
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio:
-                      0.68, // Adjusted to fit the "Add to Cart" button better
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                final p = products[index];
-                return Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 5)
-                      ]),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: p['name'] == 'Hybrid Maize Seeds'
-                            ? GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HybridMaizeDetails(),
-                                    ),
-                                  );
-                                },
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(16)),
-                                  child: Image.asset(
-                                    p['image']!,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            Container(
-                                      color: Colors.grey.shade200,
-                                      child: const Icon(Icons.image,
-                                          color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : p['name'] == 'Bean Seeds'
-                                ? GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const BeanSeedsDetails(),
-                                        ),
-                                      );
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: const BorderRadius.vertical(
-                                          top: Radius.circular(16)),
-                                      child: Image.asset(
-                                        p['image']!,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                Container(
-                                          color: Colors.grey.shade200,
-                                          child: const Icon(Icons.image,
-                                              color: Colors.grey),
-                                        ),
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.68,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  final p = products[index];
+                  return Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 5)
+                        ]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: p['name'] == 'Hybrid Maize Seeds'
+                              ? GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const HybridMaizeDetails(),
+                                      ),
+                                    );
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(16)),
+                                    child: Image.asset(
+                                      p['image']!,
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      errorBuilder:
+                                          (context, error, stackTrace) =>
+                                              Container(
+                                        color: Colors.grey.shade200,
+                                        child: const Icon(Icons.image,
+                                            color: Colors.grey),
                                       ),
                                     ),
-                                  )
-                                : p['name'] == 'Tomato Seeds'
-                                    ? GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const TomatoseedDetails(),
-                                            ),
-                                          );
-                                        },
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              const BorderRadius.vertical(
-                                                  top: Radius.circular(16)),
-                                          child: Image.asset(
-                                            p['image']!,
-                                            fit: BoxFit.cover,
-                                            width: double.infinity,
-                                            errorBuilder:
-                                                (context, error, stackTrace) =>
-                                                    Container(
-                                              color: Colors.grey.shade200,
-                                              child: const Icon(Icons.image,
-                                                  color: Colors.grey),
-                                            ),
+                                  ),
+                                )
+                              : p['name'] == 'Bean Seeds'
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const BeanSeedsDetails(),
+                                          ),
+                                        );
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                                top: Radius.circular(16)),
+                                        child: Image.asset(
+                                          p['image']!,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  Container(
+                                            color: Colors.grey.shade200,
+                                            child: const Icon(Icons.image,
+                                                color: Colors.grey),
                                           ),
                                         ),
-                                      )
-                                    : p['name'] == 'Onion Seeds'
-                                        ? GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const OnionSeedsDetails(),
-                                                ),
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  const BorderRadius.vertical(
-                                                      top: Radius.circular(16)),
-                                              child: Image.asset(
-                                                p['image']!,
-                                                fit: BoxFit.cover,
-                                                width: double.infinity,
-                                                errorBuilder: (context, error,
-                                                        stackTrace) =>
-                                                    Container(
-                                                  color: Colors.grey.shade200,
-                                                  child: const Icon(Icons.image,
-                                                      color: Colors.grey),
-                                                ),
+                                      ),
+                                    )
+                                  : p['name'] == 'Tomato Seeds'
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const TomatoseedDetails(),
+                                              ),
+                                            );
+                                          },
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                const BorderRadius.vertical(
+                                                    top: Radius.circular(16)),
+                                            child: Image.asset(
+                                              p['image']!,
+                                              fit: BoxFit.cover,
+                                              width: double.infinity,
+                                              errorBuilder: (context, error,
+                                                      stackTrace) =>
+                                                  Container(
+                                                color: Colors.grey.shade200,
+                                                child: const Icon(Icons.image,
+                                                    color: Colors.grey),
                                               ),
                                             ),
-                                          )
-                                        : p['name'] == 'Carrot Seeds'
-                                            ? GestureDetector(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          const CarrotSeedsDetails(),
-                                                    ),
-                                                  );
-                                                },
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      const BorderRadius
-                                                          .vertical(
-                                                          top: Radius.circular(
-                                                              16)),
-                                                  child: Image.asset(
-                                                    p['image']!,
-                                                    fit: BoxFit.cover,
-                                                    width: double.infinity,
-                                                    errorBuilder: (context,
-                                                            error,
-                                                            stackTrace) =>
-                                                        Container(
-                                                      color:
-                                                          Colors.grey.shade200,
-                                                      child: const Icon(
-                                                          Icons.image,
-                                                          color: Colors.grey),
-                                                    ),
+                                          ),
+                                        )
+                                      : p['name'] == 'Onion Seeds'
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        const OnionSeedsDetails(),
+                                                  ),
+                                                );
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius: const BorderRadius
+                                                    .vertical(
+                                                    top: Radius.circular(16)),
+                                                child: Image.asset(
+                                                  p['image']!,
+                                                  fit: BoxFit.cover,
+                                                  width: double.infinity,
+                                                  errorBuilder: (context, error,
+                                                          stackTrace) =>
+                                                      Container(
+                                                    color: Colors.grey.shade200,
+                                                    child: const Icon(
+                                                        Icons.image,
+                                                        color: Colors.grey),
                                                   ),
                                                 ),
-                                              )
-                                            : p['name'] == 'Pepper Seeds'
-                                                ? GestureDetector(
-                                                    onTap: () {
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              const PepperSeedsDetails(),
+                                              ),
+                                            )
+                                          : p['name'] == 'Carrot Seeds'
+                                              ? GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            const CarrotSeedsDetails(),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        const BorderRadius
+                                                            .vertical(
+                                                            top:
+                                                                Radius.circular(
+                                                                    16)),
+                                                    child: Image.asset(
+                                                      p['image']!,
+                                                      fit: BoxFit.cover,
+                                                      width: double.infinity,
+                                                      errorBuilder: (context,
+                                                              error,
+                                                              stackTrace) =>
+                                                          Container(
+                                                        color: Colors
+                                                            .grey.shade200,
+                                                        child: const Icon(
+                                                            Icons.image,
+                                                            color: Colors.grey),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                )
+                                              : p['name'] == 'Pepper Seeds'
+                                                  ? GestureDetector(
+                                                      onTap: () {
+                                                        Navigator.push(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                const PepperSeedsDetails(),
+                                                          ),
+                                                        );
+                                                      },
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                .vertical(
+                                                                top: Radius
+                                                                    .circular(
+                                                                        16)),
+                                                        child: Image.asset(
+                                                          p['image']!,
+                                                          fit: BoxFit.cover,
+                                                          width:
+                                                              double.infinity,
+                                                          errorBuilder: (context,
+                                                                  error,
+                                                                  stackTrace) =>
+                                                              Container(
+                                                            color: Colors
+                                                                .grey.shade200,
+                                                            child: const Icon(
+                                                                Icons.image,
+                                                                color: Colors
+                                                                    .grey),
+                                                          ),
                                                         ),
-                                                      );
-                                                    },
-                                                    child: ClipRRect(
+                                                      ),
+                                                    )
+                                                  : ClipRRect(
                                                       borderRadius:
                                                           const BorderRadius
                                                               .vertical(
@@ -502,125 +452,104 @@ class _SeedsPageState extends State<SeedsPage> {
                                                         ),
                                                       ),
                                                     ),
-                                                  )
-                                                : ClipRRect(
-                                                    borderRadius:
-                                                        const BorderRadius
-                                                            .vertical(
-                                                            top:
-                                                                Radius.circular(
-                                                                    16)),
-                                                    child: Image.asset(
-                                                      p['image']!,
-                                                      fit: BoxFit.cover,
-                                                      width: double.infinity,
-                                                      errorBuilder: (context,
-                                                              error,
-                                                              stackTrace) =>
-                                                          Container(
-                                                        color: Colors
-                                                            .grey.shade200,
-                                                        child: const Icon(
-                                                            Icons.image,
-                                                            color: Colors.grey),
-                                                      ),
-                                                    ),
-                                                  ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(p['name']!,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 13),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis),
-                            const SizedBox(height: 2),
-                            Row(children: [
-                              const Icon(Icons.star,
-                                  color: Colors.amber, size: 14),
-                              Text(" ${p['rating']} (${p['reviews']})",
-                                  style: const TextStyle(
-                                      fontSize: 11, color: Colors.grey))
-                            ]),
-                            const SizedBox(height: 4),
-                            RichText(
-                                text: TextSpan(children: [
-                              TextSpan(
-                                  text: "${p['price']} XAF ",
-                                  style: const TextStyle(
-                                      color: Color(0xFF026139),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15)),
-                              TextSpan(
-                                  text: "/ ${p['unit']}",
-                                  style: const TextStyle(
-                                      color: Colors.grey, fontSize: 10))
-                            ])),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                                width: double.infinity,
-                                height: 32,
-                                child: ElevatedButton.icon(
-                                    onPressed: () {
-                                      final product = Product(
-                                        id: p['name']!
-                                            .toLowerCase()
-                                            .replaceAll(' ', '_'),
-                                        name: p['name']!,
-                                        category: 'Seeds',
-                                        price: double.parse(p['price']!),
-                                        unit: p['unit']!,
-                                        image: p['image']!,
-                                        description:
-                                            'High-quality ${p['name']} for farming',
-                                        sellerId: 'agrolync_seeds',
-                                        sellerName: 'AgroLync Marketplace',
-                                        location: 'Cameroon',
-                                      );
-                                      context
-                                          .read<FarmerCartProvider>()
-                                          .addToCart(product);
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                              '${product.name} added to cart!'),
-                                          duration: const Duration(
-                                              milliseconds: 1500),
-                                          behavior: SnackBarBehavior.floating,
-                                          backgroundColor:
-                                              const Color(0xFF026139),
-                                        ),
-                                      );
-                                    },
-                                    icon: const Icon(
-                                        Icons.shopping_cart_outlined,
-                                        size: 16),
-                                    label: const Text("Add to Cart"),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(0xFF026139),
-                                      foregroundColor: Colors.white,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      padding: EdgeInsets.zero,
-                                      textStyle: const TextStyle(fontSize: 11),
-                                    ))),
-                          ],
                         ),
-                      )
-                    ],
-                  ),
-                );
-              },
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(p['name']!,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 13),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis),
+                              const SizedBox(height: 2),
+                              Row(children: [
+                                const Icon(Icons.star,
+                                    color: Colors.amber, size: 14),
+                                Text(" ${p['rating']} (${p['reviews']})",
+                                    style: const TextStyle(
+                                        fontSize: 11, color: Colors.grey))
+                              ]),
+                              const SizedBox(height: 4),
+                              RichText(
+                                  text: TextSpan(children: [
+                                TextSpan(
+                                    text: "${p['price']} XAF ",
+                                    style: const TextStyle(
+                                        color: Color(0xFF026139),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                                TextSpan(
+                                    text: "/ ${p['unit']}",
+                                    style: const TextStyle(
+                                        color: Colors.grey, fontSize: 10))
+                              ])),
+                              const SizedBox(height: 8),
+                              SizedBox(
+                                  width: double.infinity,
+                                  height: 32,
+                                  child: ElevatedButton.icon(
+                                      onPressed: () {
+                                        final product = Product(
+                                          id: p['name']!
+                                              .toLowerCase()
+                                              .replaceAll(' ', '_'),
+                                          name: p['name']!,
+                                          category: 'Seeds',
+                                          price: double.parse(p['price']!),
+                                          unit: p['unit']!,
+                                          image: p['image']!,
+                                          description:
+                                              'High-quality ${p['name']} for farming',
+                                          sellerId: 'agrolync_seeds',
+                                          sellerName: 'AgroLync Marketplace',
+                                          location: 'Cameroon',
+                                        );
+                                        context
+                                            .read<FarmerCartProvider>()
+                                            .addToCart(product);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                '${product.name} added to cart!'),
+                                            duration: const Duration(
+                                                milliseconds: 1500),
+                                            behavior: SnackBarBehavior.floating,
+                                            backgroundColor:
+                                                const Color(0xFF026139),
+                                          ),
+                                        );
+                                      },
+                                      icon: const Icon(
+                                          Icons.shopping_cart_outlined,
+                                          size: 16),
+                                      label: const Text("Add to Cart"),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFF026139),
+                                        foregroundColor: Colors.white,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        padding: EdgeInsets.zero,
+                                        textStyle:
+                                            const TextStyle(fontSize: 11),
+                                      ))),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
-      // FIX: Removed bottomNavigationBar to prevent duplicate navigation when this page is pushed
     );
   }
 

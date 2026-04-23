@@ -3,13 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
-// Ensure these paths match your project structure exactly
-import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
-//import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/npk_fertilizer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/urea_fertilizer.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/potassium_chloride.dart';
@@ -25,38 +19,32 @@ class FertilizersPage extends StatefulWidget {
 }
 
 class _FertilizersPageState extends State<FertilizersPage> {
-  final int _currentIndex = 1; // Market tab is selected
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
   // Fixed Navigation Logic
   void _navigateToCategory(BuildContext context, String category) {
-    Widget destination;
+    int index;
     switch (category) {
       case "All":
-        // Navigate back to main marketplace while preserving navigation state
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        return;
+        index = 1;
+        break;
       case "Seeds":
-        destination = const SeedsPage();
+        index = 5;
         break;
       case "Fertilizers":
-        // Already on fertilizers page
         return;
       case "Tools":
-        destination = const ToolsPage();
+        index = 7;
         break;
       case "Pesticides":
-        destination = const PesticidesPage();
+        index = 8;
         break;
       default:
         return;
     }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => destination),
-    );
+    final navProvider = context.read<FarmerNavigationProvider>();
+    navProvider.setIndex(index);
   }
 
   void _showSearchDialog() {
@@ -98,42 +86,6 @@ class _FertilizersPageState extends State<FertilizersPage> {
         );
       },
     );
-  }
-
-  void _onBottomNavTap(int index) {
-    if (index == _currentIndex) return; // Already on this tab
-
-    switch (index) {
-      case 0: // Home
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        break;
-      case 1: // Market - go back to main market
-        Navigator.pop(context);
-        break;
-      case 2: // Orders
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        // TODO: Set the index to 2 when navigating to home screen
-        break;
-      case 3: // Profile
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        // TODO: Set the index to 3 when navigating to home screen
-        break;
-    }
   }
 
   @override
@@ -211,7 +163,7 @@ class _FertilizersPageState extends State<FertilizersPage> {
           },
         ),
         title: const Text(
-          "Market",
+          "Fertilizers Market",
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -223,56 +175,24 @@ class _FertilizersPageState extends State<FertilizersPage> {
             onPressed: _showSearchDialog,
             icon: const Icon(Icons.search, color: Colors.black),
           ),
-          Container(
-            margin: const EdgeInsets.only(right: 16),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              shape: BoxShape.circle,
-            ),
-            child: Consumer<FarmerCartProvider>(
-              builder: (context, cart, child) {
-                return IconButton(
-                  icon: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      const Icon(Icons.shopping_cart_outlined,
-                          color: Colors.black, size: 20),
-                      if (cart.items.isNotEmpty)
-                        Positioned(
-                          right: 0,
-                          top: 0,
-                          child: Container(
-                            padding: const EdgeInsets.all(2),
-                            decoration: const BoxDecoration(
-                                color: Colors.red, shape: BoxShape.circle),
-                            constraints: const BoxConstraints(
-                              minWidth: 16,
-                              minHeight: 16,
-                            ),
-                            child: Center(
-                              child: Text(
-                                '${cart.items.length}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                    ],
+          Consumer<FarmerCartProvider>(
+            builder: (context, cart, child) {
+              return IconButton(
+                icon: Badge(
+                  label: Text(cart.items.length.toString()),
+                  isLabelVisible: cart.items.isNotEmpty,
+                  child: const Icon(Icons.shopping_cart_outlined,
+                      color: Colors.black),
+                ),
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const FarmerCartScreen(),
                   ),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const FarmerCartScreen(),
-                    ),
-                  ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
+          const SizedBox(width: 8),
         ],
       ),
       body: Column(
@@ -614,24 +534,6 @@ class _FertilizersPageState extends State<FertilizersPage> {
               },
             ),
           )
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color(0xFF026139),
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        currentIndex: _currentIndex,
-        onTap: _onBottomNavTap,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view_rounded), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.storefront_outlined), label: "Market"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.receipt_long_outlined), label: "Orders"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline), label: "Profile"),
         ],
       ),
     );

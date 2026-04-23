@@ -5,6 +5,7 @@ import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provi
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 
 class MarketplaceView extends StatelessWidget {
   const MarketplaceView({super.key});
@@ -14,8 +15,8 @@ class MarketplaceView extends StatelessWidget {
     int index;
     switch (category) {
       case "All":
-        // Stay on the current page (MarketplaceView)
-        return;
+        index = 1;
+        break;
       case "Seeds":
         index = 5;
         break;
@@ -38,6 +39,9 @@ class MarketplaceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navProvider = context.watch<FarmerNavigationProvider>();
+    final currentIndex = navProvider.currentIndex;
+
     // 6 Products using Asset Images (Ensure these exist in your pubspec.yaml)
     final products = [
       Product(
@@ -121,11 +125,13 @@ class MarketplaceView extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _buildCat(context, "All", Icons.grid_view, true),
-              _buildCat(context, "Seeds", Icons.agriculture, false),
-              _buildCat(context, "Fertilizers", Icons.science, false),
-              _buildCat(context, "Tools", Icons.handyman, false),
-              _buildCat(context, "Pesticides", Icons.bug_report, false),
+              _buildCat(context, "All", Icons.grid_view, currentIndex == 1),
+              _buildCat(context, "Seeds", Icons.agriculture, currentIndex == 5),
+              _buildCat(
+                  context, "Fertilizers", Icons.science, currentIndex == 6),
+              _buildCat(context, "Tools", Icons.handyman, currentIndex == 7),
+              _buildCat(
+                  context, "Pesticides", Icons.bug_report, currentIndex == 8),
             ],
           ),
         ),
@@ -211,19 +217,6 @@ class MarketplaceView extends StatelessWidget {
                                         const Duration(milliseconds: 1500),
                                     behavior: SnackBarBehavior.floating,
                                     backgroundColor: const Color(0xFF026139),
-                                    action: SnackBarAction(
-                                      label: "View Cart",
-                                      textColor: Colors.white,
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const FarmerCartScreen(),
-                                          ),
-                                        );
-                                      },
-                                    ),
                                   ),
                                 );
                               },

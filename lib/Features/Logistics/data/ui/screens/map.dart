@@ -122,7 +122,8 @@ class _LogisticsMapScreenState extends State<LogisticsMapScreen> {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       googleApiKey: kGoogleApiKey,
       request: PolylineRequest(
-        origin: PointLatLng(_pickupLocation.latitude, _pickupLocation.longitude),
+        origin:
+            PointLatLng(_pickupLocation.latitude, _pickupLocation.longitude),
         destination:
             PointLatLng(_dropoffLocation.latitude, _dropoffLocation.longitude),
         mode: TravelMode.driving,
@@ -221,23 +222,7 @@ class _LogisticsMapScreenState extends State<LogisticsMapScreen> {
               child: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
-                  if (widget.fromBuyer) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const buyer_main.MainNavigationWrapper(),
-                      ),
-                      (route) => false,
-                    );
-                  } else {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const MainNavWrapper(initialIndex: 0),
-                      ),
-                      (route) => false,
-                    );
-                  }
+                  Navigator.pop(context);
                 },
               ),
             ),

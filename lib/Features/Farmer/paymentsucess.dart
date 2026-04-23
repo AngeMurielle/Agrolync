@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
-//import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
   final double totalAmount;
@@ -68,8 +69,12 @@ class PaymentSuccessScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const MapScreen(
-                    source: NavigationSource.farmer,
+                  builder: (context) => const LogisticsMapScreen(
+                    pickupLocation: LatLng(4.0511, 9.7679), // Douala
+                    dropoffLocation: LatLng(3.8480, 11.5021), // Yaoundé
+                    pickupAddress: "Bonabéri, Douala",
+                    dropoffAddress: "Mvan Market, Yaoundé",
+                    fromBuyer: false,
                   ),
                 ),
               );
@@ -90,11 +95,14 @@ class PaymentSuccessScreen extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: OutlinedButton.icon(
-            // FIX: Changed to properly navigate back to MarketPlace
+            // Navigate back to Market (index 1) while keeping bottom navigation
             onPressed: () {
-              // Pop payment success screen and set navigation to Marketplace (index 1)
-              Navigator.of(context).pop();
+              // Set the navigation provider to Market index (1)
               context.read<FarmerNavigationProvider>().setIndex(1);
+              // Pop all screens back to FarmerHomeScreen which has the bottom nav
+              Navigator.of(context).popUntil((route) {
+                return route.isFirst || route.settings.name == '/';
+              });
             },
             icon: const Icon(Icons.home, color: Colors.black87),
             label: const Text("Back to Home",

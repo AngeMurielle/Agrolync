@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:io';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provider.dart';
 import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 
@@ -23,7 +24,7 @@ class DrawerScreen extends StatelessWidget {
       child: Column(
         children: [
           // Header with your asset image
-          _buildDrawerHeader(),
+          _buildDrawerHeader(context),
 
           Expanded(
             child: ListView(
@@ -139,36 +140,45 @@ class DrawerScreen extends StatelessWidget {
     }
   }
 
-  Widget _buildDrawerHeader() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(25, 60, 20, 30),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 70,
-            width: 70,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/ange1.jpeg'),
-                fit: BoxFit.cover,
+  Widget _buildDrawerHeader(BuildContext context) {
+    return Consumer<BottomNavigationProvider>(
+      builder: (context, navProvider, child) {
+        final profileImagePath = navProvider.profileImagePath;
+
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.fromLTRB(25, 60, 20, 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 70,
+                width: 70,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image:
+                        profileImagePath != null && profileImagePath.isNotEmpty
+                            ? FileImage(File(profileImagePath)) as ImageProvider
+                            : const AssetImage('assets/images/ange1.jpeg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: 15),
+              const Text("Green Valley Co.",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              const Text("VERIFIED BUYER",
+                  style: TextStyle(
+                      color: Color(0xFF015E38),
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold)),
+              const Text("PREMIUM MEMBER",
+                  style: TextStyle(color: Colors.grey, fontSize: 11)),
+            ],
           ),
-          const SizedBox(height: 15),
-          const Text("Green Valley Co.",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          const Text("VERIFIED BUYER",
-              style: TextStyle(
-                  color: Color(0xFF015E38),
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold)),
-          const Text("PREMIUM MEMBER",
-              style: TextStyle(color: Colors.grey, fontSize: 11)),
-        ],
-      ),
+        );
+      },
     );
   }
 

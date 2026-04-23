@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:provider/provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/drawer/drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/profile/wallet.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/profile/Address.dart';
@@ -20,19 +23,127 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool _notificationsEnabled = true;
   String _selectedLanguage = "ENGLISH";
+  XFile? _pickedFile;
   File? _profileImage;
+  final Color _brandGreen = const Color(0xFF015E38);
 
+  // --- IMAGE PICKER LOGIC (Same as Farmer Profile) ---
   Future<void> _pickImage() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 80,
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Gallery'),
+              onTap: () {
+                Navigator.of(context).pop();
+                _getImage(ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Camera'),
+              onTap: () {
+                Navigator.of(context).pop();
+                _getImage(ImageSource.camera);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _getImage(ImageSource source) async {
+    try {
+      final ImagePicker picker = ImagePicker();
+      final XFile? pickedFile = await picker.pickImage(
+        source: source,
+        maxWidth: 800,
+        imageQuality: 85,
+      );
+
+      if (pickedFile != null) {
+        setState(() {
+          _pickedFile = pickedFile;
+          _profileImage = File(pickedFile.path);
+        });
+        // Update provider immediately after selecting the image (like Farmer profile)
+        if (mounted) {
+          context
+              .read<BottomNavigationProvider>()
+              .setProfileImage(pickedFile.path);
+        }
+        // Call upload function after selecting the image
+        await _uploadImage(pickedFile);
+      }
+    } catch (e) {
+      debugPrint("Error picking image: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Could not access image source. Check permissions."),
+          ),
+        );
+      }
+    }
+  }
+
+  Future<void> _uploadImage(XFile imageFile) async {
+    // Show loading indicator
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Row(
+          children: [
+            const SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(width: 20),
+            const Text("Uploading image..."),
+          ],
+        ),
+        duration: const Duration(seconds: 2),
+      ),
     );
 
-    if (image != null) {
-      setState(() {
-        _profileImage = File(image.path);
-      });
+    try {
+      // Simulate network delay for upload
+      await Future.delayed(const Duration(seconds: 2));
+
+      // Here you would normally perform the actual upload to your server/Supabase
+      // Example:
+      // await supabase.storage.from('avatars').upload('path/to/image.png', imageFile);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text("Profile picture uploaded successfully!",
+                style: TextStyle(color: Colors.white)),
+            backgroundColor: _brandGreen,
+          ),
+        );
+      }
+    } catch (e) {
+      debugPrint("Error uploading image: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Failed to upload image. Please try again."),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -45,9 +156,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Color(0xFF015E38)),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+          builder: (context) => Consumer<BottomNavigationProvider>(
+            builder: (context, navProvider, child) {
+              final profileImagePath = navProvider.profileImagePath;
+              return GestureDetector(
+                onTap: () => Scaffold.of(context).openDrawer(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundImage:
+                        profileImagePath != null && profileImagePath.isNotEmpty
+                            ? (kIsWeb
+                                    ? NetworkImage(profileImagePath)
+                                    : FileImage(File(profileImagePath)))
+                                as ImageProvider
+                            : const AssetImage('assets/images/ange1.jpeg'),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         title: const Text(
@@ -128,47 +256,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: const Color(0xFF015E38),
+        color: _brandGreen,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
         children: [
-          GestureDetector(
-            onTap: _pickImage,
-            child: Stack(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade400,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      width: 80,
-                      height: 80,
-                      color: Colors.white24,
-                      child: _profileImage != null
-                          ? Image.file(_profileImage!, fit: BoxFit.cover)
-                          : const Icon(Icons.person_add_alt_1,
-                              color: Colors.white, size: 35),
+          Stack(
+            children: [
+              CircleAvatar(
+                radius: 45,
+                backgroundColor: Colors.white,
+                child: CircleAvatar(
+                  radius: 42,
+                  backgroundColor: Colors.grey.shade200,
+                  backgroundImage: _pickedFile != null
+                      ? (kIsWeb
+                          ? NetworkImage(_pickedFile!.path) as ImageProvider
+                          : FileImage(File(_pickedFile!.path)) as ImageProvider)
+                      : null,
+                  child: _pickedFile == null
+                      ? const Icon(Icons.person_add_alt_1,
+                          color: Colors.white, size: 30)
+                      : null,
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: GestureDetector(
+                  onTap: _pickImage,
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: _brandGreen, width: 2),
+                    ),
+                    child: Icon(
+                      Icons.camera_alt,
+                      color: _brandGreen,
+                      size: 16,
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: const BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
-                    child: const Icon(Icons.camera_alt,
-                        size: 14, color: Color(0xFF015E38)),
-                  ),
-                )
-              ],
-            ),
+              ),
+            ],
           ),
           const SizedBox(width: 16),
           const Expanded(

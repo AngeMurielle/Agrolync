@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/order_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/product_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/order_model.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/drawer/drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/product/product_details_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/order/chat_page.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart'; // Import the new MapScreen
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});
@@ -228,9 +231,26 @@ class _OrdersScreenState extends State<OrdersScreen>
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Color(0xFF015E38)),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+          builder: (context) => Consumer<BottomNavigationProvider>(
+            builder: (context, navProvider, child) {
+              final profileImagePath = navProvider.profileImagePath;
+              return GestureDetector(
+                onTap: () => Scaffold.of(context).openDrawer(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundImage:
+                        profileImagePath != null && profileImagePath.isNotEmpty
+                            ? (kIsWeb
+                                    ? NetworkImage(profileImagePath)
+                                    : FileImage(File(profileImagePath)))
+                                as ImageProvider
+                            : const AssetImage('assets/images/ange1.jpeg'),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         title: _isSearching
@@ -360,13 +380,13 @@ class _OrdersScreenState extends State<OrdersScreen>
                         ? () {
                             Navigator.push(
                               context,
-                                MaterialPageRoute(
-                                  builder: (_) =>
-                                      const MapScreen(source: NavigationSource.buyer),
-                                ),
-                              );
-                            }
-                          : null,
+                              MaterialPageRoute(
+                                builder: (_) => const MapScreen(
+                                    source: NavigationSource.buyer),
+                              ),
+                            );
+                          }
+                        : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF015E38),
                       shape: RoundedRectangleBorder(

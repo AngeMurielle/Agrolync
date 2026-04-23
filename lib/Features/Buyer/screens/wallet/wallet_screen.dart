@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/providers/wallet_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Buyer/providers/bottom_nav_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/drawer/drawer.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -25,9 +28,26 @@ class _WalletScreenState extends State<WalletScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: Builder(
-          builder: (context) => IconButton(
-            icon: const Icon(Icons.menu, color: Color(0xFF015E38)),
-            onPressed: () => Scaffold.of(context).openDrawer(),
+          builder: (context) => Consumer<BottomNavigationProvider>(
+            builder: (context, navProvider, child) {
+              final profileImagePath = navProvider.profileImagePath;
+              return GestureDetector(
+                onTap: () => Scaffold.of(context).openDrawer(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: CircleAvatar(
+                    radius: 18,
+                    backgroundImage:
+                        profileImagePath != null && profileImagePath.isNotEmpty
+                            ? (kIsWeb
+                                    ? NetworkImage(profileImagePath)
+                                    : FileImage(File(profileImagePath)))
+                                as ImageProvider
+                            : const AssetImage('assets/images/ange1.jpeg'),
+                  ),
+                ),
+              );
+            },
           ),
         ),
         title: const Text("AgroLync",
