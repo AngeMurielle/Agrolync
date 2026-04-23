@@ -713,7 +713,7 @@ class _HomeContentState extends State<HomeContent> {
           ),
           const SizedBox(height: 8),
           Text(
-            "${tempRounded}°C",
+            "$tempRounded°C",
             style: TextStyle(
               color: isToday ? Colors.white : Colors.black,
               fontWeight: FontWeight.bold,

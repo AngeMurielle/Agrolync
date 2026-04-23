@@ -2,38 +2,43 @@ import 'package:flutter/material.dart';
 // Ensure these paths match your project structure exactly
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/seeds.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
 import 'package:provider/provider.dart';
 
 class MarketplaceView extends StatelessWidget {
   const MarketplaceView({super.key});
 
-  // Fixed Navigation Logic
+  // Fixed Navigation Logic - Navigate to category pages
   void _navigateToCategory(BuildContext context, String category) {
-    int index;
+    Widget destination;
     switch (category) {
       case "All":
         // Stay on the current page (MarketplaceView)
         return;
       case "Seeds":
-        index = 5;
+        destination = const SeedsPage();
         break;
       case "Fertilizers":
-        index = 6;
+        destination = const FertilizersPage();
         break;
       case "Tools":
-        index = 7;
+        destination = const ToolsPage();
         break;
       case "Pesticides":
-        index = 8;
+        destination = const PesticidesPage();
         break;
       default:
         return;
     }
 
-    final navProvider = context.read<FarmerNavigationProvider>();
-    navProvider.setIndex(index);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => destination),
+    );
   }
 
   @override

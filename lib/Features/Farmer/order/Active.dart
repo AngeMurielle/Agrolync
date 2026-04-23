@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart'; // FIX: Added for NavigationSource enum
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart'; // FIX: Import LogisticsMapScreen
 
 // FIX: Added proper class naming and documentation
 /// Active orders view for farmers - displays ongoing delivery orders
@@ -249,10 +249,10 @@ class ActiveOrdersView extends StatelessWidget {
                         onPressed: () {
                           // Navigate to map screen for tracking delivery
                           if (primaryActionText == 'Track Delivery') {
-                            // FIX: Changed to use proper NavigationSource enum instead of isFarmerContext parameter
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const MapScreen(
+                                builder: (context) => const LogisticsMapScreen(
+                                    fromBuyer: false,
                                     source: NavigationSource.farmer),
                               ),
                             );

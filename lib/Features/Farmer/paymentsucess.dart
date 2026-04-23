@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
-//import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
+import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/Market.dart';
 
 class PaymentSuccessScreen extends StatelessWidget {
   final double totalAmount;
@@ -68,14 +68,15 @@ class PaymentSuccessScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const MapScreen(
+                  builder: (context) => const LogisticsMapScreen(
+                    fromBuyer: false,
                     source: NavigationSource.farmer,
                   ),
                 ),
               );
             },
-            icon: const Icon(Icons.explore_outlined, color: Colors.white),
-            label: const Text("Track Order",
+            icon: const Icon(Icons.track_changes, color: Colors.white),
+            label: const Text("Track order",
                 style: TextStyle(
                     color: Colors.white, fontWeight: FontWeight.bold)),
             style: ElevatedButton.styleFrom(
@@ -90,11 +91,13 @@ class PaymentSuccessScreen extends StatelessWidget {
           width: double.infinity,
           height: 55,
           child: OutlinedButton.icon(
-            // FIX: Changed to properly navigate back to MarketPlace
             onPressed: () {
-              // Pop payment success screen and set navigation to Marketplace (index 1)
-              Navigator.of(context).pop();
               context.read<FarmerNavigationProvider>().setIndex(1);
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const MarketPage(),
+                ),
+              );
             },
             icon: const Icon(Icons.home, color: Colors.black87),
             label: const Text("Back to Home",
@@ -113,7 +116,7 @@ class PaymentSuccessScreen extends StatelessWidget {
   }
 
   Widget _buildReceiptCard() {
-    String formattedAmount = totalAmount.toStringAsFixed(0).replaceAllMapped(
+    String formattedAmount = totalAmount.toInt().toString().replaceAllMapped(
         RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
 
     return Container(

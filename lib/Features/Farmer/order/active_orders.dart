@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart';
-import 'logistics_tracking.dart';
 import 'chat_page.dart';
 import 'truck_selection.dart';
 

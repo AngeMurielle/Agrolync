@@ -8,7 +8,6 @@ import 'package:flutter_agrolync_pro/Features/Buyer/screens/drawer/drawer.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/screens/product/product_details_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/order/chat_page.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map_screen.dart'; // Import the new MapScreen
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/map.dart';
 
 class OrdersScreen extends StatefulWidget {
   const OrdersScreen({super.key});

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Buyer/models/product_model.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_cart_provider.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/cart/farmer_cart_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/pesticides.dart';
+import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
+
 import 'package:flutter_agrolync_pro/Features/Farmer/fertilizers.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/tools.dart';
-import 'package:flutter_agrolync_pro/Features/Farmer/Home.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/Hybridmaize.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/bean_seeds.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/onion_seeds.dart';
@@ -23,7 +23,6 @@ class SeedsPage extends StatefulWidget {
 }
 
 class _SeedsPageState extends State<SeedsPage> {
-  final int _currentIndex = 1; // Market tab is selected
   final TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
 
@@ -96,42 +95,6 @@ class _SeedsPageState extends State<SeedsPage> {
         );
       },
     );
-  }
-
-  void _onBottomNavTap(int index) {
-    if (index == _currentIndex) return; // Already on this tab
-
-    switch (index) {
-      case 0: // Home
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        break;
-      case 1: // Market - go back to main market
-        Navigator.pop(context);
-        break;
-      case 2: // Orders
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        // TODO: Set the index to 2 when navigating to home screen
-        break;
-      case 3: // Profile
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const FarmerHomeScreen(),
-          ),
-        );
-        // TODO: Set the index to 3 when navigating to home screen
-        break;
-    }
   }
 
   @override
@@ -620,7 +583,6 @@ class _SeedsPageState extends State<SeedsPage> {
           )
         ],
       ),
-      // FIX: Removed bottomNavigationBar to prevent duplicate navigation when this page is pushed
     );
   }
 
