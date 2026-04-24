@@ -80,7 +80,9 @@ class _ProfilePageState extends State<ProfilePage> {
         });
         // Update provider to sync with Home.dart
         if (mounted) {
-          context.read<FarmerNavigationProvider>().setProfileImage(pickedFile.path);
+          context
+              .read<FarmerNavigationProvider>()
+              .setProfileImage(pickedFile.path);
         }
         // Call upload function after selecting the image
         await _uploadImage(pickedFile);
@@ -125,7 +127,7 @@ class _ProfilePageState extends State<ProfilePage> {
       await Future.delayed(const Duration(seconds: 2));
 
       // Here you would normally perform the actual upload to your server/Supabase
-      // Example: 
+      // Example:
       // await supabase.storage.from('avatars').upload('path/to/image.png', imageFile);
 
       if (mounted) {
@@ -199,9 +201,11 @@ class _ProfilePageState extends State<ProfilePage> {
                         backgroundColor: Colors.grey.shade200,
                         backgroundImage: _pickedFile != null
                             ? (kIsWeb
-                                ? NetworkImage(_pickedFile!.path)
-                                : FileImage(File(_pickedFile!.path))) as ImageProvider
-                            : const NetworkImage('https://i.pravatar.cc/150?u=elias')),
+                                    ? NetworkImage(_pickedFile!.path)
+                                    : FileImage(File(_pickedFile!.path)))
+                                as ImageProvider
+                            : const NetworkImage(
+                                'https://i.pravatar.cc/150?u=elias')),
                   ),
                   Positioned(
                     bottom: 0,

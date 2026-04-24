@@ -492,13 +492,15 @@ class _HomeContentState extends State<HomeContent> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       foregroundColor: brandGreen,
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 8),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12)),
                     ),
                     child: const Text(
-                      "View Details", 
-                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
+                      "View Details",
+                      style:
+                          TextStyle(fontSize: 11, fontWeight: FontWeight.bold),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
@@ -521,7 +523,6 @@ class _HomeContentState extends State<HomeContent> {
               child: _actionItem(
                   context, Icons.playlist_add_check_rounded, "Add Product",
                   onTap: () => _navigateToAddProduct(context))),
-        
           Expanded(
               child: _actionItem(
                   context, Icons.account_balance_wallet_outlined, "Withdraw",
