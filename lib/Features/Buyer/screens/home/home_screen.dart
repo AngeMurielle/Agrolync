@@ -126,124 +126,119 @@ class _HomeScreenState extends State<HomeScreen> {
                       Text(
                         "Search for products...",
                         style: TextStyle(color: Colors.grey, fontSize: 16),
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
                       ),
-                    ),
+                    ],
                   ),
-
-                  // Promo Banner
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF015E38),
-                        borderRadius: BorderRadius.circular(25),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/images/maize.jpg'),
-                          fit: BoxFit.cover,
-                          opacity: 0.1,
-                        ),
-                      ),
-                      child: Row(
+                ),
+              ),
+            ),
+            // Promo Banner
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF015E38),
+                  borderRadius: BorderRadius.circular(25),
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/maize.jpg'),
+                    fit: BoxFit.cover,
+                    opacity: 0.1,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Today's Harvest",
-                                  style: TextStyle(
-                                      color: Colors.white70, fontSize: 14),
-                                ),
-                                const SizedBox(height: 5),
-                                const Text(
-                                  "Fresh Maize\n20% Discount",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    height: 1.2,
-                                  ),
-                                ),
-                                const SizedBox(height: 15),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: const Color(0xFF015E38),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 25),
-                                  ),
-                                  child: const Text("Buy Now",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ],
+                          const Text(
+                            "Today's Harvest",
+                            style:
+                                TextStyle(color: Colors.white70, fontSize: 14),
+                          ),
+                          const SizedBox(height: 5),
+                          const Text(
+                            "Fresh Maize\n20% Discount",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              height: 1.2,
                             ),
                           ),
-                          Image.asset('assets/images/maize.jpg', height: 100),
+                          const SizedBox(height: 15),
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              foregroundColor: const Color(0xFF015E38),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12)),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 25),
+                            ),
+                            child: const Text("Buy Now",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
                         ],
                       ),
                     ),
-                  ),
-
-                  // Category Section
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      "Categories",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  SizedBox(
-                    height: 45,
-                    child: ListView.builder(
-                      padding: const EdgeInsets.only(left: 20),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: categories.length,
-                      itemBuilder: (context, index) {
-                        return CategoryChip(
-                          title: categories[index],
-                          isSelected: selectedCategory == categories[index],
-                          onTap: () {
-                            setState(() {
-                              selectedCategory = categories[index];
-                            });
-                          },
-                        );
-                      },
-                    ),
-                  ),
-
-                  // Product Grid
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.72,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                      ),
-                      itemCount: displayedProducts.length,
-                      itemBuilder: (context, index) {
-                        return ProductCard(product: displayedProducts[index]);
-                      },
-                    ),
-                  ),
-                ],
+                    Image.asset('assets/images/maize.jpg', height: 100),
+                  ],
+                ),
               ),
             ),
+            // Category Section
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Categories",
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+            const SizedBox(height: 15),
+            SizedBox(
+              height: 45,
+              child: ListView.builder(
+                padding: const EdgeInsets.only(left: 20),
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (context, index) {
+                  return CategoryChip(
+                    title: categories[index],
+                    isSelected: selectedCategory == categories[index],
+                    onTap: () {
+                      setState(() {
+                        selectedCategory = categories[index];
+                      });
+                    },
+                  );
+                },
+              ),
+            ),
+            // Product Grid
+            Padding(
+              padding: const EdgeInsets.all(20),
+              child: GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.72,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                ),
+                itemCount: displayedProducts.length,
+                itemBuilder: (context, index) {
+                  return ProductCard(product: displayedProducts[index]);
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 

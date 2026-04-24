@@ -28,6 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   String? selectedRole;
   bool agreeToTerms = false;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -124,16 +125,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           _buildGoogleButton(),
                         ],
                       ),
->>>>>>> 263150e (add row level security and superbase policies, connect to frontend and sumarise all work done so far)
+
                     ),
                   ),
-                ),
+                
               ],
             ),
             const SizedBox(height: 30),
             _buildFooter(context),
             const SizedBox(height: 40),
           ],
+        ),
         ),
       ),
     );
@@ -277,7 +279,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   // --- REUSABLE WIDGETS ---
-  Widget _buildStyledTextField({required String hint}) => Container(
+  Widget _buildStyledTextField({
+    required String hint,
+    TextEditingController? controller,
+    bool isPassword = false,
+    Widget? suffixIcon,
+  }) =>
+      Container(
         height: globalHeight,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -359,4 +367,58 @@ class _SignUpScreenState extends State<SignUpScreen> {
       padding: const EdgeInsets.only(bottom: 8),
       child: Text(text,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)));
+
+  Future<void> _handleSignUp(BuildContext context) async {
+    if (selectedRole == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a role')),
+      );
+      return;
+    }
+
+    if (!agreeToTerms) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text('Please agree to Terms and Privacy Policy')),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      // Add your signup logic here
+      // For now, just show a success message
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Account created successfully!')),
+        );
+        // Navigate based on role
+        Navigator.pushReplacementNamed(context, '/home');
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _fullNameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 }

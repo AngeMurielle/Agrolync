@@ -328,4 +328,12 @@ class ProductProvider with ChangeNotifier {
           product.category.toLowerCase().contains(query.toLowerCase());
     }).toList();
   }
+
+  // Load products from the provider (simulated)
+  Future<void> loadProducts() async {
+    // Simulate network delay
+    await Future.delayed(const Duration(milliseconds: 500));
+    // Products are already loaded in _allProducts
+    notifyListeners();
+  }
 }
