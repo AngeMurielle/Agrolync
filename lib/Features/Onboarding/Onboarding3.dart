@@ -46,9 +46,7 @@ class OnboardingScreen3 extends StatelessWidget {
                   EdgeInsets.symmetric(horizontal: context.responsiveGap * 0.8),
               child: _buildFooter(context),
             ),
-            SizedBox(
-                height: context.bottomNavPadding *
-                    0.5), // FIXED: Responsive bottom padding
+            const SizedBox(height: 30),
           ],
         ),
       ),

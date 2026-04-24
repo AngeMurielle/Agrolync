@@ -1,10 +1,11 @@
-# Payment Success Navigation Fix
+# Fix Plan
 
-## Steps:
-- [x] 1. Add imports to paymentsucess.dart (FarmerHomeScreen, FarmerNavigationProvider, provider)
-- [x] 2. Update Track Order button onPressed to setIndex(2)
-- [x] 3. Update Back to Home button onPressed to setIndex(1)
-- [ ] 4. Test navigation preserves bottom nav state
-- [x] 5. Complete task
+## Step 1: Fix `complete.dart` line 231
+- [x] Change `Delivery(completedJob: jobData)` to `Delivery(completedDeliveries: jobData != null ? [jobData] : null)`
 
-Current progress: Complete. Fixed regex error in _buildReceiptCard. Track Order navigates to map_screen.dart (with NavigationSource.farmer - back arrow returns to Market). Back to Home uses setIndex(1). No linter errors.
+## Step 2: Fix `delivered.dart` state references
+- [x] Replace bare `completedDeliveries` references inside `_DeliveryState` with `widget.completedDeliveries` (with null-safety handling).
+
+## Step 3: Verify
+- [x] Run `flutter analyze` — no issues found in the two files.
+

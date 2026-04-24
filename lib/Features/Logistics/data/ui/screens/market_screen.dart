@@ -23,6 +23,9 @@ class _LogisticsMarketScreenState extends State<LogisticsMarketScreen>
   // List to hold jobs moved from "Available" to "My Routes"
   final List<Map<String, dynamic>> _myActiveRoutes = [];
 
+  // List to hold completed deliveries
+  final List<Map<String, dynamic>> _completedDeliveries = [];
+
   // Sort + filter state
   String _sortBy = 'Pay';
   bool _isAscending = true;
@@ -106,6 +109,36 @@ class _LogisticsMarketScreenState extends State<LogisticsMarketScreen>
     });
     // Programmatically switch to the "My Routes" tab (index 1)
     _tabController.animateTo(1);
+  }
+
+  // Handle completed delivery
+  void _handleDeliveryCompleted(Map<String, dynamic> completedJob) {
+    setState(() {
+      _completedDeliveries.add({
+        'tripId':
+            "TRIP-${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}",
+        'location': completedJob['dropoff'] ?? "Unknown Location",
+        'date': DateTime.now().toString().split(' ')[0],
+        'time':
+            "${DateTime.now().hour}:${DateTime.now().minute.toString().padLeft(2, '0')} ${DateTime.now().hour >= 12 ? 'PM' : 'AM'}",
+        'earnings': completedJob['price'] ?? "XAF 0",
+        'icon': _getIconForJob(completedJob['title'] ?? ""),
+        'status': 'delivered',
+      });
+      _myActiveRoutes
+          .removeWhere((route) => route['title'] == completedJob['title']);
+    });
+    _tabController.animateTo(2);
+  }
+
+  IconData _getIconForJob(String jobTitle) {
+    if (jobTitle.toLowerCase().contains('potato')) return Icons.agriculture;
+    if (jobTitle.toLowerCase().contains('coffee')) return Icons.local_cafe;
+    if (jobTitle.toLowerCase().contains('cocoa')) return Icons.grain;
+    if (jobTitle.toLowerCase().contains('packaged'))
+      return Icons.archive_outlined;
+    if (jobTitle.toLowerCase().contains('produce')) return Icons.local_florist;
+    return Icons.local_shipping;
   }
 
   // Get available jobs excluding accepted ones, plus filter/sort
@@ -341,8 +374,14 @@ class _LogisticsMarketScreenState extends State<LogisticsMarketScreen>
         controller: _tabController,
         children: [
           _buildAvailableJobsTab(),
-          MyRouteTab(activeRoutes: _myActiveRoutes),
-          const Delivery(),
+          MyRouteTab(
+            activeRoutes: _myActiveRoutes,
+            onDeliveryCompleted: _handleDeliveryCompleted,
+            tabController: _tabController,
+          ),
+          Delivery(
+            completedDeliveries: _completedDeliveries,
+          ),
         ],
       ),
     );

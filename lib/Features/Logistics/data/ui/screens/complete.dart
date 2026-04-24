@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/widgets/shared/logistics_bottom_nav.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/market_screen.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/delivered.dart';
 
@@ -80,17 +78,6 @@ class DeliveryCompleteScreen extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: LogisticsBottomNavBar(
-        selectedIndex: 1,
-        onTap: (index) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (_) => MainNavWrapper(initialIndex: index)),
-            (route) => false,
-          );
-        },
       ),
     );
   }
@@ -228,7 +215,11 @@ class DeliveryCompleteScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
-                  builder: (context) => Delivery(completedJob: jobData),
+                  builder: (context) {
+                    final data = jobData;
+                    return Delivery(
+                        completedDeliveries: data != null ? [data] : null);
+                  },
                 ),
               );
             },

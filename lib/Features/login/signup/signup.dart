@@ -108,18 +108,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Colors.black,
                           ),
                         ),
-                        const SizedBox(height: 10),
-                        _buildRoleDropdownField(),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 12),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Expanded(
                                 child:
                                     _roleCard("FARMER", Icons.eco, "Farmer")),
+                            const SizedBox(width: 10),
                             Expanded(
                                 child: _roleCard(
                                     "BUYER", Icons.shopping_cart, "Buyer")),
+                            const SizedBox(width: 10),
                             Expanded(
                                 child: _roleCard("LOGISTICS",
                                     Icons.local_shipping, "Logistics")),

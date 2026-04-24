@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/main_nav_wrapper.dart';
-import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/widgets/shared/logistics_bottom_nav.dart';
 import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/complete.dart';
 
 class Delivery extends StatefulWidget {
-  final Map<String, dynamic>? completedJob;
+  final List<Map<String, dynamic>>? completedDeliveries;
 
-  const Delivery({super.key, this.completedJob});
+  const Delivery({super.key, this.completedDeliveries});
 
   @override
   State<Delivery> createState() => _DeliveryState();
@@ -15,39 +13,14 @@ class Delivery extends StatefulWidget {
 class _DeliveryState extends State<Delivery> {
   final Color primaryGreen = const Color(0xFF015E38);
 
-  // List of deliveries with their status
-  List<Map<String, dynamic>> deliveries = [
-    {
-      'tripId': 'EH-875D',
-      'location': 'Yaoundé Agri-Processing',
-      'date': 'October 21, 2023',
-      'time': '11:30 AM',
-      'earnings': 'XAF 68,500',
-      'icon': Icons.agriculture,
-      'status': 'delivered', // 'pending' or 'delivered'
-    },
-    {
-      'tripId': 'EH-8842',
-      'location': 'Douala Port Terminal 3',
-      'date': 'October 22, 2023',
-      'time': '03:12 PM',
-      'earnings': 'XAF 112,000',
-      'icon': Icons.archive_outlined,
-      'status': 'pending',
-    },
-    {
-      'tripId': 'EH-9021',
-      'location': 'Bafoussam Central Hub',
-      'date': 'October 24, 2023',
-      'time': '09:45 AM',
-      'earnings': 'XAF 45,000',
-      'icon': Icons.local_shipping,
-      'status': 'pending',
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final deliveries = widget.completedDeliveries ?? [];
     return Scaffold(
       backgroundColor: const Color(0xFFF9F9F9), // Light background for contrast
       appBar: AppBar(
@@ -58,43 +31,42 @@ class _DeliveryState extends State<Delivery> {
       body: ListView(
         padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 16),
         children: [
-          // Show the newly completed delivery at the top if available
-          if (widget.completedJob != null)
-            _buildTripCard(
-              context: context,
-              tripId:
-                  "NEW-${DateTime.now().millisecondsSinceEpoch.toString().substring(8)}",
-              location: widget.completedJob!['dropoff'] ?? "Unknown Location",
-              date: DateTime.now().toString().split(' ')[0],
-              time:
-                  "${DateTime.now().hour}:${DateTime.now().minute.toString().padLeft(2, '0')} ${DateTime.now().hour >= 12 ? 'PM' : 'AM'}",
-              earnings: widget.completedJob!['price'] ?? "XAF 0",
-              icon: _getIconForJob(widget.completedJob!['title'] ?? ""),
-              status: 'delivered',
-            ),
-          // Build trip cards from the list
-          ...deliveries.map((delivery) => _buildTripCard(
-                context: context,
-                tripId: delivery['tripId'],
-                location: delivery['location'],
-                date: delivery['date'],
-                time: delivery['time'],
-                earnings: delivery['earnings'],
-                icon: delivery['icon'],
-                status: delivery['status'],
-              )),
+          // Show only completed deliveries from My Routes
+          if (deliveries.isEmpty)
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: Column(
+                  children: [
+                    Icon(Icons.check_circle_outline,
+                        size: 64, color: Colors.grey[300]),
+                    const SizedBox(height: 12),
+                    const Text(
+                      "No completed deliveries yet",
+                      style: TextStyle(color: Colors.grey, fontSize: 16),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "Complete deliveries from 'My Routes' to see them here",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          else
+            ...deliveries.map((delivery) => _buildTripCard(
+                  context: context,
+                  tripId: delivery['tripId'],
+                  location: delivery['location'],
+                  date: delivery['date'],
+                  time: delivery['time'],
+                  earnings: delivery['earnings'],
+                  icon: delivery['icon'],
+                  status: delivery['status'],
+                )),
         ],
-      ),
-      bottomNavigationBar: LogisticsBottomNavBar(
-        selectedIndex: 1,
-        onTap: (index) {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-                builder: (_) => MainNavWrapper(initialIndex: index)),
-            (route) => false,
-          );
-        },
       ),
     );
   }
@@ -271,13 +243,13 @@ class _DeliveryState extends State<Delivery> {
   }
 
   void _markAsCompleted(String tripId) {
-    setState(() {
-      // Find the delivery and mark as completed
-      final index = deliveries.indexWhere((d) => d['tripId'] == tripId);
-      if (index != -1) {
-        deliveries[index]['status'] = 'delivered';
-      }
-    });
+    final deliveries = widget.completedDeliveries;
+    if (deliveries == null) return;
+    // Find the delivery and mark as completed
+    final index = deliveries.indexWhere((d) => d['tripId'] == tripId);
+    if (index != -1) {
+      deliveries[index]['status'] = 'delivered';
+    }
 
     // Navigate to completion screen
     Navigator.of(context).push(

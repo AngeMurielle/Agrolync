@@ -7,8 +7,15 @@ import 'package:flutter_agrolync_pro/Features/Logistics/data/ui/screens/delivere
 
 class MyRouteTab extends StatelessWidget {
   final List<Map<String, dynamic>> activeRoutes;
+  final Function(Map<String, dynamic>)? onDeliveryCompleted;
+  final TabController? tabController;
 
-  const MyRouteTab({super.key, required this.activeRoutes});
+  const MyRouteTab({
+    super.key,
+    required this.activeRoutes,
+    this.onDeliveryCompleted,
+    this.tabController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -231,8 +238,9 @@ class MyRouteTab extends StatelessWidget {
             height: 56,
             child: OutlinedButton.icon(
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const Delivery()));
+                if (onDeliveryCompleted != null) {
+                  onDeliveryCompleted!(job);
+                }
               },
               icon: const Icon(Icons.check_circle_outline,
                   color: Color(0xFF015E38)),
