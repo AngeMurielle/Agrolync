@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_agrolync_pro/Features/Farmer/providers/farmer_navigation_provider.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_agrolync_pro/Features/login/signup/signup.dart';
 
 // Internal Imports
 // ignore: library_prefixes
@@ -389,10 +390,11 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () => Navigator.pop(context),
               child: const Text("Cancel")),
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              // Add your actual logout/auth clearing logic here
-            },
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const SignUpScreen()),
+              (route) => false,
+            ),
             child: const Text("Log Out", style: TextStyle(color: Colors.red)),
           ),
         ],
